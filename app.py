@@ -82,6 +82,15 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
 if __name__ == '__main__':
-    server = ThreadingHTTPServer(('127.0.0.1',8765),Handler)
-    print('打开 http://127.0.0.1:8765 ；按 Ctrl+C 结束')
+    import os
+    import sys
+    import threading
+    import webbrowser
+
+    port = int(os.environ.get('SENTIMENT_PORT', '8765'))
+    server = ThreadingHTTPServer(('127.0.0.1', port), Handler)
+    url = f'http://127.0.0.1:{port}'
+    print(f'打开 {url} ；按 Ctrl+C 结束', flush=True)
+    if '--open' in sys.argv[1:]:
+        threading.Timer(0.5, lambda: webbrowser.open(url)).start()
     server.serve_forever()
