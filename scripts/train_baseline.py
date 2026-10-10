@@ -39,7 +39,7 @@ def main():
         process = remove_emoticons if variant == 'no_emoticons' else lambda text: text
         x_train, y_train = splits['train']
         x_val, y_val = splits['validation']
-        vectorizer = TfidfVectorizer(analyzer='char', ngram_range=(1, 2), min_df=3,
+        vectorizer = TfidfVectorizer(analyzer='char', ngram_range=(1, 4), min_df=3,
                                      max_features=120000,
                                      dtype=__import__('numpy').float32, sublinear_tf=True)
         t0 = time.perf_counter()
