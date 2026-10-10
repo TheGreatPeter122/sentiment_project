@@ -22,6 +22,17 @@ py -3.12 -m venv .venv
 
 若要复现实验，先按下文提供的固定数据版本下载 `data/raw/weibo_senti_100k.csv`，再依次运行 `scripts/audit_data.py`、`scripts/prepare_splits.py`、`scripts/train_baseline.py` 和 `scripts/diagnose.py`。Spark数据分析还需完整Java 21，并按 `start_spark.ps1` 的路径约定准备 `runtime/jdk-21.0.12.1+1`。脚本在Windows上使用临时盘符绕开中文路径启动问题。
 
+## 中文分词实验分支
+
+`word_token_branch` 用 `jieba` 把中文切成词，比较“词及相邻词”与“字符 1—2 字 + 词及相邻词”两种特征。安装实验依赖后运行：
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-experiments.txt
+.\.venv\Scripts\python.exe scripts\train_word_baseline.py
+```
+
+结果写入 `reports/word_baseline_results.json`，模型分别保存为 `models/word_baseline.joblib` 和 `models/hybrid_baseline.joblib`。实验不会覆盖网页使用的 `models/baseline.joblib`，也不使用测试集选模型。原字符模型验证集准确率 77.66%，纯分词模型 76.33%，组合模型 77.86%；组合方案只提升 0.20 个百分点，固定诊断句正确数仍是 11/12，因此暂不替换网页默认模型。分词和词组可能捕捉否定表达，但对分词错误、口语与新词仍敏感。
+
 ## 第一阶段：数据审核
 
 - 数据说明：https://github.com/SophonPlus/ChineseNlpCorpus/blob/master/datasets/weibo_senti_100k/intro.ipynb

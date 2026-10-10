@@ -1,0 +1,313 @@
+{
+  "model_kind": "jieba words and word pairs + TF-IDF + SGD logistic regression",
+  "training_rows": 88814,
+  "validation_rows": 10908,
+  "validation": {
+    "accuracy": 0.7633,
+    "negative": {
+      "precision": 0.7655,
+      "recall": 0.7604,
+      "f1": 0.7629
+    },
+    "positive": {
+      "precision": 0.7611,
+      "recall": 0.7662,
+      "f1": 0.7636
+    },
+    "confusion": {
+      "true_negative": 4155,
+      "false_positive": 1309,
+      "false_negative": 1273,
+      "true_positive": 4171
+    }
+  },
+  "diagnostic_cases": [
+    {
+      "category": "positive",
+      "text": "今天终于完成了任务，特别开心。",
+      "expected": "positive",
+      "score": 1.0722,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "positive",
+      "text": "这次体验很满意，下次还会来。",
+      "expected": "positive",
+      "score": 3.1153,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "negative",
+      "text": "等了三个小时还没解决，真的很失望。",
+      "expected": "negative",
+      "score": -3.0788,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "negative",
+      "text": "东西坏了，联系了好几次也没人处理。",
+      "expected": "negative",
+      "score": -2.3623,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "negation",
+      "text": "今天很开心。",
+      "expected": "positive",
+      "pair": "happy",
+      "score": 2.6891,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "negation",
+      "text": "今天不开心。",
+      "expected": "negative",
+      "pair": "happy",
+      "score": 0.0828,
+      "prediction": "positive",
+      "expected_match": false
+    },
+    {
+      "category": "negation",
+      "text": "这次服务让我满意。",
+      "expected": "positive",
+      "pair": "satisfied",
+      "score": -0.0345,
+      "prediction": "negative",
+      "expected_match": false
+    },
+    {
+      "category": "negation",
+      "text": "这次服务没有让我满意。",
+      "expected": "negative",
+      "pair": "satisfied",
+      "score": -0.6771,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "contrast",
+      "text": "虽然过程很辛苦，但结果让我很满意。",
+      "expected": "positive",
+      "score": 0.3181,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "contrast",
+      "text": "虽然包装很漂亮，但东西实在太难用了。",
+      "expected": "negative",
+      "score": -0.4775,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "sarcasm",
+      "text": "等了三个小时，服务可真好。",
+      "expected": "negative",
+      "score": -1.2973,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "sarcasm",
+      "text": "刚买就坏了，质量真是好得没话说。",
+      "expected": "negative",
+      "score": -0.8606,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "neutral",
+      "text": "今天是星期六。",
+      "expected": "abstain",
+      "score": 0.8951,
+      "prediction": "positive",
+      "expected_match": null
+    },
+    {
+      "category": "neutral",
+      "text": "会议在下午三点开始。",
+      "expected": "abstain",
+      "score": -0.3896,
+      "prediction": "negative",
+      "expected_match": null
+    },
+    {
+      "category": "mixed",
+      "text": "喜欢这里的环境，但是讨厌这里的服务。",
+      "expected": "ambiguous",
+      "score": 0.3609,
+      "prediction": "positive",
+      "expected_match": null
+    },
+    {
+      "category": "mixed",
+      "text": "收到礼物很开心，可是想到明天分别又很难过。",
+      "expected": "ambiguous",
+      "score": 0.5435,
+      "prediction": "positive",
+      "expected_match": null
+    }
+  ],
+  "hybrid_validation": {
+    "accuracy": 0.7786,
+    "negative": {
+      "precision": 0.7731,
+      "recall": 0.7899,
+      "f1": 0.7814
+    },
+    "positive": {
+      "precision": 0.7844,
+      "recall": 0.7673,
+      "f1": 0.7757
+    },
+    "confusion": {
+      "true_negative": 4316,
+      "false_positive": 1148,
+      "false_negative": 1267,
+      "true_positive": 4177
+    }
+  },
+  "hybrid_diagnostic_cases": [
+    {
+      "category": "positive",
+      "text": "今天终于完成了任务，特别开心。",
+      "expected": "positive",
+      "score": 0.9856,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "positive",
+      "text": "这次体验很满意，下次还会来。",
+      "expected": "positive",
+      "score": 3.0384,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "negative",
+      "text": "等了三个小时还没解决，真的很失望。",
+      "expected": "negative",
+      "score": -4.0497,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "negative",
+      "text": "东西坏了，联系了好几次也没人处理。",
+      "expected": "negative",
+      "score": -2.8784,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "negation",
+      "text": "今天很开心。",
+      "expected": "positive",
+      "pair": "happy",
+      "score": 2.8916,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "negation",
+      "text": "今天不开心。",
+      "expected": "negative",
+      "pair": "happy",
+      "score": -0.2222,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "negation",
+      "text": "这次服务让我满意。",
+      "expected": "positive",
+      "pair": "satisfied",
+      "score": -0.0748,
+      "prediction": "negative",
+      "expected_match": false
+    },
+    {
+      "category": "negation",
+      "text": "这次服务没有让我满意。",
+      "expected": "negative",
+      "pair": "satisfied",
+      "score": -0.7331,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "contrast",
+      "text": "虽然过程很辛苦，但结果让我很满意。",
+      "expected": "positive",
+      "score": 0.799,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "contrast",
+      "text": "虽然包装很漂亮，但东西实在太难用了。",
+      "expected": "negative",
+      "score": -0.2704,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "sarcasm",
+      "text": "等了三个小时，服务可真好。",
+      "expected": "negative",
+      "score": -1.3346,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "sarcasm",
+      "text": "刚买就坏了，质量真是好得没话说。",
+      "expected": "negative",
+      "score": -0.94,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "neutral",
+      "text": "今天是星期六。",
+      "expected": "abstain",
+      "score": 0.9242,
+      "prediction": "positive",
+      "expected_match": null
+    },
+    {
+      "category": "neutral",
+      "text": "会议在下午三点开始。",
+      "expected": "abstain",
+      "score": -0.4457,
+      "prediction": "negative",
+      "expected_match": null
+    },
+    {
+      "category": "mixed",
+      "text": "喜欢这里的环境，但是讨厌这里的服务。",
+      "expected": "ambiguous",
+      "score": 0.3282,
+      "prediction": "positive",
+      "expected_match": null
+    },
+    {
+      "category": "mixed",
+      "text": "收到礼物很开心，可是想到明天分别又很难过。",
+      "expected": "ambiguous",
+      "score": -0.298,
+      "prediction": "negative",
+      "expected_match": null
+    }
+  ],
+  "elapsed_seconds": 28.95,
+  "note": "Exploratory comparison. The test set was not used to choose this model."
+}
