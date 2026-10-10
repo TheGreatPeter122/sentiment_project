@@ -1,0 +1,16 @@
+{"category":"positive","text":"今天终于完成了任务，特别开心。","expected":"positive"}
+{"category":"positive","text":"这次体验很满意，下次还会来。","expected":"positive"}
+{"category":"negative","text":"等了三个小时还没解决，真的很失望。","expected":"negative"}
+{"category":"negative","text":"东西坏了，联系了好几次也没人处理。","expected":"negative"}
+{"category":"negation","text":"今天很开心。","expected":"positive","pair":"happy"}
+{"category":"negation","text":"今天不开心。","expected":"negative","pair":"happy"}
+{"category":"negation","text":"这次服务让我满意。","expected":"positive","pair":"satisfied"}
+{"category":"negation","text":"这次服务没有让我满意。","expected":"negative","pair":"satisfied"}
+{"category":"contrast","text":"虽然过程很辛苦，但结果让我很满意。","expected":"positive"}
+{"category":"contrast","text":"虽然包装很漂亮，但东西实在太难用了。","expected":"negative"}
+{"category":"sarcasm","text":"等了三个小时，服务可真好。","expected":"negative"}
+{"category":"sarcasm","text":"刚买就坏了，质量真是好得没话说。","expected":"negative"}
+{"category":"neutral","text":"今天是星期六。","expected":"abstain"}
+{"category":"neutral","text":"会议在下午三点开始。","expected":"abstain"}
+{"category":"mixed","text":"喜欢这里的环境，但是讨厌这里的服务。","expected":"ambiguous"}
+{"category":"mixed","text":"收到礼物很开心，可是想到明天分别又很难过。","expected":"ambiguous"}

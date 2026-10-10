@@ -1,0 +1,9 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "spark": "4.0.1",
+  "java": "21.0.12.1",
+  "training_rows_read": 88814,
+  "spark_sql_and_toy_training": "passed",
+  "note": "仅环境冒烟测试，不是正式情感模型或效果指标。"
+}

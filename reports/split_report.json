@@ -1,0 +1,43 @@
+{
+  "seed": "sentiment-20261010-v1",
+  "method": "正文指纹分组后确定性哈希分配，约80/10/10；不是精确分层抽样",
+  "input_rows": 116918,
+  "short_body_rows_excluded": 6269,
+  "multirow_groups": 410,
+  "mixed_label_body_groups": 61,
+  "splits": {
+    "train": {
+      "rows": 88814,
+      "labels": {
+        "0": 44717,
+        "1": 44097
+      },
+      "groups": 87796,
+      "sha256": "49ab5d73223d6207fc093714f5bb16cd0bc24f83ac049f5d17b09b1973f6e7b2"
+    },
+    "validation": {
+      "rows": 10908,
+      "labels": {
+        "0": 5464,
+        "1": 5444
+      },
+      "groups": 10860,
+      "sha256": "f1a3109619e6ef2efc4ed0f4348d27c4b372c42080e53cf327551dbfab7bf389"
+    },
+    "test": {
+      "rows": 10927,
+      "labels": {
+        "0": 5494,
+        "1": 5433
+      },
+      "groups": 10843,
+      "sha256": "8cc4adcb80f8b1271dc55c937e6d7565221f3036a35d0ff314d56bd41a48e60b"
+    }
+  },
+  "group_overlap": 0,
+  "limitations": [
+    "正文相同但表情不同可能具有不同情感，保留此类记录但放入同一集合。",
+    "指纹只覆盖格式、链接、提及、表情变体，并非语义近重复检测。",
+    "人工抽查清单尚待填写，不代表已经人工验证标签。"
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "model_kind": "scikit-learn baseline (not PySpark)",
+  "training_rows": 88814,
+  "validation_rows": 10908,
+  "test_rows": 10927,
+  "validation_comparisons": [
+    {
+      "variant": "no_emoticons",
+      "model": "naive_bayes",
+      "validation": {
+        "accuracy": 0.7526,
+        "negative": {
+          "precision": 0.7417,
+          "recall": 0.7765,
+          "f1": 0.7587
+        },
+        "positive": {
+          "precision": 0.7646,
+          "recall": 0.7285,
+          "f1": 0.7461
+        },
+        "confusion": {
+          "true_negative": 4243,
+          "false_positive": 1221,
+          "false_negative": 1478,
+          "true_positive": 3966
+        }
+      },
+      "elapsed_seconds_including_vectorization": 4.94
+    },
+    {
+      "variant": "no_emoticons",
+      "model": "logistic_sgd",
+      "validation": {
+        "accuracy": 0.7766,
+        "negative": {
+          "precision": 0.7789,
+          "recall": 0.7736,
+          "f1": 0.7762
+        },
+        "positive": {
+          "precision": 0.7743,
+          "recall": 0.7796,
+          "f1": 0.7769
+        },
+        "confusion": {
+          "true_negative": 4227,
+          "false_positive": 1237,
+          "false_negative": 1200,
+          "true_positive": 4244
+        }
+      },
+      "elapsed_seconds_including_vectorization": 5.35
+    },
+    {
+      "variant": "with_emoticons",
+      "model": "naive_bayes",
+      "validation": {
+        "accuracy": 0.9023,
+        "negative": {
+          "precision": 0.891,
+          "recall": 0.9171,
+          "f1": 0.9039
+        },
+        "positive": {
+          "precision": 0.9143,
+          "recall": 0.8874,
+          "f1": 0.9006
+        },
+        "confusion": {
+          "true_negative": 5011,
+          "false_positive": 453,
+          "false_negative": 613,
+          "true_positive": 4831
+        }
+      },
+      "elapsed_seconds_including_vectorization": 5.72
+    },
+    {
+      "variant": "with_emoticons",
+      "model": "logistic_sgd",
+      "validation": {
+        "accuracy": 0.9899,
+        "negative": {
+          "precision": 0.9937,
+          "recall": 0.9861,
+          "f1": 0.9899
+        },
+        "positive": {
+          "precision": 0.9861,
+          "recall": 0.9938,
+          "f1": 0.9899
+        },
+        "confusion": {
+          "true_negative": 5388,
+          "false_positive": 76,
+          "false_negative": 34,
+          "true_positive": 5410
+        }
+      },
+      "elapsed_seconds_including_vectorization": 5.96
+    }
+  ],
+  "selection_rule": "无表情方案中验证集正向F1最高；同分看负向F1",
+  "selected": {
+    "variant": "no_emoticons",
+    "model": "logistic_sgd"
+  },
+  "final_test": {
+    "accuracy": 0.7729,
+    "negative": {
+      "precision": 0.7762,
+      "recall": 0.7707,
+      "f1": 0.7734
+    },
+    "positive": {
+      "precision": 0.7697,
+      "recall": 0.7753,
+      "f1": 0.7725
+    },
+    "confusion": {
+      "true_negative": 4234,
+      "false_positive": 1260,
+      "false_negative": 1221,
+      "true_positive": 4212
+    }
+  },
+  "total_elapsed_seconds": 12.91,
+  "limitations": [
+    "测试集只用于最终评价，诊断样例另测。",
+    "此实验尚未使用PySpark，不能据此声称完成Spark技术部分。",
+    "预测分数未经概率校准，不作为可靠概率。"
+  ]
+}

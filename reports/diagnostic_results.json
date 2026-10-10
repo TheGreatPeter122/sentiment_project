@@ -1,0 +1,139 @@
+{
+  "model": "logistic_sgd",
+  "variant": "no_emoticons",
+  "note": "人工设计的诊断句，可能含训练数据近似表达；仅用于错误观察，不能当作独立准确率。score不是校准概率。",
+  "items": [
+    {
+      "category": "positive",
+      "text": "今天终于完成了任务，特别开心。",
+      "expected": "positive",
+      "score": 0.6084,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "positive",
+      "text": "这次体验很满意，下次还会来。",
+      "expected": "positive",
+      "score": 2.0121,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "negative",
+      "text": "等了三个小时还没解决，真的很失望。",
+      "expected": "negative",
+      "score": -3.527,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "negative",
+      "text": "东西坏了，联系了好几次也没人处理。",
+      "expected": "negative",
+      "score": -2.1609,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "negation",
+      "text": "今天很开心。",
+      "expected": "positive",
+      "pair": "happy",
+      "score": 2.6073,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "negation",
+      "text": "今天不开心。",
+      "expected": "negative",
+      "pair": "happy",
+      "score": 0.269,
+      "prediction": "positive",
+      "expected_match": false
+    },
+    {
+      "category": "negation",
+      "text": "这次服务让我满意。",
+      "expected": "positive",
+      "pair": "satisfied",
+      "score": 0.0975,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "negation",
+      "text": "这次服务没有让我满意。",
+      "expected": "negative",
+      "pair": "satisfied",
+      "score": -0.5999,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "contrast",
+      "text": "虽然过程很辛苦，但结果让我很满意。",
+      "expected": "positive",
+      "score": 0.6941,
+      "prediction": "positive",
+      "expected_match": true
+    },
+    {
+      "category": "contrast",
+      "text": "虽然包装很漂亮，但东西实在太难用了。",
+      "expected": "negative",
+      "score": -0.0048,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "sarcasm",
+      "text": "等了三个小时，服务可真好。",
+      "expected": "negative",
+      "score": -0.668,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "sarcasm",
+      "text": "刚买就坏了，质量真是好得没话说。",
+      "expected": "negative",
+      "score": -0.5768,
+      "prediction": "negative",
+      "expected_match": true
+    },
+    {
+      "category": "neutral",
+      "text": "今天是星期六。",
+      "expected": "abstain",
+      "score": 0.4983,
+      "prediction": "positive",
+      "expected_match": null
+    },
+    {
+      "category": "neutral",
+      "text": "会议在下午三点开始。",
+      "expected": "abstain",
+      "score": -0.051,
+      "prediction": "negative",
+      "expected_match": null
+    },
+    {
+      "category": "mixed",
+      "text": "喜欢这里的环境，但是讨厌这里的服务。",
+      "expected": "ambiguous",
+      "score": 0.2886,
+      "prediction": "positive",
+      "expected_match": null
+    },
+    {
+      "category": "mixed",
+      "text": "收到礼物很开心，可是想到明天分别又很难过。",
+      "expected": "ambiguous",
+      "score": -0.2219,
+      "prediction": "negative",
+      "expected_match": null
+    }
+  ]
+}

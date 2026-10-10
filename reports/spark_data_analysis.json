@@ -1,0 +1,25 @@
+{
+  "engine": "PySpark DataFrame SQL",
+  "spark_version": "4.0.1",
+  "rows": 88814,
+  "by_label": {
+    "1": {
+      "count": 44097,
+      "average_clean_length": 46.51,
+      "with_emoticon": 44097
+    },
+    "0": {
+      "count": 44717,
+      "average_clean_length": 50.47,
+      "with_emoticon": 44717
+    }
+  },
+  "operations": [
+    "Spark读取JSONL",
+    "Spark正则清洗表情、链接和@提及",
+    "Spark计算文本长度",
+    "Spark按标签分组统计"
+  ],
+  "elapsed_seconds": 16.32,
+  "note": "在一台Windows电脑以local[4]运行；模型训练与现场推理使用另行记录的scikit-learn基线。"
+}
