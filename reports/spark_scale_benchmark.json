@@ -1,0 +1,45 @@
+{
+  "engine": "PySpark DataFrame SQL",
+  "master": "local[4]",
+  "spark_version": "4.0.1",
+  "sizes": [
+    {
+      "rows": 10000,
+      "seconds": [
+        1.875,
+        0.504,
+        0.523
+      ],
+      "median_seconds": 0.523,
+      "input_sha256": "bfd11ebdd02159b480fca204ed7de1501bb3c2d51c2f39036db096574c00904d"
+    },
+    {
+      "rows": 50000,
+      "seconds": [
+        0.658,
+        0.555,
+        0.472
+      ],
+      "median_seconds": 0.555,
+      "input_sha256": "863a1132f8440eeb9c6871f84ef64144a87731d4e0d1e62f5d6867c4cf487999"
+    },
+    {
+      "rows": 184923,
+      "seconds": [
+        0.991,
+        0.757,
+        0.858
+      ],
+      "median_seconds": 0.858,
+      "input_sha256": "3df436d0cc9a63464861192579dd6d9d9f61ffd4cc0b5cc072bbe1991c975547"
+    }
+  ],
+  "timed_work": "read JSONL, regex cleaning, text length and group by source/label",
+  "excluded_from_timing": "Python staging of deterministic input files and Spark JVM startup",
+  "repeats_per_size": 3,
+  "limitations": [
+    "One Windows PC, not a distributed cluster.",
+    "Local file cache, JVM warm-up and system load can affect timing.",
+    "These timings alone do not establish Spark speedup over Python."
+  ]
+}

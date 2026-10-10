@@ -1,0 +1,83 @@
+{
+  "engine": "PySpark DataFrame SQL",
+  "master": "local[4]",
+  "spark_version": "4.0.1",
+  "rows": 184923,
+  "by_source": {
+    "weibo_senti_100k": {
+      "rows": 110649,
+      "average_clean_length": 47.31,
+      "min_clean_length": 4,
+      "max_clean_length": 244,
+      "with_emoticon": 110649
+    },
+    "online_shopping_10_cats": {
+      "rows": 62400,
+      "average_clean_length": 58.52,
+      "min_clean_length": 4,
+      "max_clean_length": 2876,
+      "with_emoticon": 15
+    },
+    "waimai_10k": {
+      "rows": 11854,
+      "average_clean_length": 25.26,
+      "min_clean_length": 5,
+      "max_clean_length": 463,
+      "with_emoticon": 0
+    },
+    "multiple_external_sources": {
+      "rows": 20,
+      "average_clean_length": 6.5,
+      "min_clean_length": 4,
+      "max_clean_length": 16,
+      "with_emoticon": 0
+    }
+  },
+  "by_source_label": {
+    "weibo_senti_100k:0": 55675,
+    "weibo_senti_100k:1": 54974,
+    "online_shopping_10_cats:1": 31512,
+    "online_shopping_10_cats:0": 30888,
+    "waimai_10k:1": 3929,
+    "waimai_10k:0": 7925,
+    "multiple_external_sources:0": 5,
+    "multiple_external_sources:1": 15
+  },
+  "by_split": {
+    "train": 88814,
+    "validation": 10908,
+    "test": 10927,
+    "external": 74274
+  },
+  "external_by_category_label": {
+    "洗发水:0": 4980,
+    "衣服:1": 4934,
+    "水果:0": 4994,
+    "酒店:1": 4999,
+    "热水器:0": 100,
+    "手机:0": 1156,
+    "平板:0": 4984,
+    "蒙牛:1": 987,
+    "水果:1": 4995,
+    "平板:1": 4963,
+    "热水器:1": 447,
+    "计算机:0": 1987,
+    "洗发水:1": 4992,
+    "书籍:0": 1750,
+    "衣服:0": 4957,
+    "书籍:1": 2099,
+    "蒙牛:0": 1026,
+    "手机:1": 1148,
+    "酒店:0": 4984,
+    "计算机:1": 1987
+  },
+  "operations": [
+    "read JSONL",
+    "union sources",
+    "Spark regex cleaning",
+    "text length",
+    "group by source, label, split and category"
+  ],
+  "elapsed_seconds_including_spark_startup": 13.47,
+  "note": "One Windows PC, Spark local[4]. No cluster or model training. Source counts assign cross-source duplicates to multiple_external_sources."
+}

@@ -48,6 +48,19 @@ py -3.12 -m venv .venv
 
 原始及清洗后的文本都在 Git 忽略目录，仓库只提交下载／清洗脚本与统计报告。数据来源仓库未明确说明原始标注流程和再分发许可；使用时应注明来源与这一限制。
 
+## Spark 多来源统计与规模实验
+
+在原有微博划分和外部评论清洗文件都已准备好的电脑上，运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\start_spark.ps1 -Script scripts/spark_all_sources.py
+powershell -ExecutionPolicy Bypass -File .\start_spark.ps1 -Script scripts/benchmark_spark_pipeline.py
+```
+
+第一项使用单机 Spark `local[4]` 处理 **184,923 条**清洗记录，按来源、标签、类别和数据划分统计，结果见 `reports/spark_all_sources.json`。其中微博 110,649 条，外部评论 74,274 条；20 条外部文本同时来自购物和外卖源，在来源表中单列为 `multiple_external_sources`，总数没有重复计算。微博全部含方括号表情，购物评论仅 15 条含此类表情，外卖评论为 0 条。
+
+第二项在 1 万、5 万、全量三个规模上执行同一 Spark JSONL 读取、正则清洗、长度计算和分组统计任务，各重复 3 次。实测中位数分别为 **0.523、0.555、0.858 秒**，见 `reports/spark_scale_benchmark.json`。计时不含输入文件准备和 Spark JVM 启动；这是本机热缓存下的处理耗时，不代表集群加速，也未与 Python 做速度优劣比较。两项都不训练或更换情感模型。
+
 ## 第一阶段：数据审核
 
 - 数据说明：https://github.com/SophonPlus/ChineseNlpCorpus/blob/master/datasets/weibo_senti_100k/intro.ipynb
