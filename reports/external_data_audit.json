@@ -1,0 +1,64 @@
+{
+  "source_revision": "a0b781d72158bde242c0626c9e354d2b328865ff",
+  "source_sha256": {
+    "online_shopping_10_cats.zip": "6816ded66fde9d0927ecbd370b5e12d0174d1abac35192ec014ac2a0a8d25858",
+    "waimai_10k.csv": "b8b5c11c00b51578d35937fca56e03a126b45381f1ea4b22893237cb377a26fe"
+  },
+  "source_rows": {
+    "online_shopping_10_cats": {
+      "raw_rows": 62774,
+      "raw_label_1": 31727,
+      "raw_label_0": 31046,
+      "invalid_rows": 1
+    },
+    "waimai_10k": {
+      "raw_rows": 11987,
+      "raw_label_1": 4000,
+      "raw_label_0": 7987
+    }
+  },
+  "existing_split_fingerprint_counts": {
+    "train": 87796,
+    "validation": 10860,
+    "test": 10843
+  },
+  "removed": {
+    "same_label_exact_duplicate_rows": 37,
+    "short_fingerprint_groups": 152,
+    "conflicting_exact_text_groups": 25,
+    "conflicting_exact_text_rows": 50,
+    "same_label_fingerprint_duplicate_variants": 206,
+    "conflicting_fingerprint_groups": 16,
+    "conflicting_fingerprint_variants": 35,
+    "overlap_existing_fingerprint_groups": 5,
+    "overlap_existing_variants": 6
+  },
+  "clean_rows": 74274,
+  "clean_labels": {
+    "0": 38818,
+    "1": 35456
+  },
+  "clean_sources": {
+    "online_shopping_10_cats": 62420,
+    "waimai_10k": 11874
+  },
+  "clean_categories": {
+    "洗发水": 9972,
+    "平板": 9947,
+    "水果": 9989,
+    "衣服": 9891,
+    "蒙牛": 2013,
+    "酒店": 9983,
+    "书籍": 3849,
+    "手机": 2304,
+    "热水器": 547,
+    "计算机": 3974
+  },
+  "output_sha256": "b66bfaaface428dceef7ec7c891dd4293cc5f7903c271de6de018482d5e0050d",
+  "limitations": [
+    "下载仓库未明确说明原始标注流程和再分发许可；原始及清洗语料不提交到 Git。",
+    "正负标签按来源 CSV 保留，未人工逐条验证。",
+    "去重使用文本规范化与正文指纹，无法排除语义近重复。",
+    "数据仅清洗并隔离，未加入原训练/验证/测试集，也未训练模型。"
+  ]
+}

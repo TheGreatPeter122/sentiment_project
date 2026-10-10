@@ -35,6 +35,19 @@ py -3.12 -m venv .venv
 
 结果写入 `reports/word_baseline_results.json`，模型分别保存为 `models/word_baseline.joblib` 和 `models/hybrid_baseline.joblib`。实验不会覆盖网页使用的 `models/baseline.joblib`，也不使用测试集选模型。原字符模型验证集准确率 77.66%，纯分词模型 76.33%，组合模型 77.86%；组合方案只提升 0.20 个百分点，固定诊断句正确数仍是 11/12，因此暂不替换网页默认模型。分词和词组可能捕捉否定表达，但对分词错误、口语与新词仍敏感。
 
+## 新增外部评论数据（仅清洗，未训练）
+
+增加 [购物评论 10 类](https://github.com/SophonPlus/ChineseNlpCorpus/tree/a0b781d72158bde242c0626c9e354d2b328865ff/datasets/online_shopping_10_cats)和[外卖评论](https://github.com/SophonPlus/ChineseNlpCorpus/tree/a0b781d72158bde242c0626c9e354d2b328865ff/datasets/waimai_10k)。原始 62,774 + 11,987 条；经过标签／空文本检查、空白规范化、冲突与重复文本处理，并排除与现有微博训练／验证／测试集正文指纹重合的记录后，得到 **74,274 条**。清洗结果在本机 `data/processed/external_clean.jsonl`，数量、标签、类别和文件哈希见 `reports/external_data_audit.json`。这份数据没有并入原有划分，也没有用于训练。
+
+在项目目录复现下载和清洗：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\fetch_external_data.py
+.\.venv\Scripts\python.exe scripts\clean_external_data.py
+```
+
+原始及清洗后的文本都在 Git 忽略目录，仓库只提交下载／清洗脚本与统计报告。数据来源仓库未明确说明原始标注流程和再分发许可；使用时应注明来源与这一限制。
+
 ## 第一阶段：数据审核
 
 - 数据说明：https://github.com/SophonPlus/ChineseNlpCorpus/blob/master/datasets/weibo_senti_100k/intro.ipynb
