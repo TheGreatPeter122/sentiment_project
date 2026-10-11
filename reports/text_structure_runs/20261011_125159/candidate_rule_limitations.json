@@ -1,0 +1,11 @@
+{
+  "validation_pattern_rows": {
+    "但愿": 9,
+    "忙不过来": 1,
+    "特别": 70,
+    "别人": 54,
+    "分别": 11
+  },
+  "note": "Patterns indicate potential lexical false positives, not verified error counts or revised labels.",
+  "local_samples": "data/processed/text_structure/20261011_125159/error_analysis_samples.json"
+}

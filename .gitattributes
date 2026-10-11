@@ -1,0 +1,13 @@
+# Preserve exact bytes for files fingerprinted in experiment/deployment records.
+# Text diffs remain available; only automatic newline conversion is disabled.
+/app.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+/start_demo.bat -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+/daily_review_features.py -text
+/daily_review_model.py -text
+/structure_features.py -text
+/scripts/train_daily_reviews.py -text
+/scripts/train_structure_experiment.py -text
+/scripts/predict_daily_reviews.py -text
+/reports/daily_review_protocol.md -text
+/reports/text_structure_protocol.md -text
+*.joblib -text

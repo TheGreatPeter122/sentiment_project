@@ -1,0 +1,7 @@
+{
+  "cpu": "AMD Ryzen 9 8945HX with Radeon Graphics",
+  "reported_cores": 8,
+  "logical_processors": 16,
+  "total_physical_memory_bytes": 16962850816,
+  "source": "Win32_Processor and Win32_ComputerSystem CIM query on this host, 2026-10-11"
+}

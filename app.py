@@ -1,13 +1,10 @@
 """本地交互演示：.venv/Scripts/python.exe app.py"""
 import json
-import re
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from pathlib import Path
 
-import joblib
+from daily_review_model import load_model, predict
 
-ROOT = Path(__file__).resolve().parent
-artifact = joblib.load(ROOT / 'models/baseline.joblib')
+load_model()
 
 PAGE = '''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -24,10 +21,12 @@ button{border:0;border-radius:8px;background:#155e75;color:white;padding:10px 24
 <div class="examples"><p class="hint">试试这些句子：</p>
 <button data-text="今天终于完成了任务，特别开心。">开心</button>
 <button data-text="今天不开心。">否定</button>
+<button data-text="我一点也不喜欢原神">一点也不喜欢</button>
+<button data-text="包装很好，但是东西太难用了">转折</button>
 <button data-text="等了三个小时，服务可真好。">反讽</button>
 <button data-text="今天是星期六。">中性</button></div>
 <div id="result" role="status">等待输入</div>
-<p class="hint">研究演示。模型在微博语料上训练，结果只是文本倾向判断，不代表对作者真实情绪的测量。</p>
+<p class="hint">当前模型：日常评论·结构 v2，使用微博、购物和外卖语料训练。模型分数不是概率；部分否定、转折和反讽仍可能误判。结果只是文本倾向判断，不代表对作者真实情绪的测量。</p>
 <script>
 const input=document.querySelector('#input'),result=document.querySelector('#result');
 document.querySelectorAll('[data-text]').forEach(b=>b.onclick=()=>{input.value=b.dataset.text;input.focus()});
@@ -49,6 +48,7 @@ class Handler(BaseHTTPRequestHandler):
         body = PAGE.encode('utf-8')
         self.send_response(200)
         self.send_header('Content-Type','text/html; charset=utf-8')
+        self.send_header('Cache-Control', 'no-store')
         self.send_header('Content-Length', str(len(body)))
         self.end_headers()
         self.wfile.write(body)
@@ -62,15 +62,13 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < n < 10000:
                 raise ValueError('输入长度不合适')
             data = json.loads(self.rfile.read(n))
-            text = data.get('text','').strip()
-            if not text or len(text) > 500:
-                raise ValueError('请输入1—500字的内容')
-            clean = re.sub(r'\[[^\[\]]{1,15}\]', ' ', text) if artifact['variant']=='no_emoticons' else text
-            x = artifact['vectorizer'].transform([clean])
-            score = float(artifact['classifier'].decision_function(x)[0])
-            result = {'label':'偏正向' if score >= 0 else '偏负向',
-                      'score':round(score,3),
-                      'note':'分数表示相对判断方向，不是正确概率。'}
+            if not isinstance(data, dict):
+                raise ValueError('请求需要包含 text 字段')
+            prediction = predict([data.get('text', '')])
+            row = prediction['results'][0]
+            result = {'label':'偏正向' if row['prediction'] == 'positive' else '偏负向',
+                      'score':round(row['score'], 3), 'note':prediction['note'],
+                      'model':prediction['model'], 'model_sha256':prediction['model_sha256']}
             code = 200
         except (ValueError, TypeError, json.JSONDecodeError) as e:
             result, code = {'error':str(e)}, 400

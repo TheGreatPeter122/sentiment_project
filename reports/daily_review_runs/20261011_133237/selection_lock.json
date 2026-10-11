@@ -1,0 +1,9 @@
+{
+  "selected_arm": "structure_v2",
+  "selected_composition": "mixed",
+  "selection_metric": "mean across three seeds of equal-source validation macro_f1",
+  "representative_seed": 20261010,
+  "model_path": "models/daily_review_experiments/20261011_133237/structure_v2_20261010.joblib",
+  "model_sha256": "a417e56eaffc1436e632647aeeed9b3b478586e1888201ae9b35f9e5cefaea97",
+  "validation_selection": 0.861780936733071
+}

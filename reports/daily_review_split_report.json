@@ -1,0 +1,59 @@
+{
+  "seed": "daily-review-20261011-v1",
+  "external_input_sha256": "b66bfaaface428dceef7ec7c891dd4293cc5f7903c271de6de018482d5e0050d",
+  "raw_rows": 74761,
+  "clean_rows": 74274,
+  "shared_rows_quarantined": 20,
+  "exclusive_source_rows": 74254,
+  "splits": {
+    "train": {
+      "rows": 59402,
+      "sources": {
+        "shopping": 49919,
+        "waimai": 9483
+      },
+      "source_labels": {
+        "shopping/0": 24710,
+        "shopping/1": 25209,
+        "waimai/0": 6340,
+        "waimai/1": 3143
+      },
+      "path": "data/splits/daily_reviews/train.jsonl",
+      "sha256": "a8796f2421ced52d6228e587541c8f830c73fa8fedbf4daeabe4170932f70249"
+    },
+    "validation": {
+      "rows": 7423,
+      "sources": {
+        "shopping": 6239,
+        "waimai": 1184
+      },
+      "source_labels": {
+        "shopping/0": 3088,
+        "waimai/0": 792,
+        "shopping/1": 3151,
+        "waimai/1": 392
+      },
+      "path": "data/splits/daily_reviews/validation.jsonl",
+      "sha256": "aaf066a530f0cf73b7a5940b225f491813154743ac769a465d8f85b57ee1cfeb"
+    },
+    "test": {
+      "rows": 7429,
+      "sources": {
+        "shopping": 6242,
+        "waimai": 1187
+      },
+      "source_labels": {
+        "shopping/0": 3090,
+        "shopping/1": 3152,
+        "waimai/1": 394,
+        "waimai/0": 793
+      },
+      "path": "data/splits/daily_reviews/test.jsonl",
+      "sha256": "b3015495244b074073f84e663cb36b65101d929d59be1a0fc6487a416bb9f5ef"
+    }
+  },
+  "group_overlap": 0,
+  "shared_path": "data/processed/daily_reviews_shared.jsonl",
+  "method": "source/label stratified, SHA256(seed+ID) sorted, floor80/floor10/remainder10",
+  "source_audit": "reports/external_data_audit.json"
+}

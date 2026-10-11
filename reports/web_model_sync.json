@@ -1,0 +1,39 @@
+{
+  "verified_at": "2026-10-11T07:12:16.581574+00:00",
+  "run_id": "20261011_133237",
+  "model_sha256": "a417e56eaffc1436e632647aeeed9b3b478586e1888201ae9b35f9e5cefaea97",
+  "selected_arm": "structure_v2",
+  "seed": 20261010,
+  "model_bytes_match_experiment_lock": true,
+  "http_url": "http://127.0.0.1:8765/",
+  "web_cli_predictions_match": true,
+  "standalone_bundle_without_experiment_directory": true,
+  "test_command": ".venv/Scripts/python.exe -m unittest discover -s tests -v",
+  "tests_passed": 21,
+  "web_results": [
+    {
+      "text": "我一点也不喜欢原神",
+      "label": "偏负向",
+      "score": -1.42,
+      "note": "分数为未校准的决策值，不是正确概率；模型只进行正负二分类。",
+      "model": "structure_v2",
+      "model_sha256": "a417e56eaffc1436e632647aeeed9b3b478586e1888201ae9b35f9e5cefaea97"
+    },
+    {
+      "text": "今天不开心。",
+      "label": "偏负向",
+      "score": -1.044,
+      "note": "分数为未校准的决策值，不是正确概率；模型只进行正负二分类。",
+      "model": "structure_v2",
+      "model_sha256": "a417e56eaffc1436e632647aeeed9b3b478586e1888201ae9b35f9e5cefaea97"
+    }
+  ],
+  "file_sha256": {
+    "app.py": "2831a285cf70e57a4c7fb35bd5b0345b6dfbe49c2d99735da71c9a79fe65f77e",
+    "daily_review_model.py": "2ff99ceb4e477c83585603c9ec2345ad60e6e6c58a8c0fd425cd938f327d52cc",
+    "scripts/predict_daily_reviews.py": "bfd18de1b61dae72680a01443506c894ae19ad53ac32cb484e30bea5a045353c",
+    "start_demo.bat": "38a7d529e9c8a937270bcee83fc4bcd27b40782eaf688efca1c05fe31d3ea6e7",
+    "daily_review_features.py": "ed8d2d85c4bf61e04332719af1188a3b2cebadacda981469e051f29cc4712bcf",
+    "structure_features.py": "6aaa4dc34095bb519bc12089d23b886ec588196ae1413103b064dc8b823ec5bf"
+  }
+}

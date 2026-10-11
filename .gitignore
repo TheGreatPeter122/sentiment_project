@@ -5,4 +5,6 @@ data/processed/
 data/splits/
 reports/manual_review.json
 models/spark_model/
+models/structure_experiments/
+models/daily_review_experiments/
 __pycache__/
