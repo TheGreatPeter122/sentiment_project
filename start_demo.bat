@@ -2,8 +2,12 @@
 setlocal
 cd /d "%~dp0"
 
-if not exist "models\baseline.joblib" (
+if not exist "models\daily_review.joblib" (
     echo Model file is missing. Please download the complete project folder.
+    goto failed
+)
+if not exist "models\daily_review.json" (
+    echo Model version record is missing. Please download the complete project folder.
     goto failed
 )
 

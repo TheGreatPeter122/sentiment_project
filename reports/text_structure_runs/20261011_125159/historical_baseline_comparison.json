@@ -1,0 +1,42 @@
+{
+  "existing_demo_validation": {
+    "n": 10908,
+    "accuracy": 0.7765859919325265,
+    "macro_f1": 0.7765854492834867,
+    "negative_f1": 0.7762372601230374,
+    "positive_f1": 0.7769336384439359,
+    "confusion": [
+      [
+        4227,
+        1237
+      ],
+      [
+        1200,
+        4244
+      ]
+    ]
+  },
+  "rebuilt_baseline_validation": {
+    "n": 10908,
+    "accuracy": 0.7763109644297763,
+    "macro_f1": 0.7763100545132211,
+    "negative_f1": 0.7758589013411722,
+    "positive_f1": 0.7767612076852699,
+    "confusion": [
+      [
+        4223,
+        1241
+      ],
+      [
+        1199,
+        4245
+      ]
+    ]
+  },
+  "exclusive_vocabulary_terms_each": 1222,
+  "symmetric_difference_term_frequency_values": [
+    5
+  ],
+  "common_terms_have_identical_idf": true,
+  "interpretation": "Vocabulary cutoff selected different equal-frequency terms. Exact historical reproduction is not claimed. All current arms fit the same base feature block on the same machine."
+}

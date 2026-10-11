@@ -1,0 +1,81 @@
+[
+  {
+    "origin": "synthetic_development_example",
+    "raw_text": "我一点也不喜欢原神",
+    "clean_text": "我一点也不喜欢原神",
+    "emoticons_removed": 0,
+    "negation_spans": [
+      {
+        "marker": "不",
+        "start": 4,
+        "following": "喜欢原神"
+      }
+    ],
+    "double_negation_candidate": false,
+    "contrast_markers": [],
+    "contrast_before": "",
+    "contrast_after": ""
+  },
+  {
+    "origin": "synthetic_development_example",
+    "raw_text": "虽然包装很好，但是东西太难用了。",
+    "clean_text": "虽然包装很好，但是东西太难用了。",
+    "emoticons_removed": 0,
+    "negation_spans": [],
+    "double_negation_candidate": false,
+    "contrast_markers": [
+      "但是"
+    ],
+    "contrast_before": "虽然包装很好，",
+    "contrast_after": "东西太难用了。"
+  },
+  {
+    "origin": "synthetic_development_example",
+    "raw_text": "不但好看，而且好用。",
+    "clean_text": "不但好看，而且好用。",
+    "emoticons_removed": 0,
+    "negation_spans": [],
+    "double_negation_candidate": false,
+    "contrast_markers": [],
+    "contrast_before": "",
+    "contrast_after": ""
+  },
+  {
+    "origin": "synthetic_development_example",
+    "raw_text": "不是不喜欢，只是没有时间。",
+    "clean_text": "不是不喜欢，只是没有时间。",
+    "emoticons_removed": 0,
+    "negation_spans": [
+      {
+        "marker": "不是",
+        "start": 0,
+        "following": "不喜欢"
+      },
+      {
+        "marker": "不",
+        "start": 2,
+        "following": "喜欢"
+      },
+      {
+        "marker": "没有",
+        "start": 8,
+        "following": "时间"
+      }
+    ],
+    "double_negation_candidate": true,
+    "contrast_markers": [],
+    "contrast_before": "",
+    "contrast_after": ""
+  },
+  {
+    "origin": "synthetic_development_example",
+    "raw_text": "今天很开心。[哈哈]",
+    "clean_text": "今天很开心。 ",
+    "emoticons_removed": 1,
+    "negation_spans": [],
+    "double_negation_candidate": false,
+    "contrast_markers": [],
+    "contrast_before": "",
+    "contrast_after": ""
+  }
+]

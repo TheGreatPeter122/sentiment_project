@@ -1,0 +1,11 @@
+{
+  "verified_at": "2026-10-11T13:41:10.544157+08:00",
+  "models_full_validation_verified": 15,
+  "validation_metrics_reconciled": 225,
+  "external_holdout_prediction_rows_reconciled": 7429,
+  "external_and_weibo_group_overlap": 0,
+  "feature_vocabularies_equal_within_data_composition": true,
+  "input_code_model_hashes_verified": true,
+  "demo_model_unchanged": true,
+  "review": "No critical/important findings; cleaned-text offsets documented."
+}

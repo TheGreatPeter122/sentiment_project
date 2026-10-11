@@ -1,0 +1,310 @@
+{
+  "variant": "baseline",
+  "evaluation": {
+    "all": {
+      "n": 10908,
+      "accuracy": 0.7763109644297763,
+      "macro_f1": 0.7763100545132211,
+      "negative_f1": 0.7758589013411722,
+      "positive_f1": 0.7767612076852699,
+      "confusion": [
+        [
+          4223,
+          1241
+        ],
+        [
+          1199,
+          4245
+        ]
+      ]
+    },
+    "negation": {
+      "n": 4999,
+      "accuracy": 0.7635527105421084,
+      "macro_f1": 0.7474306291235603,
+      "negative_f1": 0.811242414564037,
+      "positive_f1": 0.6836188436830836,
+      "confusion": [
+        [
+          2540,
+          492
+        ],
+        [
+          690,
+          1277
+        ]
+      ]
+    },
+    "contrast": {
+      "n": 650,
+      "accuracy": 0.7523076923076923,
+      "macro_f1": 0.7249490768118799,
+      "negative_f1": 0.8116959064327486,
+      "positive_f1": 0.6382022471910113,
+      "confusion": [
+        [
+          347,
+          67
+        ],
+        [
+          94,
+          142
+        ]
+      ]
+    },
+    "both": {
+      "n": 552,
+      "accuracy": 0.7518115942028986,
+      "macro_f1": 0.7180554985963172,
+      "negative_f1": 0.8156123822341858,
+      "positive_f1": 0.6204986149584487,
+      "confusion": [
+        [
+          303,
+          54
+        ],
+        [
+          83,
+          112
+        ]
+      ]
+    },
+    "neither": {
+      "n": 5811,
+      "accuracy": 0.787644123214593,
+      "macro_f1": 0.7764743618517521,
+      "negative_f1": 0.7265070921985816,
+      "positive_f1": 0.8264416315049227,
+      "confusion": [
+        [
+          1639,
+          736
+        ],
+        [
+          498,
+          2938
+        ]
+      ]
+    },
+    "double_negation_candidate": {
+      "n": 502,
+      "accuracy": 0.7749003984063745,
+      "macro_f1": 0.7287848724630059,
+      "negative_f1": 0.840620592383639,
+      "positive_f1": 0.6169491525423729,
+      "confusion": [
+        [
+          298,
+          28
+        ],
+        [
+          85,
+          91
+        ]
+      ]
+    }
+  },
+  "changes_from_baseline": {
+    "all": {
+      "corrected": 0,
+      "regressed": 0,
+      "still_wrong": 2440,
+      "both_correct": 8468
+    },
+    "negation": {
+      "corrected": 0,
+      "regressed": 0,
+      "still_wrong": 1182,
+      "both_correct": 3817
+    },
+    "contrast": {
+      "corrected": 0,
+      "regressed": 0,
+      "still_wrong": 161,
+      "both_correct": 489
+    },
+    "both": {
+      "corrected": 0,
+      "regressed": 0,
+      "still_wrong": 137,
+      "both_correct": 415
+    },
+    "neither": {
+      "corrected": 0,
+      "regressed": 0,
+      "still_wrong": 1234,
+      "both_correct": 4577
+    },
+    "double_negation_candidate": {
+      "corrected": 0,
+      "regressed": 0,
+      "still_wrong": 113,
+      "both_correct": 389
+    }
+  },
+  "feature_dimensions": {
+    "base": 120000
+  },
+  "total_features": 120000,
+  "train_nonzero": 7638430,
+  "validation_nonzero": 932208,
+  "feature_seconds": 5.48691080000026,
+  "fit_seconds": 0.4138192999998864,
+  "validation_prediction_and_metrics_seconds": 0.021250000000691216,
+  "fit_iterations": 13,
+  "fit_warnings": [],
+  "model_path": "models/structure_experiments/20261011_125159/baseline.joblib",
+  "model_sha256": "aae712f85b5abccbfbfa458cf1403c9c49838db65d3884c4fa50c358031d8413",
+  "reload_verified": true,
+  "diagnostic_cases": [
+    {
+      "category": "positive",
+      "text": "今天终于完成了任务，特别开心。",
+      "expected": "positive",
+      "prediction": "positive",
+      "score": 0.6071653357565016,
+      "expected_match": true
+    },
+    {
+      "category": "positive",
+      "text": "这次体验很满意，下次还会来。",
+      "expected": "positive",
+      "prediction": "positive",
+      "score": 2.016095071178636,
+      "expected_match": true
+    },
+    {
+      "category": "negative",
+      "text": "等了三个小时还没解决，真的很失望。",
+      "expected": "negative",
+      "prediction": "negative",
+      "score": -3.527568668979445,
+      "expected_match": true
+    },
+    {
+      "category": "negative",
+      "text": "东西坏了，联系了好几次也没人处理。",
+      "expected": "negative",
+      "prediction": "negative",
+      "score": -2.1636279531896503,
+      "expected_match": true
+    },
+    {
+      "category": "negation",
+      "text": "今天很开心。",
+      "expected": "positive",
+      "pair": "happy",
+      "prediction": "positive",
+      "score": 2.608834176403245,
+      "expected_match": true
+    },
+    {
+      "category": "negation",
+      "text": "今天不开心。",
+      "expected": "negative",
+      "pair": "happy",
+      "prediction": "positive",
+      "score": 0.2667423478185743,
+      "expected_match": false
+    },
+    {
+      "category": "negation",
+      "text": "这次服务让我满意。",
+      "expected": "positive",
+      "pair": "satisfied",
+      "prediction": "positive",
+      "score": 0.09490212712880075,
+      "expected_match": true
+    },
+    {
+      "category": "negation",
+      "text": "这次服务没有让我满意。",
+      "expected": "negative",
+      "pair": "satisfied",
+      "prediction": "negative",
+      "score": -0.6021121450841814,
+      "expected_match": true
+    },
+    {
+      "category": "contrast",
+      "text": "虽然过程很辛苦，但结果让我很满意。",
+      "expected": "positive",
+      "prediction": "positive",
+      "score": 0.6916288128912061,
+      "expected_match": true
+    },
+    {
+      "category": "contrast",
+      "text": "虽然包装很漂亮，但东西实在太难用了。",
+      "expected": "negative",
+      "prediction": "negative",
+      "score": -0.0039142676771074525,
+      "expected_match": true
+    },
+    {
+      "category": "sarcasm",
+      "text": "等了三个小时，服务可真好。",
+      "expected": "negative",
+      "prediction": "negative",
+      "score": -0.6675111957967669,
+      "expected_match": true
+    },
+    {
+      "category": "sarcasm",
+      "text": "刚买就坏了，质量真是好得没话说。",
+      "expected": "negative",
+      "prediction": "negative",
+      "score": -0.5752525040090471,
+      "expected_match": true
+    },
+    {
+      "category": "neutral",
+      "text": "今天是星期六。",
+      "expected": "abstain",
+      "prediction": "positive",
+      "score": 0.4997229530334085,
+      "expected_match": null
+    },
+    {
+      "category": "neutral",
+      "text": "会议在下午三点开始。",
+      "expected": "abstain",
+      "prediction": "negative",
+      "score": -0.048742861408033966,
+      "expected_match": null
+    },
+    {
+      "category": "mixed",
+      "text": "喜欢这里的环境，但是讨厌这里的服务。",
+      "expected": "ambiguous",
+      "prediction": "positive",
+      "score": 0.2862823597013563,
+      "expected_match": null
+    },
+    {
+      "category": "mixed",
+      "text": "收到礼物很开心，可是想到明天分别又很难过。",
+      "expected": "ambiguous",
+      "prediction": "negative",
+      "score": -0.21849939312342703,
+      "expected_match": null
+    },
+    {
+      "category": "user_negation",
+      "text": "我一点也不喜欢原神",
+      "expected": "negative",
+      "prediction": "positive",
+      "score": 0.4149829736768812,
+      "expected_match": false
+    },
+    {
+      "category": "user_contextual_slang",
+      "text": "A/扫码了",
+      "expected": "negative",
+      "context": "Expected label only under the user-provided insulting interpretation; no slang rules added.",
+      "prediction": "positive",
+      "score": 0.14867675219174326,
+      "expected_match": false
+    }
+  ]
+}

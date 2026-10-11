@@ -1,0 +1,1593 @@
+{
+  "name": "weibo_only",
+  "composition": "weibo_only",
+  "variant": "baseline",
+  "rule": "v2",
+  "training": {
+    "rows": 88814,
+    "sources": {
+      "weibo": 88814
+    },
+    "source_labels": {
+      "weibo/0": 44717,
+      "weibo/1": 44097
+    }
+  },
+  "weight_totals": {
+    "weibo/0": 44717.0,
+    "weibo/1": 44097.0
+  },
+  "vectorization_seconds": 5.957325100000162,
+  "dimensions": {
+    "base": 120000
+  },
+  "matrix_nonzero": {
+    "train": 7638430,
+    "validation": 1490419
+  },
+  "runs": [
+    {
+      "seed": 20261010,
+      "evaluation": {
+        "all": {
+          "n": 18331,
+          "accuracy": 0.7918280508428346,
+          "macro_f1": 0.7916905268351405,
+          "negative_f1": 0.7970428677800234,
+          "positive_f1": 0.7863381858902576,
+          "confusion": [
+            [
+              7493,
+              1851
+            ],
+            [
+              1965,
+              7022
+            ]
+          ]
+        },
+        "negation": {
+          "n": 10113,
+          "accuracy": 0.7874023534065064,
+          "macro_f1": 0.777012034383484,
+          "negative_f1": 0.8251463890696161,
+          "positive_f1": 0.7288776796973518,
+          "confusion": [
+            [
+              5073,
+              843
+            ],
+            [
+              1307,
+              2890
+            ]
+          ]
+        },
+        "contrast": {
+          "n": 1669,
+          "accuracy": 0.7273816656680647,
+          "macro_f1": 0.7194865765279568,
+          "negative_f1": 0.7665469471523858,
+          "positive_f1": 0.6724262059035278,
+          "confusion": [
+            [
+              747,
+              132
+            ],
+            [
+              323,
+              467
+            ]
+          ]
+        },
+        "both": {
+          "n": 1479,
+          "accuracy": 0.7261663286004056,
+          "macro_f1": 0.7162862075580281,
+          "negative_f1": 0.7692307692307693,
+          "positive_f1": 0.6633416458852868,
+          "confusion": [
+            [
+              675,
+              105
+            ],
+            [
+              300,
+              399
+            ]
+          ]
+        },
+        "neither": {
+          "n": 8028,
+          "accuracy": 0.7987045341305431,
+          "macro_f1": 0.7890670362808818,
+          "negative_f1": 0.743979721166033,
+          "positive_f1": 0.8341543513957307,
+          "confusion": [
+            [
+              2348,
+              981
+            ],
+            [
+              635,
+              4064
+            ]
+          ]
+        },
+        "double_negation_candidate": {
+          "n": 979,
+          "accuracy": 0.7650663942798774,
+          "macro_f1": 0.7266531674581671,
+          "negative_f1": 0.8291233283803864,
+          "positive_f1": 0.6241830065359477,
+          "confusion": [
+            [
+              558,
+              43
+            ],
+            [
+              187,
+              191
+            ]
+          ]
+        },
+        "source/weibo": {
+          "n": 10908,
+          "accuracy": 0.7763109644297763,
+          "macro_f1": 0.7763100545132211,
+          "negative_f1": 0.7758589013411722,
+          "positive_f1": 0.7767612076852699,
+          "confusion": [
+            [
+              4223,
+              1241
+            ],
+            [
+              1199,
+              4245
+            ]
+          ]
+        },
+        "weibo/negation": {
+          "n": 4913,
+          "accuracy": 0.763281090983106,
+          "macro_f1": 0.7460431094143967,
+          "negative_f1": 0.8122073308574197,
+          "positive_f1": 0.6798788879713735,
+          "confusion": [
+            [
+              2515,
+              479
+            ],
+            [
+              684,
+              1235
+            ]
+          ]
+        },
+        "weibo/contrast": {
+          "n": 640,
+          "accuracy": 0.753125,
+          "macro_f1": 0.7258104751678435,
+          "negative_f1": 0.8123515439429929,
+          "positive_f1": 0.639269406392694,
+          "confusion": [
+            [
+              342,
+              67
+            ],
+            [
+              91,
+              140
+            ]
+          ]
+        },
+        "source/shopping": {
+          "n": 6239,
+          "accuracy": 0.817118127905113,
+          "macro_f1": 0.8168904471135825,
+          "negative_f1": 0.8233472673788512,
+          "positive_f1": 0.8104336268483137,
+          "confusion": [
+            [
+              2659,
+              429
+            ],
+            [
+              712,
+              2439
+            ]
+          ]
+        },
+        "shopping/negation": {
+          "n": 4555,
+          "accuracy": 0.8079034028540066,
+          "macro_f1": 0.8044187655719712,
+          "negative_f1": 0.8305248886306411,
+          "positive_f1": 0.7783126425133012,
+          "confusion": [
+            [
+              2144,
+              282
+            ],
+            [
+              593,
+              1536
+            ]
+          ]
+        },
+        "shopping/contrast": {
+          "n": 941,
+          "accuracy": 0.7056323060573858,
+          "macro_f1": 0.7049271818557448,
+          "negative_f1": 0.7193515704154002,
+          "positive_f1": 0.6905027932960894,
+          "confusion": [
+            [
+              355,
+              50
+            ],
+            [
+              227,
+              309
+            ]
+          ]
+        },
+        "source/waimai": {
+          "n": 1184,
+          "accuracy": 0.8015202702702703,
+          "macro_f1": 0.7903756949116533,
+          "negative_f1": 0.8387096774193549,
+          "positive_f1": 0.7420417124039517,
+          "confusion": [
+            [
+              611,
+              181
+            ],
+            [
+              54,
+              338
+            ]
+          ]
+        },
+        "waimai/negation": {
+          "n": 645,
+          "accuracy": 0.8263565891472868,
+          "macro_f1": 0.7804255319148936,
+          "negative_f1": 0.8808510638297873,
+          "positive_f1": 0.68,
+          "confusion": [
+            [
+              414,
+              82
+            ],
+            [
+              30,
+              119
+            ]
+          ]
+        },
+        "waimai/contrast": {
+          "n": 88,
+          "accuracy": 0.7727272727272727,
+          "macro_f1": 0.7380952380952381,
+          "negative_f1": 0.8333333333333334,
+          "positive_f1": 0.6428571428571429,
+          "confusion": [
+            [
+              50,
+              15
+            ],
+            [
+              5,
+              18
+            ]
+          ]
+        }
+      },
+      "selection_value": 0.7945253988461523,
+      "changes_vs_weibo_same_seed": {
+        "all": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 3816,
+          "both_correct": 14515
+        },
+        "negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 2150,
+          "both_correct": 7963
+        },
+        "contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 455,
+          "both_correct": 1214
+        },
+        "both": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 405,
+          "both_correct": 1074
+        },
+        "neither": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 1616,
+          "both_correct": 6412
+        },
+        "double_negation_candidate": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 230,
+          "both_correct": 749
+        },
+        "source/weibo": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 2440,
+          "both_correct": 8468
+        },
+        "weibo/negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 1163,
+          "both_correct": 3750
+        },
+        "weibo/contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 158,
+          "both_correct": 482
+        },
+        "source/shopping": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 1141,
+          "both_correct": 5098
+        },
+        "shopping/negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 875,
+          "both_correct": 3680
+        },
+        "shopping/contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 277,
+          "both_correct": 664
+        },
+        "source/waimai": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 235,
+          "both_correct": 949
+        },
+        "waimai/negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 112,
+          "both_correct": 533
+        },
+        "waimai/contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 20,
+          "both_correct": 68
+        }
+      },
+      "fit_seconds": 0.40682509999896865,
+      "fit_iterations": 13,
+      "warnings": [],
+      "model_path": "models/daily_review_experiments/20261011_133237/weibo_only_20261010.joblib",
+      "model_sha256": "31d90369d9115b52f361037f3cf114b5ff5cf6c5d39061b513cb4f74a6ba7e15",
+      "reload_verified": true,
+      "diagnostics": [
+        {
+          "category": "positive",
+          "text": "今天终于完成了任务，特别开心。",
+          "expected": "positive",
+          "prediction": "positive",
+          "score": 0.6071653357565016
+        },
+        {
+          "category": "positive",
+          "text": "这次体验很满意，下次还会来。",
+          "expected": "positive",
+          "prediction": "positive",
+          "score": 2.016095071178636
+        },
+        {
+          "category": "negative",
+          "text": "等了三个小时还没解决，真的很失望。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -3.527568668979445
+        },
+        {
+          "category": "negative",
+          "text": "东西坏了，联系了好几次也没人处理。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -2.1636279531896503
+        },
+        {
+          "category": "negation",
+          "text": "今天很开心。",
+          "expected": "positive",
+          "pair": "happy",
+          "prediction": "positive",
+          "score": 2.608834176403245
+        },
+        {
+          "category": "negation",
+          "text": "今天不开心。",
+          "expected": "negative",
+          "pair": "happy",
+          "prediction": "positive",
+          "score": 0.2667423478185743
+        },
+        {
+          "category": "negation",
+          "text": "这次服务让我满意。",
+          "expected": "positive",
+          "pair": "satisfied",
+          "prediction": "positive",
+          "score": 0.09490212712880075
+        },
+        {
+          "category": "negation",
+          "text": "这次服务没有让我满意。",
+          "expected": "negative",
+          "pair": "satisfied",
+          "prediction": "negative",
+          "score": -0.6021121450841814
+        },
+        {
+          "category": "contrast",
+          "text": "虽然过程很辛苦，但结果让我很满意。",
+          "expected": "positive",
+          "prediction": "positive",
+          "score": 0.6916288128912061
+        },
+        {
+          "category": "contrast",
+          "text": "虽然包装很漂亮，但东西实在太难用了。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -0.0039142676771074525
+        },
+        {
+          "category": "sarcasm",
+          "text": "等了三个小时，服务可真好。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -0.6675111957967669
+        },
+        {
+          "category": "sarcasm",
+          "text": "刚买就坏了，质量真是好得没话说。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -0.5752525040090471
+        },
+        {
+          "category": "neutral",
+          "text": "今天是星期六。",
+          "expected": "abstain",
+          "prediction": "positive",
+          "score": 0.4997229530334085
+        },
+        {
+          "category": "neutral",
+          "text": "会议在下午三点开始。",
+          "expected": "abstain",
+          "prediction": "negative",
+          "score": -0.048742861408033966
+        },
+        {
+          "category": "mixed",
+          "text": "喜欢这里的环境，但是讨厌这里的服务。",
+          "expected": "ambiguous",
+          "prediction": "positive",
+          "score": 0.2862823597013563
+        },
+        {
+          "category": "mixed",
+          "text": "收到礼物很开心，可是想到明天分别又很难过。",
+          "expected": "ambiguous",
+          "prediction": "negative",
+          "score": -0.21849939312342703
+        },
+        {
+          "category": "user_negation",
+          "text": "我一点也不喜欢原神",
+          "expected": "negative",
+          "prediction": "positive",
+          "score": 0.4149829736768812
+        }
+      ]
+    },
+    {
+      "seed": 20261011,
+      "evaluation": {
+        "all": {
+          "n": 18331,
+          "accuracy": 0.7900278217227648,
+          "macro_f1": 0.7897795176675928,
+          "negative_f1": 0.797004377406255,
+          "positive_f1": 0.7825546579289305,
+          "confusion": [
+            [
+              7556,
+              1788
+            ],
+            [
+              2061,
+              6926
+            ]
+          ]
+        },
+        "negation": {
+          "n": 10113,
+          "accuracy": 0.7869079402748937,
+          "macro_f1": 0.7754121653077035,
+          "negative_f1": 0.8262236916377711,
+          "positive_f1": 0.7246006389776358,
+          "confusion": [
+            [
+              5123,
+              793
+            ],
+            [
+              1362,
+              2835
+            ]
+          ]
+        },
+        "contrast": {
+          "n": 1669,
+          "accuracy": 0.7177950868783702,
+          "macro_f1": 0.7077113220827519,
+          "negative_f1": 0.7620010106114199,
+          "positive_f1": 0.6534216335540839,
+          "confusion": [
+            [
+              754,
+              125
+            ],
+            [
+              346,
+              444
+            ]
+          ]
+        },
+        "both": {
+          "n": 1479,
+          "accuracy": 0.716024340770791,
+          "macro_f1": 0.7039236620846123,
+          "negative_f1": 0.7637795275590551,
+          "positive_f1": 0.6440677966101694,
+          "confusion": [
+            [
+              679,
+              101
+            ],
+            [
+              319,
+              380
+            ]
+          ]
+        },
+        "neither": {
+          "n": 8028,
+          "accuracy": 0.7953413054309916,
+          "macro_f1": 0.7860960981556219,
+          "negative_f1": 0.7416260418304765,
+          "positive_f1": 0.8305661544807672,
+          "confusion": [
+            [
+              2358,
+              971
+            ],
+            [
+              672,
+              4027
+            ]
+          ]
+        },
+        "double_negation_candidate": {
+          "n": 979,
+          "accuracy": 0.7650663942798774,
+          "macro_f1": 0.7236499754540993,
+          "negative_f1": 0.8306332842415317,
+          "positive_f1": 0.6166666666666667,
+          "confusion": [
+            [
+              564,
+              37
+            ],
+            [
+              193,
+              185
+            ]
+          ]
+        },
+        "source/weibo": {
+          "n": 10908,
+          "accuracy": 0.7753025302530253,
+          "macro_f1": 0.7752976182596838,
+          "negative_f1": 0.7763482069531892,
+          "positive_f1": 0.7742470295661785,
+          "confusion": [
+            [
+              4254,
+              1210
+            ],
+            [
+              1241,
+              4203
+            ]
+          ]
+        },
+        "weibo/negation": {
+          "n": 4913,
+          "accuracy": 0.7645023407286791,
+          "macro_f1": 0.7458793368528096,
+          "negative_f1": 0.8146724331251001,
+          "positive_f1": 0.6770862405805191,
+          "confusion": [
+            [
+              2543,
+              451
+            ],
+            [
+              706,
+              1213
+            ]
+          ]
+        },
+        "weibo/contrast": {
+          "n": 640,
+          "accuracy": 0.7546875,
+          "macro_f1": 0.7254037095641386,
+          "negative_f1": 0.8150765606595995,
+          "positive_f1": 0.6357308584686775,
+          "confusion": [
+            [
+              346,
+              63
+            ],
+            [
+              94,
+              137
+            ]
+          ]
+        },
+        "source/shopping": {
+          "n": 6239,
+          "accuracy": 0.8124699471069081,
+          "macro_f1": 0.8120554370844026,
+          "negative_f1": 0.8208818126148194,
+          "positive_f1": 0.8032290615539859,
+          "confusion": [
+            [
+              2681,
+              407
+            ],
+            [
+              763,
+              2388
+            ]
+          ]
+        },
+        "shopping/negation": {
+          "n": 4555,
+          "accuracy": 0.8048298572996707,
+          "macro_f1": 0.8007217803626904,
+          "negative_f1": 0.8293338452678057,
+          "positive_f1": 0.772109715457575,
+          "confusion": [
+            [
+              2160,
+              266
+            ],
+            [
+              623,
+              1506
+            ]
+          ]
+        },
+        "shopping/contrast": {
+          "n": 941,
+          "accuracy": 0.6865037194473964,
+          "macro_f1": 0.6849538941693857,
+          "negative_f1": 0.7070506454816285,
+          "positive_f1": 0.6628571428571428,
+          "confusion": [
+            [
+              356,
+              49
+            ],
+            [
+              246,
+              290
+            ]
+          ]
+        },
+        "source/waimai": {
+          "n": 1184,
+          "accuracy": 0.8074324324324325,
+          "macro_f1": 0.7955002045361574,
+          "negative_f1": 0.8448979591836735,
+          "positive_f1": 0.7461024498886414,
+          "confusion": [
+            [
+              621,
+              171
+            ],
+            [
+              57,
+              335
+            ]
+          ]
+        },
+        "waimai/negation": {
+          "n": 645,
+          "accuracy": 0.8310077519379845,
+          "macro_f1": 0.7827470805818132,
+          "negative_f1": 0.8851422550052687,
+          "positive_f1": 0.6803519061583577,
+          "confusion": [
+            [
+              420,
+              76
+            ],
+            [
+              33,
+              116
+            ]
+          ]
+        },
+        "waimai/contrast": {
+          "n": 88,
+          "accuracy": 0.7840909090909091,
+          "macro_f1": 0.7435189446234085,
+          "negative_f1": 0.8455284552845529,
+          "positive_f1": 0.6415094339622641,
+          "confusion": [
+            [
+              52,
+              13
+            ],
+            [
+              6,
+              17
+            ]
+          ]
+        }
+      },
+      "selection_value": 0.7942844199600813,
+      "changes_vs_weibo_same_seed": {
+        "all": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 3849,
+          "both_correct": 14482
+        },
+        "negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 2155,
+          "both_correct": 7958
+        },
+        "contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 471,
+          "both_correct": 1198
+        },
+        "both": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 420,
+          "both_correct": 1059
+        },
+        "neither": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 1643,
+          "both_correct": 6385
+        },
+        "double_negation_candidate": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 230,
+          "both_correct": 749
+        },
+        "source/weibo": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 2451,
+          "both_correct": 8457
+        },
+        "weibo/negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 1157,
+          "both_correct": 3756
+        },
+        "weibo/contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 157,
+          "both_correct": 483
+        },
+        "source/shopping": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 1170,
+          "both_correct": 5069
+        },
+        "shopping/negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 889,
+          "both_correct": 3666
+        },
+        "shopping/contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 295,
+          "both_correct": 646
+        },
+        "source/waimai": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 228,
+          "both_correct": 956
+        },
+        "waimai/negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 109,
+          "both_correct": 536
+        },
+        "waimai/contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 19,
+          "both_correct": 69
+        }
+      },
+      "fit_seconds": 0.3765206999996735,
+      "fit_iterations": 12,
+      "warnings": [],
+      "model_path": "models/daily_review_experiments/20261011_133237/weibo_only_20261011.joblib",
+      "model_sha256": "80533c086a9191779ba9aeb2b9ec45628343dc83595e03b3d726e192c1db041d",
+      "reload_verified": true,
+      "diagnostics": [
+        {
+          "category": "positive",
+          "text": "今天终于完成了任务，特别开心。",
+          "expected": "positive",
+          "prediction": "positive",
+          "score": 0.5971186811304696
+        },
+        {
+          "category": "positive",
+          "text": "这次体验很满意，下次还会来。",
+          "expected": "positive",
+          "prediction": "positive",
+          "score": 1.9858382696486123
+        },
+        {
+          "category": "negative",
+          "text": "等了三个小时还没解决，真的很失望。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -3.5559959655427327
+        },
+        {
+          "category": "negative",
+          "text": "东西坏了，联系了好几次也没人处理。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -2.2095203643464436
+        },
+        {
+          "category": "negation",
+          "text": "今天很开心。",
+          "expected": "positive",
+          "pair": "happy",
+          "prediction": "positive",
+          "score": 2.606021141467155
+        },
+        {
+          "category": "negation",
+          "text": "今天不开心。",
+          "expected": "negative",
+          "pair": "happy",
+          "prediction": "positive",
+          "score": 0.23163047975069367
+        },
+        {
+          "category": "negation",
+          "text": "这次服务让我满意。",
+          "expected": "positive",
+          "pair": "satisfied",
+          "prediction": "positive",
+          "score": 0.0902453715181955
+        },
+        {
+          "category": "negation",
+          "text": "这次服务没有让我满意。",
+          "expected": "negative",
+          "pair": "satisfied",
+          "prediction": "negative",
+          "score": -0.6075386052750937
+        },
+        {
+          "category": "contrast",
+          "text": "虽然过程很辛苦，但结果让我很满意。",
+          "expected": "positive",
+          "prediction": "positive",
+          "score": 0.6753879541731485
+        },
+        {
+          "category": "contrast",
+          "text": "虽然包装很漂亮，但东西实在太难用了。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -0.07016553932660735
+        },
+        {
+          "category": "sarcasm",
+          "text": "等了三个小时，服务可真好。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -0.7111532931947104
+        },
+        {
+          "category": "sarcasm",
+          "text": "刚买就坏了，质量真是好得没话说。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -0.6622061973237388
+        },
+        {
+          "category": "neutral",
+          "text": "今天是星期六。",
+          "expected": "abstain",
+          "prediction": "positive",
+          "score": 0.4880737157738813
+        },
+        {
+          "category": "neutral",
+          "text": "会议在下午三点开始。",
+          "expected": "abstain",
+          "prediction": "negative",
+          "score": -0.05820908600324309
+        },
+        {
+          "category": "mixed",
+          "text": "喜欢这里的环境，但是讨厌这里的服务。",
+          "expected": "ambiguous",
+          "prediction": "positive",
+          "score": 0.26779750531679475
+        },
+        {
+          "category": "mixed",
+          "text": "收到礼物很开心，可是想到明天分别又很难过。",
+          "expected": "ambiguous",
+          "prediction": "negative",
+          "score": -0.29175683313840545
+        },
+        {
+          "category": "user_negation",
+          "text": "我一点也不喜欢原神",
+          "expected": "negative",
+          "prediction": "positive",
+          "score": 0.36456341093546235
+        }
+      ]
+    },
+    {
+      "seed": 20261012,
+      "evaluation": {
+        "all": {
+          "n": 18331,
+          "accuracy": 0.7905187933009655,
+          "macro_f1": 0.7903361744015063,
+          "negative_f1": 0.7965239508266214,
+          "positive_f1": 0.7841483979763912,
+          "confusion": [
+            [
+              7516,
+              1828
+            ],
+            [
+              2012,
+              6975
+            ]
+          ]
+        },
+        "negation": {
+          "n": 10113,
+          "accuracy": 0.7863146445169583,
+          "macro_f1": 0.775227957659591,
+          "negative_f1": 0.8251476656687434,
+          "positive_f1": 0.7253082496504385,
+          "confusion": [
+            [
+              5099,
+              817
+            ],
+            [
+              1344,
+              2853
+            ]
+          ]
+        },
+        "contrast": {
+          "n": 1669,
+          "accuracy": 0.7183942480527262,
+          "macro_f1": 0.708532492702444,
+          "negative_f1": 0.7621457489878543,
+          "positive_f1": 0.6549192364170338,
+          "confusion": [
+            [
+              753,
+              126
+            ],
+            [
+              344,
+              446
+            ]
+          ]
+        },
+        "both": {
+          "n": 1479,
+          "accuracy": 0.7173766058147397,
+          "macro_f1": 0.7055008688891937,
+          "negative_f1": 0.7646396396396397,
+          "positive_f1": 0.6463620981387479,
+          "confusion": [
+            [
+              679,
+              101
+            ],
+            [
+              317,
+              382
+            ]
+          ]
+        },
+        "neither": {
+          "n": 8028,
+          "accuracy": 0.7973343298455406,
+          "macro_f1": 0.7876430765200746,
+          "negative_f1": 0.7422778393790591,
+          "positive_f1": 0.83300831366109,
+          "confusion": [
+            [
+              2343,
+              986
+            ],
+            [
+              641,
+              4058
+            ]
+          ]
+        },
+        "double_negation_candidate": {
+          "n": 979,
+          "accuracy": 0.763023493360572,
+          "macro_f1": 0.7217632473858036,
+          "negative_f1": 0.8289085545722714,
+          "positive_f1": 0.6146179401993356,
+          "confusion": [
+            [
+              562,
+              39
+            ],
+            [
+              193,
+              185
+            ]
+          ]
+        },
+        "source/weibo": {
+          "n": 10908,
+          "accuracy": 0.7756692335900257,
+          "macro_f1": 0.7756686887142765,
+          "negative_f1": 0.7753190707923974,
+          "positive_f1": 0.7760183066361556,
+          "confusion": [
+            [
+              4222,
+              1242
+            ],
+            [
+              1205,
+              4239
+            ]
+          ]
+        },
+        "weibo/negation": {
+          "n": 4913,
+          "accuracy": 0.7634846326073682,
+          "macro_f1": 0.7458251233808051,
+          "negative_f1": 0.8128221649484536,
+          "positive_f1": 0.6788280818131565,
+          "confusion": [
+            [
+              2523,
+              471
+            ],
+            [
+              691,
+              1228
+            ]
+          ]
+        },
+        "weibo/contrast": {
+          "n": 640,
+          "accuracy": 0.7578125,
+          "macro_f1": 0.7301231041284091,
+          "negative_f1": 0.8165680473372781,
+          "positive_f1": 0.6436781609195402,
+          "confusion": [
+            [
+              345,
+              64
+            ],
+            [
+              91,
+              140
+            ]
+          ]
+        },
+        "source/shopping": {
+          "n": 6239,
+          "accuracy": 0.8140727680718064,
+          "macro_f1": 0.8137002127304666,
+          "negative_f1": 0.8220312979441546,
+          "positive_f1": 0.8053691275167785,
+          "confusion": [
+            [
+              2679,
+              409
+            ],
+            [
+              751,
+              2400
+            ]
+          ]
+        },
+        "shopping/negation": {
+          "n": 4555,
+          "accuracy": 0.8050493962678376,
+          "macro_f1": 0.8009842835819956,
+          "negative_f1": 0.8294275835574337,
+          "positive_f1": 0.7725409836065574,
+          "confusion": [
+            [
+              2159,
+              267
+            ],
+            [
+              621,
+              1508
+            ]
+          ]
+        },
+        "shopping/contrast": {
+          "n": 941,
+          "accuracy": 0.6854410201912858,
+          "macro_f1": 0.6837405758924516,
+          "negative_f1": 0.7069306930693069,
+          "positive_f1": 0.6605504587155964,
+          "confusion": [
+            [
+              357,
+              48
+            ],
+            [
+              248,
+              288
+            ]
+          ]
+        },
+        "source/waimai": {
+          "n": 1184,
+          "accuracy": 0.8032094594594594,
+          "macro_f1": 0.7916398228116751,
+          "negative_f1": 0.8407382091592618,
+          "positive_f1": 0.7425414364640884,
+          "confusion": [
+            [
+              615,
+              177
+            ],
+            [
+              56,
+              336
+            ]
+          ]
+        },
+        "waimai/negation": {
+          "n": 645,
+          "accuracy": 0.827906976744186,
+          "macro_f1": 0.78040027605245,
+          "negative_f1": 0.8825396825396825,
+          "positive_f1": 0.6782608695652174,
+          "confusion": [
+            [
+              417,
+              79
+            ],
+            [
+              32,
+              117
+            ]
+          ]
+        },
+        "waimai/contrast": {
+          "n": 88,
+          "accuracy": 0.7840909090909091,
+          "macro_f1": 0.7487603305785124,
+          "negative_f1": 0.8429752066115702,
+          "positive_f1": 0.6545454545454545,
+          "confusion": [
+            [
+              51,
+              14
+            ],
+            [
+              5,
+              18
+            ]
+          ]
+        }
+      },
+      "selection_value": 0.7936695747521395,
+      "changes_vs_weibo_same_seed": {
+        "all": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 3840,
+          "both_correct": 14491
+        },
+        "negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 2161,
+          "both_correct": 7952
+        },
+        "contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 470,
+          "both_correct": 1199
+        },
+        "both": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 418,
+          "both_correct": 1061
+        },
+        "neither": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 1627,
+          "both_correct": 6401
+        },
+        "double_negation_candidate": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 232,
+          "both_correct": 747
+        },
+        "source/weibo": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 2447,
+          "both_correct": 8461
+        },
+        "weibo/negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 1162,
+          "both_correct": 3751
+        },
+        "weibo/contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 155,
+          "both_correct": 485
+        },
+        "source/shopping": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 1160,
+          "both_correct": 5079
+        },
+        "shopping/negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 888,
+          "both_correct": 3667
+        },
+        "shopping/contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 296,
+          "both_correct": 645
+        },
+        "source/waimai": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 233,
+          "both_correct": 951
+        },
+        "waimai/negation": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 111,
+          "both_correct": 534
+        },
+        "waimai/contrast": {
+          "corrected": 0,
+          "regressed": 0,
+          "still_wrong": 19,
+          "both_correct": 69
+        }
+      },
+      "fit_seconds": 0.3749907000001258,
+      "fit_iterations": 12,
+      "warnings": [],
+      "model_path": "models/daily_review_experiments/20261011_133237/weibo_only_20261012.joblib",
+      "model_sha256": "93a6b3bca50ef39c162b2ca9666bab7ed99ee8df8b4dcf851a6c86c3cbdb8d6f",
+      "reload_verified": true,
+      "diagnostics": [
+        {
+          "category": "positive",
+          "text": "今天终于完成了任务，特别开心。",
+          "expected": "positive",
+          "prediction": "positive",
+          "score": 0.5537712717840149
+        },
+        {
+          "category": "positive",
+          "text": "这次体验很满意，下次还会来。",
+          "expected": "positive",
+          "prediction": "positive",
+          "score": 1.9739179755041076
+        },
+        {
+          "category": "negative",
+          "text": "等了三个小时还没解决，真的很失望。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -3.5450523947885557
+        },
+        {
+          "category": "negative",
+          "text": "东西坏了，联系了好几次也没人处理。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -2.189661846082501
+        },
+        {
+          "category": "negation",
+          "text": "今天很开心。",
+          "expected": "positive",
+          "pair": "happy",
+          "prediction": "positive",
+          "score": 2.5903688813039736
+        },
+        {
+          "category": "negation",
+          "text": "今天不开心。",
+          "expected": "negative",
+          "pair": "happy",
+          "prediction": "positive",
+          "score": 0.2172274137327148
+        },
+        {
+          "category": "negation",
+          "text": "这次服务让我满意。",
+          "expected": "positive",
+          "pair": "satisfied",
+          "prediction": "positive",
+          "score": 0.07737921126575009
+        },
+        {
+          "category": "negation",
+          "text": "这次服务没有让我满意。",
+          "expected": "negative",
+          "pair": "satisfied",
+          "prediction": "negative",
+          "score": -0.6138486718347596
+        },
+        {
+          "category": "contrast",
+          "text": "虽然过程很辛苦，但结果让我很满意。",
+          "expected": "positive",
+          "prediction": "positive",
+          "score": 0.6559349293300583
+        },
+        {
+          "category": "contrast",
+          "text": "虽然包装很漂亮，但东西实在太难用了。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -0.0643982147386597
+        },
+        {
+          "category": "sarcasm",
+          "text": "等了三个小时，服务可真好。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -0.7100056266000794
+        },
+        {
+          "category": "sarcasm",
+          "text": "刚买就坏了，质量真是好得没话说。",
+          "expected": "negative",
+          "prediction": "negative",
+          "score": -0.6243017768075989
+        },
+        {
+          "category": "neutral",
+          "text": "今天是星期六。",
+          "expected": "abstain",
+          "prediction": "positive",
+          "score": 0.4619850213119461
+        },
+        {
+          "category": "neutral",
+          "text": "会议在下午三点开始。",
+          "expected": "abstain",
+          "prediction": "negative",
+          "score": -0.04665981284885867
+        },
+        {
+          "category": "mixed",
+          "text": "喜欢这里的环境，但是讨厌这里的服务。",
+          "expected": "ambiguous",
+          "prediction": "positive",
+          "score": 0.2486578965970947
+        },
+        {
+          "category": "mixed",
+          "text": "收到礼物很开心，可是想到明天分别又很难过。",
+          "expected": "ambiguous",
+          "prediction": "negative",
+          "score": -0.2797927712610291
+        },
+        {
+          "category": "user_negation",
+          "text": "我一点也不喜欢原神",
+          "expected": "negative",
+          "prediction": "positive",
+          "score": 0.3996572340318634
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "selection_mean": 0.794159797852791,
+    "selection_std": 0.0004413124994743316,
+    "validation": {
+      "all": {
+        "n": 18331,
+        "accuracy_mean": 0.7907915552888549,
+        "accuracy_std": 0.0009305941906732992,
+        "macro_f1_mean": 0.7906020729680799,
+        "macro_f1_std": 0.0009828608982924653
+      },
+      "negation": {
+        "n": 10113,
+        "accuracy_mean": 0.7868749793994528,
+        "accuracy_std": 0.0005446030403724128,
+        "macro_f1_mean": 0.7758840524502594,
+        "macro_f1_std": 0.0009811934292821402
+      },
+      "contrast": {
+        "n": 1669,
+        "accuracy_mean": 0.7211903335330537,
+        "accuracy_std": 0.005370213564908641,
+        "macro_f1_mean": 0.7119101304377176,
+        "macro_f1_std": 0.006574228609912136
+      },
+      "both": {
+        "n": 1479,
+        "accuracy_mean": 0.7198557583953121,
+        "accuracy_std": 0.005506780132012888,
+        "macro_f1_mean": 0.708570246177278,
+        "macro_f1_std": 0.006728591260287993
+      },
+      "neither": {
+        "n": 8028,
+        "accuracy_mean": 0.7971267231356918,
+        "accuracy_std": 0.0016911984599249327,
+        "macro_f1_mean": 0.7876020703188594,
+        "macro_f1_std": 0.001485893491282046
+      },
+      "double_negation_candidate": {
+        "n": 979,
+        "accuracy_mean": 0.7643854273067756,
+        "accuracy_std": 0.0011794693956887524,
+        "macro_f1_mean": 0.7240221300993567,
+        "macro_f1_std": 0.002466111086004841
+      },
+      "source/weibo": {
+        "n": 10908,
+        "accuracy_mean": 0.7757609094242758,
+        "accuracy_std": 0.0005104294428703679,
+        "macro_f1_mean": 0.7757587871623938,
+        "macro_f1_std": 0.0005121963389502334
+      },
+      "weibo/negation": {
+        "n": 4913,
+        "accuracy_mean": 0.7637560214397178,
+        "accuracy_std": 0.00065429477990321,
+        "macro_f1_mean": 0.745915856549337,
+        "macro_f1_std": 0.00011348895931364165
+      },
+      "weibo/contrast": {
+        "n": 640,
+        "accuracy_mean": 0.7552083333333334,
+        "accuracy_std": 0.0023867581744561523,
+        "macro_f1_mean": 0.7271124296201302,
+        "macro_f1_std": 0.0026152409659893246
+      },
+      "source/shopping": {
+        "n": 6239,
+        "accuracy_mean": 0.8145536143612758,
+        "accuracy_std": 0.002361102718810096,
+        "macro_f1_mean": 0.8142153656428173,
+        "macro_f1_std": 0.0024583261353805317
+      },
+      "shopping/negation": {
+        "n": 4555,
+        "accuracy_mean": 0.8059275521405049,
+        "accuracy_std": 0.0017146541549740355,
+        "macro_f1_mean": 0.8020416098388857,
+        "macro_f1_std": 0.002062857004143125
+      },
+      "shopping/contrast": {
+        "n": 941,
+        "accuracy_mean": 0.6925256818986893,
+        "accuracy_std": 0.011363099491566053,
+        "macro_f1_mean": 0.6912072173058608,
+        "macro_f1_std": 0.011897315064662376
+      },
+      "source/waimai": {
+        "n": 1184,
+        "accuracy_mean": 0.8040540540540541,
+        "accuracy_std": 0.003045229117790543,
+        "macro_f1_mean": 0.792505240753162,
+        "macro_f1_std": 0.0026696181155727956
+      },
+      "waimai/negation": {
+        "n": 645,
+        "accuracy_mean": 0.8284237726098191,
+        "accuracy_std": 0.00236825617310379,
+        "macro_f1_mean": 0.781190962849719,
+        "macro_f1_std": 0.0013476966504931966
+      },
+      "waimai/contrast": {
+        "n": 88,
+        "accuracy_mean": 0.7803030303030303,
+        "accuracy_std": 0.006560798513518469,
+        "macro_f1_mean": 0.743458171099053,
+        "macro_f1_std": 0.005332805967325777
+      }
+    }
+  }
+}

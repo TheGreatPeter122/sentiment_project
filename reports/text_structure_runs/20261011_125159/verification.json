@@ -1,0 +1,12 @@
+{
+  "run_id": "20261011_125159",
+  "models_reloaded_and_full_validation_predictions_verified": 3,
+  "base_vocabularies_and_idf_identical": true,
+  "validation_subsets_independently_recounted": 18,
+  "trace_rows_verified": 99722,
+  "demo_model_unchanged": true,
+  "code_hashes_match": true,
+  "unit_tests_passed": 11,
+  "test_set_predictions_performed": false,
+  "review": "Independent code review found no critical or important issues."
+}

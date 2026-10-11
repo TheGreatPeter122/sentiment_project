@@ -12,15 +12,21 @@
 
 项目从数据清洗到字符扩展、中文分词实验中遇到的问题和实际结论，集中记录在 [项目过程记录](reports/development_log.md)。
 
+前一轮[否定、转折特征实验与数据处理记录](reports/text_structure_process.md)按阶段记录输入校验、清洗、候选提取、向量化、训练及误判对照。使用原有 88,814 条训练记录和 10,908 条验证记录，三组验证准确率为 77.6311%、77.5211%、77.6494%；整体尚无明确优势，该轮没有替换网页模型。复现：`python scripts/train_structure_experiment.py`；测试：`python -m unittest discover -s tests -v`。
+
+后续完成[日常评论多来源优化](reports/daily_review_process.md)：使用微博、购物和外卖共 148,216 条训练记录，五组方案各训练三个固定种子，按三来源验证 Macro-F1 等权平均选择“直接混合＋结构 v2”。在锁定模型后的 7,429 条外部保留测试中，准确率为 **91.68%**，同轮微博单来源对照为 **80.05%**；微博验证表现略有退步，部分否定／转折诊断句仍然失败。报告记录了清洗、划分、来源权重、词内误命中处理、计算耗时和三张对照图，人工情感标注暂缓，社群黑话不在该实验范围。
+
+网页已同步使用这轮选定的“直接混合＋结构 v2”（固定种子 `20261010`）。演示模型保存为 `models/daily_review.joblib`，版本与 SHA256 记录在 `models/daily_review.json`；与锁定的实验模型逐字节一致。网页与命令行共用预测入口：`python scripts/predict_daily_reviews.py "今天不开心。" "我一点也不喜欢原神"`。实验模型及逐条原文仍保存在本地 Git 忽略目录；后续训练不会自动改变演示版本。训练依赖使用 `requirements-demo.txt`，生成报告图表另安装 `requirements-report.txt`。新外部测试已评价，后续调参不能反复用它宣称独立提升。
+
 ## 给同学使用：双击启动（Windows）
 
 把整个 `sentiment_project` 文件夹发给同学，或让同学下载仓库的 ZIP 并解压。电脑安装 **Python 3.12** 后，双击 [start_demo.bat](start_demo.bat)；首次启动需要联网安装演示依赖，之后会自动打开浏览器。输入一句中文短文本即可看到情感判断。启动窗口需要保持打开；关闭窗口就会停止服务。无需 VS Code、GitHub 账号、原始数据或 Spark。
 
-每台电脑各自运行，页面地址为 `http://127.0.0.1:8765`，只能在运行程序的那台电脑上访问。仓库里的 `models/baseline.joblib` 必须一起保留。若端口被占用，先关闭之前启动的演示窗口。
+每台电脑各自运行，页面地址为 `http://127.0.0.1:8765`，只能在运行程序的那台电脑上访问。分发项目时保留 `models/daily_review.joblib`、`models/daily_review.json` 及项目中的 Python 源文件。若端口被占用，先关闭之前启动的演示窗口。更新模型后需要重新启动服务，再刷新页面。
 
 ## 命令行运行
 
-本地演示使用已提交的 `models/baseline.joblib`，原始语料和训练环境不随 Git 提交。使用 Python 3.12，在本项目目录运行：
+本地演示使用固定的 `models/daily_review.joblib`，无需原始语料或实验目录。使用 Python 3.12，在本项目目录运行：
 
 ```powershell
 py -3.12 -m venv .venv
@@ -41,11 +47,11 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe scripts\train_word_baseline.py
 ```
 
-结果写入 `reports/word_baseline_results.json`，模型分别保存为 `models/word_baseline.joblib` 和 `models/hybrid_baseline.joblib`。实验不会覆盖网页使用的 `models/baseline.joblib`，也不使用测试集选模型。原字符模型验证集准确率 77.66%，纯分词模型 76.33%，组合模型 77.86%；组合方案只提升 0.20 个百分点，固定诊断句正确数仍是 11/12，因此暂不替换网页默认模型。分词和词组可能捕捉否定表达，但对分词错误、口语与新词仍敏感。
+结果写入 `reports/word_baseline_results.json`，模型分别保存为 `models/word_baseline.joblib` 和 `models/hybrid_baseline.joblib`。实验不会覆盖初版 `models/baseline.joblib`，也不使用测试集选模型。原字符模型验证集准确率 77.66%，纯分词模型 76.33%，组合模型 77.86%；组合方案只提升 0.20 个百分点，固定诊断句正确数仍是 11/12，因此该轮没有替换网页默认模型。分词和词组可能捕捉否定表达，但对分词错误、口语与新词仍敏感。
 
-## 新增外部评论数据（仅清洗，未训练）
+## 外部评论数据：最初清洗记录与后续训练
 
-增加 [购物评论 10 类](https://github.com/SophonPlus/ChineseNlpCorpus/tree/a0b781d72158bde242c0626c9e354d2b328865ff/datasets/online_shopping_10_cats)和[外卖评论](https://github.com/SophonPlus/ChineseNlpCorpus/tree/a0b781d72158bde242c0626c9e354d2b328865ff/datasets/waimai_10k)。原始 62,774 + 11,987 条；经过标签／空文本检查、空白规范化、冲突与重复文本处理，并排除与现有微博训练／验证／测试集正文指纹重合的记录后，得到 **74,274 条**。清洗结果在本机 `data/processed/external_clean.jsonl`，数量、标签、类别和文件哈希见 `reports/external_data_audit.json`。这份数据没有并入原有划分，也没有用于训练。
+增加 [购物评论 10 类](https://github.com/SophonPlus/ChineseNlpCorpus/tree/a0b781d72158bde242c0626c9e354d2b328865ff/datasets/online_shopping_10_cats)和[外卖评论](https://github.com/SophonPlus/ChineseNlpCorpus/tree/a0b781d72158bde242c0626c9e354d2b328865ff/datasets/waimai_10k)。原始 62,774 + 11,987 条；经过标签／空文本检查、空白规范化、冲突与重复文本处理，并排除与现有微博训练／验证／测试集正文指纹重合的记录后，得到 **74,274 条**。清洗结果在本机 `data/processed/external_clean.jsonl`，数量、标签、类别和文件哈希见 `reports/external_data_audit.json`。最初清洗阶段没有用于训练；后续日常评论实验隔离 20 条跨来源共有文本，另外固定划分为训练 59,402、验证 7,423、保留测试 7,429 条。原微博划分保持不变，详见上面的日常评论多来源优化记录。
 
 在项目目录复现下载和清洗：
 
