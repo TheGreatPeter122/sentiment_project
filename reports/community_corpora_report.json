@@ -1,0 +1,254 @@
+{
+  "prepared_at": "2026-10-11T10:54:27.975029+08:00",
+  "sources": {
+    "toxicn": {
+      "url": "https://github.com/DUT-lujunyu/ToxiCN",
+      "commit": "91d8f6a449967bd310364544d535d6310e45043b",
+      "license_declared_by_upstream": "CC BY-NC-ND 4.0; research only, non-commercial",
+      "record_count": 12011
+    },
+    "hed_cold": {
+      "url": "https://github.com/sjie320/HED_COLDataset",
+      "commit": "43431e81902d4419e28a332a5280c312e5277e68",
+      "license_declared_by_upstream": "MIT, as declared in upstream README",
+      "record_count": 10000
+    },
+    "cold": {
+      "url": "https://github.com/thu-coai/COLDataset",
+      "commit": "a0c55a945497ab58e94aef491180e1cf88ffb864",
+      "license_declared_by_upstream": "Apache-2.0",
+      "record_count": 37480
+    },
+    "ocnli": {
+      "url": "https://github.com/CLUEbenchmark/OCNLI",
+      "commit": "b53efdee17257a5c33993cf6fcf8ffff0497ea0e",
+      "license_declared_by_upstream": "CC BY-NC 2.0",
+      "record_count": 56486
+    }
+  },
+  "total_normalized_records": 115977,
+  "unique_lexicon_terms": 537,
+  "lexicon_entries_before_deduplication": 537,
+  "category_counts": {
+    "cold": {
+      "offensive": 15934,
+      "non_offensive": 16223,
+      "attack_group": 1819,
+      "attack_individual": 288,
+      "anti_bias": 668,
+      "non_offensive_other": 2548
+    },
+    "toxicn": {
+      "non_toxic": 5550,
+      "hate_implicit": 1995,
+      "hate_explicit": 2737,
+      "general_offensive": 816,
+      "hate_reporting": 913
+    },
+    "hed_cold": {
+      "non_offensive_variant": 4887,
+      "offensive_variant": 5113
+    }
+  },
+  "nli_label_counts": {
+    "entailment": 17726,
+    "neutral": 18285,
+    "contradiction": 17376,
+    "no_annotator_consensus": 99,
+    "unlabeled": 3000
+  },
+  "hed_cold_original_split_alignment": {
+    "hed_dev__cold_dev": 134,
+    "hed_dev__cold_test": 83,
+    "hed_dev__cold_train": 483,
+    "hed_test__cold_dev": 528,
+    "hed_test__cold_test": 451,
+    "hed_test__cold_train": 2021,
+    "hed_train__cold_dev": 1107,
+    "hed_train__cold_test": 884,
+    "hed_train__cold_train": 4309
+  },
+  "combined_offensive_counts": {
+    "train": 37010,
+    "dev": 8113,
+    "test": 14304
+  },
+  "combined_split_rule": "Entire original/variant/duplicate group moves to most restrictive official split: test > dev > train. Exact-label-conflict groups are excluded for review.",
+  "combined_train_groups": 32676,
+  "combined_dev_groups": 6363,
+  "combined_test_groups": 10269,
+  "exact_text_label_conflicts": 25,
+  "label_conflict_groups": 25,
+  "combined_quarantined_records": 64,
+  "records_moved_to_protect_holdouts": 5216,
+  "all_sentiment_labels_are_unannotated": true,
+  "original_variant_alignment_verified": 10000,
+  "cold_declared_split_differs_from_filename": 3215,
+  "combined_group_overlap": {
+    "train_dev": 0,
+    "train_test": 0,
+    "dev_test": 0
+  },
+  "ocnli_training_subsets_not_concatenated": [
+    "train.3k.json",
+    "train.10k.json",
+    "train.30k.json"
+  ],
+  "output_counts": {
+    "annotation/community_examples_to_annotate.csv": 540,
+    "annotation/slang_dictionary_to_annotate.csv": 537,
+    "by_category/cold/anti_bias.jsonl": 668,
+    "by_category/cold/attack_group.jsonl": 1819,
+    "by_category/cold/attack_individual.jsonl": 288,
+    "by_category/cold/non_offensive.jsonl": 16223,
+    "by_category/cold/non_offensive_other.jsonl": 2548,
+    "by_category/cold/offensive.jsonl": 15934,
+    "by_category/hed_cold/non_offensive_variant.jsonl": 4887,
+    "by_category/hed_cold/offensive_variant.jsonl": 5113,
+    "by_category/ocnli/contradiction.jsonl": 17376,
+    "by_category/ocnli/contrast_candidates.jsonl": 4065,
+    "by_category/ocnli/double_negation_candidates.jsonl": 170,
+    "by_category/ocnli/entailment.jsonl": 17726,
+    "by_category/ocnli/negation_candidates.jsonl": 25747,
+    "by_category/ocnli/neutral.jsonl": 18285,
+    "by_category/ocnli/no_consensus.jsonl": 99,
+    "by_category/ocnli/unlabeled_test.jsonl": 3000,
+    "by_category/toxicn/general_offensive.jsonl": 816,
+    "by_category/toxicn/hate_explicit.jsonl": 2737,
+    "by_category/toxicn/hate_implicit.jsonl": 1995,
+    "by_category/toxicn/hate_reporting.jsonl": 913,
+    "by_category/toxicn/non_toxic.jsonl": 5550,
+    "by_source/cold/dev.jsonl": 6431,
+    "by_source/cold/test.jsonl": 5323,
+    "by_source/cold/train.jsonl": 25726,
+    "by_source/hed_cold/dev.jsonl": 700,
+    "by_source/hed_cold/test.jsonl": 3000,
+    "by_source/hed_cold/train.jsonl": 6300,
+    "by_source/ocnli/dev.jsonl": 3000,
+    "by_source/ocnli/test.jsonl": 3000,
+    "by_source/ocnli/train.jsonl": 50486,
+    "by_source/toxicn/test.jsonl": 2411,
+    "by_source/toxicn/train.jsonl": 9600,
+    "combined_offensive/dev.jsonl": 8113,
+    "combined_offensive/needs_label_review.jsonl": 64,
+    "combined_offensive/test.jsonl": 14304,
+    "combined_offensive/train.jsonl": 37010,
+    "lexicon/toxicn_terms.jsonl": 537
+  },
+  "input_files": [
+    {
+      "path": "data/raw/community_corpora/cold/COLDataset/dev.csv",
+      "bytes": 1016319,
+      "sha256": "28e67a26815aa1852449ba06919e51c07060d146e2bd23101cc0137a0ff94b7c"
+    },
+    {
+      "path": "data/raw/community_corpora/cold/COLDataset/test.csv",
+      "bytes": 866973,
+      "sha256": "b06d31481f0d558b6dc8140408938abe8dba8083cd9976b4ba8f5c837fbe78ed"
+    },
+    {
+      "path": "data/raw/community_corpora/cold/COLDataset/train.csv",
+      "bytes": 4131002,
+      "sha256": "16ca7955bdcaf90f5d8ac39e51eb3eda15320caa1e730ed45cb5e8ca8cd0d5e8"
+    },
+    {
+      "path": "data/raw/community_corpora/hed_cold/dataset/dev.csv",
+      "bytes": 114119,
+      "sha256": "ae6bfca6c512dd98f5546dee495c828791d77ae53d2bc5b2b8ba49c884e0f812"
+    },
+    {
+      "path": "data/raw/community_corpora/hed_cold/dataset/test.csv",
+      "bytes": 457202,
+      "sha256": "18a99e4f2ca2a950c78ef957b171cb46e4b37c6ecb58696c812f614e2bbea0da"
+    },
+    {
+      "path": "data/raw/community_corpora/hed_cold/dataset/train.csv",
+      "bytes": 1017373,
+      "sha256": "721755f33b5acd1ddfce8a4dac0493b1fab5e560c0ca4aebbe9d23d8ac94262c"
+    },
+    {
+      "path": "data/raw/community_corpora/hed_cold/traceability/sampled_dev_data.csv",
+      "bytes": 118732,
+      "sha256": "1229918c379da34dfcb2aa717f5507f00f75160fed2f788c1e9a424f1f5dcbb4"
+    },
+    {
+      "path": "data/raw/community_corpora/hed_cold/traceability/sampled_test_data.csv",
+      "bytes": 473764,
+      "sha256": "71cab7454716828f1e89de1a41048f419af155d1754eebb3beb00459dbaa7cfb"
+    },
+    {
+      "path": "data/raw/community_corpora/hed_cold/traceability/sampled_train_data.csv",
+      "bytes": 1046177,
+      "sha256": "8ecd2143ae1c598e1968b2de6210d2ca3099351e11ecbbc5659eac11714e939a"
+    },
+    {
+      "path": "data/raw/community_corpora/ocnli/data/ocnli/dev.json",
+      "bytes": 977426,
+      "sha256": "001ded235d73a18dac68a45a38cd5f9b3f9311fa4246df623e199422c073ddc5"
+    },
+    {
+      "path": "data/raw/community_corpora/ocnli/data/ocnli/test.json",
+      "bytes": 440950,
+      "sha256": "5fb387fd5188ea7de7c13dda0c56d44fba50d526a126a7926a5e5d131fde86bb"
+    },
+    {
+      "path": "data/raw/community_corpora/ocnli/data/ocnli/train.50k.json",
+      "bytes": 14627367,
+      "sha256": "cb47a6c00105bfb49bbb791dd537b284d3138f9f1ad5cd1e187afc470ff004e0"
+    },
+    {
+      "path": "data/raw/community_corpora/toxicn/ToxiCN_1.0.csv",
+      "bytes": 2318453,
+      "sha256": "e94e50136d8c381b5f2a396fccf11fd824d8a922c7fc5369274e9da4c6537566"
+    },
+    {
+      "path": "data/raw/community_corpora/toxicn/ToxiCN_ex/ToxiCN/data/test.json",
+      "bytes": 747893,
+      "sha256": "fdb2ea9cdb7560fa182675447e746d69f401e8a28d34d843b53f89cd7c2f450c"
+    },
+    {
+      "path": "data/raw/community_corpora/toxicn/ToxiCN_ex/ToxiCN/data/train.json",
+      "bytes": 3011659,
+      "sha256": "1616ce7edef507f972dbd6038f5e0209afde4c391369e7e3fe582e883d35353f"
+    },
+    {
+      "path": "data/raw/community_corpora/toxicn/ToxiCN_ex/ToxiCN/lexicon/general.json",
+      "bytes": 4960,
+      "sha256": "e042fe5483d2543b5425d442682e766f95e7a3274e5438a8d00d429a0599038f"
+    },
+    {
+      "path": "data/raw/community_corpora/toxicn/ToxiCN_ex/ToxiCN/lexicon/LGBT.json",
+      "bytes": 696,
+      "sha256": "8e65e8944d9c9f9256b94bf9c5b5249d7fa794d9f0fa8bf9fff8ea3380865a9b"
+    },
+    {
+      "path": "data/raw/community_corpora/toxicn/ToxiCN_ex/ToxiCN/lexicon/racism.json",
+      "bytes": 3923,
+      "sha256": "05ed05ec5824b313d9964bf93dd9b4a5881350c420662243df6ce48b3fe4202b"
+    },
+    {
+      "path": "data/raw/community_corpora/toxicn/ToxiCN_ex/ToxiCN/lexicon/region.json",
+      "bytes": 1243,
+      "sha256": "32f55a9c55ebe222df39ef699f385c2135bd003dadbf9bdbb8fe66d7ed8b27a6"
+    },
+    {
+      "path": "data/raw/community_corpora/toxicn/ToxiCN_ex/ToxiCN/lexicon/sexism.json",
+      "bytes": 3066,
+      "sha256": "f9170c73f684ccc54c5c4078a99a30c41474a577ef2e6e37feb818990f54cb5b"
+    }
+  ],
+  "preserved_existing_annotation_files": [
+    "annotation/slang_dictionary_to_annotate.csv",
+    "annotation/community_examples_to_annotate.csv"
+  ],
+  "limitations": [
+    "Offensiveness and NLI labels are not sentiment labels.",
+    "Negation/contrast candidate tags are regex matches, not semantic ground truth.",
+    "Lexicon values are model token IDs, not definitions.",
+    "Exact normalization plus supplied HED-COLD ancestry does not detect all paraphrase leakage.",
+    "The combined split is a derived local experiment split, not an official benchmark split.",
+    "These public resources do not guarantee coverage of recent community slang such as A/ or 扫码了.",
+    "Annotation CSVs are development queues, not independent evaluation sets.",
+    "Respect each upstream license; generated data remain in ignored local directories."
+  ]
+}
