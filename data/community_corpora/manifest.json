@@ -1,0 +1,377 @@
+{
+  "format_version": 1,
+  "prepared_date": "2026-10-11",
+  "purpose": "Non-commercial course research; each upstream license applies separately.",
+  "sources": {
+    "toxicn": {
+      "url": "https://github.com/DUT-lujunyu/ToxiCN",
+      "commit": "91d8f6a449967bd310364544d535d6310e45043b",
+      "license_declared_by_upstream": "CC BY-NC-ND 4.0; research only, non-commercial",
+      "record_count": 12011
+    },
+    "hed_cold": {
+      "url": "https://github.com/sjie320/HED_COLDataset",
+      "commit": "43431e81902d4419e28a332a5280c312e5277e68",
+      "license_declared_by_upstream": "MIT, as declared in upstream README",
+      "record_count": 10000
+    },
+    "cold": {
+      "url": "https://github.com/thu-coai/COLDataset",
+      "commit": "a0c55a945497ab58e94aef491180e1cf88ffb864",
+      "license_declared_by_upstream": "Apache-2.0",
+      "record_count": 37480
+    },
+    "ocnli": {
+      "url": "https://github.com/CLUEbenchmark/OCNLI",
+      "commit": "b53efdee17257a5c33993cf6fcf8ffff0497ea0e",
+      "license_declared_by_upstream": "CC BY-NC 2.0",
+      "record_count": 56486
+    }
+  },
+  "archives": [
+    {
+      "source": "cold",
+      "kind": "raw",
+      "path": "data/community_corpora/archives/cold-raw.zip",
+      "restore_to": "data/raw/community_corpora",
+      "bytes": 2738558,
+      "sha256": "a3561a36e1644571c8b0f8edc4151db842bf3bbd55ef7c8a5a1a3fc44f35fed2",
+      "files": [
+        {
+          "path": "cold/COLDataset/dev.csv",
+          "bytes": 1016319,
+          "sha256": "28e67a26815aa1852449ba06919e51c07060d146e2bd23101cc0137a0ff94b7c"
+        },
+        {
+          "path": "cold/COLDataset/test.csv",
+          "bytes": 866973,
+          "sha256": "b06d31481f0d558b6dc8140408938abe8dba8083cd9976b4ba8f5c837fbe78ed"
+        },
+        {
+          "path": "cold/COLDataset/train.csv",
+          "bytes": 4131002,
+          "sha256": "16ca7955bdcaf90f5d8ac39e51eb3eda15320caa1e730ed45cb5e8ca8cd0d5e8"
+        },
+        {
+          "path": "cold/LICENSE",
+          "bytes": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "path": "cold/README.md",
+          "bytes": 1560,
+          "sha256": "c51c606a7181c81cad56d6083481cc6257b9d3848f6b870b38ebc008ab5017d4"
+        }
+      ]
+    },
+    {
+      "source": "hed_cold",
+      "kind": "raw",
+      "path": "data/community_corpora/archives/hed_cold-raw.zip",
+      "restore_to": "data/raw/community_corpora",
+      "bytes": 1493107,
+      "sha256": "d6f1f1be57c99120957337b874c627ccefba79a9b2e930f857370277a69accd0",
+      "files": [
+        {
+          "path": "hed_cold/dataset/dev.csv",
+          "bytes": 114119,
+          "sha256": "ae6bfca6c512dd98f5546dee495c828791d77ae53d2bc5b2b8ba49c884e0f812"
+        },
+        {
+          "path": "hed_cold/dataset/test.csv",
+          "bytes": 457202,
+          "sha256": "18a99e4f2ca2a950c78ef957b171cb46e4b37c6ecb58696c812f614e2bbea0da"
+        },
+        {
+          "path": "hed_cold/dataset/train.csv",
+          "bytes": 1017373,
+          "sha256": "721755f33b5acd1ddfce8a4dac0493b1fab5e560c0ca4aebbe9d23d8ac94262c"
+        },
+        {
+          "path": "hed_cold/README.md",
+          "bytes": 5677,
+          "sha256": "b014317e8930f69730aefb3f7aec3eb7ef823e95282bc087ae2289cd09a19357"
+        },
+        {
+          "path": "hed_cold/traceability/sampled_dev_data.csv",
+          "bytes": 118732,
+          "sha256": "1229918c379da34dfcb2aa717f5507f00f75160fed2f788c1e9a424f1f5dcbb4"
+        },
+        {
+          "path": "hed_cold/traceability/sampled_test_data.csv",
+          "bytes": 473764,
+          "sha256": "71cab7454716828f1e89de1a41048f419af155d1754eebb3beb00459dbaa7cfb"
+        },
+        {
+          "path": "hed_cold/traceability/sampled_train_data.csv",
+          "bytes": 1046177,
+          "sha256": "8ecd2143ae1c598e1968b2de6210d2ca3099351e11ecbbc5659eac11714e939a"
+        }
+      ]
+    },
+    {
+      "source": "ocnli",
+      "kind": "raw",
+      "path": "data/community_corpora/archives/ocnli-raw.zip",
+      "restore_to": "data/raw/community_corpora",
+      "bytes": 4127381,
+      "sha256": "f56ca6bb09cff5a7f2ea908c9ff373cba89505e775c89d8194b2e818590de105",
+      "files": [
+        {
+          "path": "ocnli/data/ocnli/dev.json",
+          "bytes": 977426,
+          "sha256": "001ded235d73a18dac68a45a38cd5f9b3f9311fa4246df623e199422c073ddc5"
+        },
+        {
+          "path": "ocnli/data/ocnli/test.json",
+          "bytes": 440950,
+          "sha256": "5fb387fd5188ea7de7c13dda0c56d44fba50d526a126a7926a5e5d131fde86bb"
+        },
+        {
+          "path": "ocnli/data/ocnli/train.10k.json",
+          "bytes": 2893982,
+          "sha256": "b8a0b7b72f62eb8d47a4d21ba34c4948bf2bdf5fde649a964ef3779504c7ab81"
+        },
+        {
+          "path": "ocnli/data/ocnli/train.30k.json",
+          "bytes": 8773579,
+          "sha256": "0141ac058fabf8fdba51834bfbd4297a6f4fc7d3e9ecad0beb09906ba8bfa05e"
+        },
+        {
+          "path": "ocnli/data/ocnli/train.3k.json",
+          "bytes": 866767,
+          "sha256": "b6911d293ad88b4c053c5f847b6643c79de72bdf42f9061c5f61f43f8a79dca6"
+        },
+        {
+          "path": "ocnli/data/ocnli/train.50k.json",
+          "bytes": 14627367,
+          "sha256": "cb47a6c00105bfb49bbb791dd537b284d3138f9f1ad5cd1e187afc470ff004e0"
+        },
+        {
+          "path": "ocnli/README.md",
+          "bytes": 11666,
+          "sha256": "f1da61502d1f56db90adc8e07bd31806eb54d76d9bc516848d49a50824d83040"
+        }
+      ]
+    },
+    {
+      "source": "toxicn",
+      "kind": "raw",
+      "path": "data/community_corpora/archives/toxicn-raw.zip",
+      "restore_to": "data/raw/community_corpora",
+      "bytes": 1568635,
+      "sha256": "27b5c4870f1e8c6975ac423cf4c11440d60122aa1d21ded65a92b4354f2d8af7",
+      "files": [
+        {
+          "path": "toxicn/README.md",
+          "bytes": 5428,
+          "sha256": "13c29639610ae7407f1626b7d494c0dcb8d58f3138744e1bd5cfb0e0535194cb"
+        },
+        {
+          "path": "toxicn/ToxiCN_1.0.csv",
+          "bytes": 2318453,
+          "sha256": "e94e50136d8c381b5f2a396fccf11fd824d8a922c7fc5369274e9da4c6537566"
+        },
+        {
+          "path": "toxicn/ToxiCN_ex/ToxiCN/data/test.json",
+          "bytes": 747893,
+          "sha256": "fdb2ea9cdb7560fa182675447e746d69f401e8a28d34d843b53f89cd7c2f450c"
+        },
+        {
+          "path": "toxicn/ToxiCN_ex/ToxiCN/data/train.json",
+          "bytes": 3011659,
+          "sha256": "1616ce7edef507f972dbd6038f5e0209afde4c391369e7e3fe582e883d35353f"
+        },
+        {
+          "path": "toxicn/ToxiCN_ex/ToxiCN/lexicon/general.json",
+          "bytes": 4960,
+          "sha256": "e042fe5483d2543b5425d442682e766f95e7a3274e5438a8d00d429a0599038f"
+        },
+        {
+          "path": "toxicn/ToxiCN_ex/ToxiCN/lexicon/LGBT.json",
+          "bytes": 696,
+          "sha256": "8e65e8944d9c9f9256b94bf9c5b5249d7fa794d9f0fa8bf9fff8ea3380865a9b"
+        },
+        {
+          "path": "toxicn/ToxiCN_ex/ToxiCN/lexicon/racism.json",
+          "bytes": 3923,
+          "sha256": "05ed05ec5824b313d9964bf93dd9b4a5881350c420662243df6ce48b3fe4202b"
+        },
+        {
+          "path": "toxicn/ToxiCN_ex/ToxiCN/lexicon/region.json",
+          "bytes": 1243,
+          "sha256": "32f55a9c55ebe222df39ef699f385c2135bd003dadbf9bdbb8fe66d7ed8b27a6"
+        },
+        {
+          "path": "toxicn/ToxiCN_ex/ToxiCN/lexicon/sexism.json",
+          "bytes": 3066,
+          "sha256": "f9170c73f684ccc54c5c4078a99a30c41474a577ef2e6e37feb818990f54cb5b"
+        }
+      ]
+    },
+    {
+      "source": "cold",
+      "kind": "classified",
+      "path": "data/community_corpora/archives/cold-classified.zip",
+      "restore_to": "data/processed/community_corpora",
+      "bytes": 11607882,
+      "sha256": "3a54a0387667558d2c895ca97bc05ae0303e1078eb97c9a154ff43a60fef1db2",
+      "files": [
+        {
+          "path": "by_category/cold/anti_bias.jsonl",
+          "bytes": 579051,
+          "sha256": "cff94bb6439e75b9e56a855c58d911da32fe284c36399487d606037c40f31d60"
+        },
+        {
+          "path": "by_category/cold/attack_group.jsonl",
+          "bytes": 1550747,
+          "sha256": "c5ba1785dd758d973128e4dfaff2985cd47ecf63f74d83861c309599f48ade0c"
+        },
+        {
+          "path": "by_category/cold/attack_individual.jsonl",
+          "bytes": 245369,
+          "sha256": "6f3c73d25023bd0d06495fdce037ebacc782c847d51a50745d68aecda92164fa"
+        },
+        {
+          "path": "by_category/cold/non_offensive.jsonl",
+          "bytes": 13102397,
+          "sha256": "7c9338546ae55770e9d4752df39130fe1f02439bc142fc4323a1c13f2984278a"
+        },
+        {
+          "path": "by_category/cold/non_offensive_other.jsonl",
+          "bytes": 2142133,
+          "sha256": "2d9038d1841ab4746cd3eb0f51688395bf16654b0f79b25fd6dcbf8b5679fae6"
+        },
+        {
+          "path": "by_category/cold/offensive.jsonl",
+          "bytes": 13336689,
+          "sha256": "c1db98fa3936a0887ff81aa602f2d67cbf69eadef05f1a5f84da8cb951eb229e"
+        },
+        {
+          "path": "by_source/cold/dev.jsonl",
+          "bytes": 5226540,
+          "sha256": "7622c8ff0e5b559c43e754759f0da5d8cdac2490b242e0066dcdb274d19ab3d5"
+        },
+        {
+          "path": "by_source/cold/test.jsonl",
+          "bytes": 4517300,
+          "sha256": "bc3eab24b51acaab88757fb7315d47ba6968ee5f30b6591b47222c7703c5b888"
+        },
+        {
+          "path": "by_source/cold/train.jsonl",
+          "bytes": 21212546,
+          "sha256": "0484f51ea030b40d56ff9d1d1d3584e788f2b5bd6a192c4674aa7f1a0510af59"
+        }
+      ]
+    },
+    {
+      "source": "hed_cold",
+      "kind": "classified",
+      "path": "data/community_corpora/archives/hed_cold-classified.zip",
+      "restore_to": "data/processed/community_corpora",
+      "bytes": 3782853,
+      "sha256": "de62aa3071bd6cac86364e7f74ba29bf61737393deb09340648d361c13beaea2",
+      "files": [
+        {
+          "path": "by_category/hed_cold/non_offensive_variant.jsonl",
+          "bytes": 5254495,
+          "sha256": "5b24551e76c6c604b911b99984024e953db346beeafa93356c8003769b434fee"
+        },
+        {
+          "path": "by_category/hed_cold/offensive_variant.jsonl",
+          "bytes": 5779203,
+          "sha256": "0a5a405178e57177e0fa0511acf33ac491521bc1f05c45835f8e8127bc316b5d"
+        },
+        {
+          "path": "by_source/hed_cold/dev.jsonl",
+          "bytes": 777313,
+          "sha256": "4c9ff49649a9d8d15f68fd7040899a24d2d1cfbb7533bfca03f8b853930b1ec0"
+        },
+        {
+          "path": "by_source/hed_cold/test.jsonl",
+          "bytes": 3269502,
+          "sha256": "379ac43343450d3b981434d11dce75f6bb7ee8378a94d7435eb271a5af495605"
+        },
+        {
+          "path": "by_source/hed_cold/train.jsonl",
+          "bytes": 6986883,
+          "sha256": "0db7e4926d6177e7eabf6ec5235ccbe7dd5ad42af09965c4a7cf42df82b13b52"
+        }
+      ]
+    },
+    {
+      "source": "ocnli",
+      "kind": "classified",
+      "path": "data/community_corpora/archives/ocnli-classified.zip",
+      "restore_to": "data/processed/community_corpora",
+      "bytes": 14892234,
+      "sha256": "692622cf8ca7884cbc2a477670a0ef7f1f1b51026bf7454535f5d8f5fe3c0335",
+      "files": [
+        {
+          "path": "by_category/ocnli/contradiction.jsonl",
+          "bytes": 14942353,
+          "sha256": "46f1d9a69139d047f6fa6f246dc411f6f26b45b4f3926252636e6ffdcf4bb4ab"
+        },
+        {
+          "path": "by_category/ocnli/contrast_candidates.jsonl",
+          "bytes": 3614817,
+          "sha256": "c751e57dc8aa71a4a5902f6a3cc104ec0fe9717cafab96af4b17aae840a95384"
+        },
+        {
+          "path": "by_category/ocnli/double_negation_candidates.jsonl",
+          "bytes": 149616,
+          "sha256": "4c7fe755cf326cadc95fc1e5d054f1782a1e33b2f79177f9c8abf23f51769ef5"
+        },
+        {
+          "path": "by_category/ocnli/entailment.jsonl",
+          "bytes": 15169151,
+          "sha256": "d5112ec6e3aef9643c7618f20fc1cfde67cd06070044be1ccfc58955de7a9732"
+        },
+        {
+          "path": "by_category/ocnli/negation_candidates.jsonl",
+          "bytes": 22223730,
+          "sha256": "cbc00ae5877e0dd73a8a00756287747eba92593ef5fcc14810a05676b3a443b9"
+        },
+        {
+          "path": "by_category/ocnli/neutral.jsonl",
+          "bytes": 15654127,
+          "sha256": "276fa920c74ccd26b16187511a217b275d784047a566f463d056999e86914fde"
+        },
+        {
+          "path": "by_category/ocnli/no_consensus.jsonl",
+          "bytes": 85652,
+          "sha256": "a46fadfdd5e6836c91229f46a612ab5752b9cd0fef9bd61b0009989f3df38922"
+        },
+        {
+          "path": "by_category/ocnli/unlabeled_test.jsonl",
+          "bytes": 2528301,
+          "sha256": "670487936361914cb2d936bae3d5d6555d2d078bed828064e14b1857978cef4e"
+        },
+        {
+          "path": "by_source/ocnli/dev.jsonl",
+          "bytes": 2548087,
+          "sha256": "6502d064b522547aa49447a48dd19b11c11a0a234cfd39f562a264a08429cbc7"
+        },
+        {
+          "path": "by_source/ocnli/test.jsonl",
+          "bytes": 2528301,
+          "sha256": "670487936361914cb2d936bae3d5d6555d2d078bed828064e14b1857978cef4e"
+        },
+        {
+          "path": "by_source/ocnli/train.jsonl",
+          "bytes": 43303196,
+          "sha256": "1ee92cca2b38346ab7af613fd947ac1737f2e633072a08336c71d40543227f2f"
+        }
+      ]
+    }
+  ],
+  "normalized_record_count": 115977,
+  "lexicon_terms": 537,
+  "local_only_outputs": [
+    "toxicn classified views",
+    "combined_offensive views",
+    "ToxiCN-derived annotation templates"
+  ],
+  "rebuild_command": "python scripts/prepare_community_corpora.py",
+  "raw_byte_provenance": "Each raw member is the byte-identical Git blob at its source commit, without checkout newline conversion."
+}

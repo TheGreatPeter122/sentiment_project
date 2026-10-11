@@ -1,5 +1,13 @@
 # 中文短文本情感识别
 
+## 社群表达与句子关系语料
+
+新增公开研究语料包包含 COLD、HED-COLD、ToxiCN、OCNLI，共 115,977 条来源记录和 537 个候选词条。
+下载与分类目录、来源许可、校验值及使用方法见 [语料包说明](data/community_corpora/README.md)。
+运行 `python scripts/restore_community_corpora.py` 离线恢复原始数据和可发布的分类视图，
+再运行 `python scripts/prepare_community_corpora.py` 重建本地完整分类与标注模板。
+情感标签未自动补标，现有模型不因下载语料而改变。
+
 目标：基于 PySpark 的十万级中文短文本情感识别与误判分析。现场输入新文本，展示正负向预测；另用独立测试集评价效果。
 
 项目从数据清洗到字符扩展、中文分词实验中遇到的问题和实际结论，集中记录在 [项目过程记录](reports/development_log.md)。
