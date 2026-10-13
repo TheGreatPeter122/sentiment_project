@@ -92,9 +92,9 @@ py -3.12 -m venv .venv
 
 若要复现实验，先按下文提供的固定数据版本下载 `data/raw/weibo_senti_100k.csv`，再依次运行 `scripts/audit_data.py`、`scripts/prepare_splits.py`、`scripts/train_baseline.py` 和 `scripts/diagnose.py`。Spark数据分析还需完整Java 21，并按 `start_spark.ps1` 的路径约定准备 `runtime/jdk-21.0.12.1+1`。脚本在Windows上使用临时盘符绕开中文路径启动问题。
 
-## 中文分词实验分支
+## 中文分词历史实验
 
-`word_token_branch` 用 `jieba` 把中文切成词，比较“词及相邻词”与“字符 1—2 字 + 词及相邻词”两种特征。安装实验依赖后运行：
+早期的 `word_token_branch` 已并入当前唯一的 `main`，无需切换分支。该实验用 `jieba` 把中文切成词，比较“词及相邻词”与“字符 1—2 字 + 词及相邻词”两种特征。安装实验依赖后运行：
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-experiments.txt
