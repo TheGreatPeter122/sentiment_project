@@ -12,6 +12,16 @@
 
 项目从数据清洗到字符扩展、中文分词实验中遇到的问题和实际结论，集中记录在 [项目过程记录](reports/development_log.md)。
 
+## 公开项目反馈采集试点
+
+`scripts/crawl_public_issues.py` 使用 [GitHub 公开 Issues API](https://docs.github.com/en/rest/issues/issues) 采集 Element Plus 的最近公开问题标题，作为数据获取环节演示。默认最多请求 5 页、每页 100 条，顺序请求并间隔至少 1 秒；排除 Pull Request、明显非中文或过短标题，遮盖标题里的邮箱、手机号和 `@` 账号。不获取或保存作者资料。运行：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\crawl_public_issues.py
+```
+
+2026-10-13 的试点共读取 500 条 API 记录，其中 384 条是 Pull Request；116 条 Issue 中按语言、长度和重复标题过滤后保留 65 条中文标题。数量与文件哈希见 `reports/crawler_pilot.json`。文本及空白人工标注表仅保存在 Git 忽略的 `data/processed/github_issue_feedback.jsonl` 和 `data/processed/github_issue_labels.csv`。标注时可填 `positive`、`negative` 或 `unclear`；“报告问题”不自动等于负面情感。**这些反馈没有用于训练、测试或网页预测。**实时 API 内容会变化，重复运行可能得到不同样本；已填写人工标注的 CSV 不会被覆盖。使用时遵守 [GitHub API 速率限制](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api)和相关内容使用规则。
+
 前一轮[否定、转折特征实验与数据处理记录](reports/text_structure_process.md)按阶段记录输入校验、清洗、候选提取、向量化、训练及误判对照。使用原有 88,814 条训练记录和 10,908 条验证记录，三组验证准确率为 77.6311%、77.5211%、77.6494%；整体尚无明确优势，该轮没有替换网页模型。复现：`python scripts/train_structure_experiment.py`；测试：`python -m unittest discover -s tests -v`。
 
 后续完成[日常评论多来源优化](reports/daily_review_process.md)：使用微博、购物和外卖共 148,216 条训练记录，五组方案各训练三个固定种子，按三来源验证 Macro-F1 等权平均选择“直接混合＋结构 v2”。在锁定模型后的 7,429 条外部保留测试中，准确率为 **91.68%**，同轮微博单来源对照为 **80.05%**；微博验证表现略有退步，部分否定／转折诊断句仍然失败。报告记录了清洗、划分、来源权重、词内误命中处理、计算耗时和三张对照图，人工情感标注暂缓，社群黑话不在该实验范围。

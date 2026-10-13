@@ -1,0 +1,31 @@
+{
+  "source": "https://github.com/element-plus/element-plus/issues",
+  "api": "https://api.github.com/repos/element-plus/element-plus/issues",
+  "collected_at_utc": "2026-10-13T04:28:51.855551+00:00",
+  "query": {
+    "state": "all",
+    "sort": "created",
+    "direction": "desc",
+    "per_page": 100,
+    "max_pages": 5
+  },
+  "counts": {
+    "pages_fetched": 5,
+    "api_items": 500,
+    "pull_requests_excluded": 384,
+    "issues": 116,
+    "non_chinese_or_length_excluded": 50,
+    "duplicate_titles_excluded": 1,
+    "accepted_unique_titles": 65
+  },
+  "output_sha256": "baf589dfd0843dac72439a390b33966ba2fb91b2a60f832ba4048fbff657ab2b",
+  "output_path": "data/processed/github_issue_feedback.jsonl",
+  "annotation_path": "data/processed/github_issue_labels.csv",
+  "limitations": [
+    "Issue titles are project feedback, not guaranteed positive/negative reviews.",
+    "No sentiment labels are inferred and no model is trained.",
+    "Only public issue titles, URLs and creation times are saved; PRs are excluded.",
+    "Recent-page API results can change; report records collection time and file hash.",
+    "Do not publish the harvested text without checking rights and personal information."
+  ]
+}
