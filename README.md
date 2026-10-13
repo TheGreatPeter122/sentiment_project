@@ -40,7 +40,19 @@ B 站[用户协议](https://www.bilibili.com/blackboard/protocal/licence.html)�
 .\.venv\Scripts\python.exe scripts\crawl_steam_reviews_bulk.py --pages-per-label 120 --delay 1
 ```
 
-2026-10-13 的初版采集得到 5,267 条；本轮沿用检查点补采至 **2,170 页、216,355 条原始评测**。按 8—300 字、至少 4 个汉字等规则筛选，再按评测 ID 和正文做全局去重、排除同文冲突标签，最终得到 **102,902 条**（推荐 39,694、不推荐 63,208）。部分类别不到 120 页即返回空页，因此实际页数小于理论上限。完整的逐游戏数量、处理阶段计数、查询参数和输出 SHA256 见 `reports/steam_reviews_bulk.json`；清洗文本（约 24 MB）仅在 Git 忽略的 `data/processed/steam_reviews_bulk.jsonl`。文本中邮箱、手机号、链接和 `@` 名称做基础遮盖，仍应人工检查敏感信息。**推荐选择只是弱标签，且按类别主动采样、只保留短评会改变原始比例；本批数据未进入模型训练或正式测试。**
+2026-10-13 的初版采集得到 5,267 条；本轮沿用检查点补采至 **2,170 页、216,355 条原始评测**。按 8—300 字、至少 4 个汉字等规则筛选，再按评测 ID 和正文做全局去重、排除同文冲突标签，最终得到 **102,902 条**（推荐 39,694、不推荐 63,208）。部分类别不到 120 页即返回空页，因此实际页数小于理论上限。完整的逐游戏数量、处理阶段计数、查询参数和输出 SHA256 见 `reports/steam_reviews_bulk.json`；清洗文本（约 24 MB）仅在 Git 忽略的 `data/processed/steam_reviews_bulk.jsonl`。文本中邮箱、手机号、链接和 `@` 名称做基础遮盖，仍应人工检查敏感信息。**推荐选择只是弱标签，且按类别主动采样、只保留短评会改变原始比例。**
+
+### Steam 弱标签模型训练和留出测试
+
+按[固定协议](reports/steam_training_protocol.md)将这 102,902 条评论按游戏和标签分层，分为训练 82,313、验证 10,282、测试 10,307 条；ID 与正文无跨集重复。使用字符 1—2 gram TF-IDF 和 SGD 逻辑回归，在验证前固定超参数，不依据测试集调参。独立留出测试的准确率 **90.57%**、Macro-F1 **89.97%**，完整混淆矩阵及逐游戏指标见[结果文件](reports/steam_training_results.json)，划分哈希见[分割记录](reports/steam_split_report.json)。这评价的是“推荐／不推荐”弱标签预测，**不等于人工情感标注准确率**。模型在 `models/steam_reviews.joblib`；当前网页仍使用原日常评论模型，避免把游戏评论模型误作为通用情感模型。原始和分割后的评论仍仅在本地，不随 Git 分发。
+
+本机复现（需先有同一 SHA-256 的清洗数据）：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\train_steam_reviews.py
+```
+
+脚本会拒绝覆盖已有模型和正式结果；复现应在新副本中运行，防止无意间重做测试。
 
 前一轮[否定、转折特征实验与数据处理记录](reports/text_structure_process.md)按阶段记录输入校验、清洗、候选提取、向量化、训练及误判对照。使用原有 88,814 条训练记录和 10,908 条验证记录，三组验证准确率为 77.6311%、77.5211%、77.6494%；整体尚无明确优势，该轮没有替换网页模型。复现：`python scripts/train_structure_experiment.py`；测试：`python -m unittest discover -s tests -v`。
 

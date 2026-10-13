@@ -1,0 +1,73 @@
+{
+  "seed": "steam-review-20261013-v1",
+  "input_path": "data/processed/steam_reviews_bulk.jsonl",
+  "input_sha256": "daf8a64f6f9fa278390410a1e6ea1ef5ba6672cbd67ba04438b42c9c33eaadba",
+  "method": "app_id/weak_label stratified; SHA-256(seed+review_id); floor80/floor10/remainder10",
+  "splits": {
+    "train": {
+      "path": "data/splits/steam_reviews/train.jsonl",
+      "sha256": "d4d72eb2a0d3659a3a3f469ccf8b4e566ee0d42fe120817bfb2400ece5019b7a",
+      "rows": 82313,
+      "labels": {
+        "negative": 50562,
+        "positive": 31751
+      },
+      "games": {
+        "105600": 5252,
+        "413150": 6330,
+        "1086940": 7424,
+        "582010": 10919,
+        "1091500": 10625,
+        "570": 8879,
+        "2358720": 10519,
+        "3240220": 8167,
+        "730": 6645,
+        "578080": 7553
+      }
+    },
+    "validation": {
+      "path": "data/splits/steam_reviews/validation.jsonl",
+      "sha256": "37a3fefc06cae23418feec4e3da406a751b11b49985657467f3b2717b8b8b6d7",
+      "rows": 10282,
+      "labels": {
+        "negative": 6316,
+        "positive": 3966
+      },
+      "games": {
+        "582010": 1364,
+        "105600": 656,
+        "413150": 791,
+        "1086940": 928,
+        "1091500": 1327,
+        "570": 1109,
+        "2358720": 1314,
+        "3240220": 1020,
+        "730": 830,
+        "578080": 943
+      }
+    },
+    "test": {
+      "path": "data/splits/steam_reviews/test.jsonl",
+      "sha256": "c14b20e51175cab572f6a437e42e7b854df13092d966690b5b1286be1f1be334",
+      "rows": 10307,
+      "labels": {
+        "negative": 6330,
+        "positive": 3977
+      },
+      "games": {
+        "582010": 1367,
+        "105600": 658,
+        "413150": 792,
+        "1086940": 929,
+        "1091500": 1330,
+        "570": 1112,
+        "2358720": 1317,
+        "3240220": 1023,
+        "730": 833,
+        "578080": 946
+      }
+    }
+  },
+  "id_overlap": 0,
+  "exact_text_overlap": 0
+}

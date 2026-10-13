@@ -1,0 +1,293 @@
+{
+  "task": "Predict Steam recommendation weak labels from Chinese short reviews",
+  "protocol_path": "reports/steam_training_protocol.md",
+  "protocol_sha256": "d93f49774e77562222eb8f83a175eda0051d7aaf3aaa4db291424ca462515a93",
+  "split_report_path": "reports/steam_split_report.json",
+  "split_report_sha256": "9fe3810c0f537ad0c44f475e3ffca9109cfb52f975cddedaf76e3e058b9e1a26",
+  "model_path": "models/steam_reviews.joblib",
+  "model_sha256": "584235d612b1919be4226e9db538fd383f29f9514d568c688a652384e67b0cf8",
+  "parameters": {
+    "tfidf": {
+      "analyzer": "char",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "min_df": 3,
+      "max_features": 120000
+    },
+    "classifier": {
+      "loss": "log_loss",
+      "alpha": 1e-05,
+      "max_iter": 50,
+      "tol": 0.001,
+      "random_state": 20261013
+    }
+  },
+  "features": 103920,
+  "fit_iterations": 11,
+  "validation": {
+    "n": 10282,
+    "accuracy": 0.9121766193347598,
+    "macro_f1": 0.9067471093991921,
+    "negative_f1": 0.9292486092611455,
+    "positive_f1": 0.8842456095372389,
+    "confusion_labels": [
+      "negative",
+      "positive"
+    ],
+    "confusion": [
+      [
+        5930,
+        386
+      ],
+      [
+        517,
+        3449
+      ]
+    ]
+  },
+  "test": {
+    "n": 10307,
+    "accuracy": 0.9056951586300572,
+    "macro_f1": 0.8996538085823644,
+    "negative_f1": 0.9242754752259271,
+    "positive_f1": 0.8750321419388017,
+    "confusion_labels": [
+      "negative",
+      "positive"
+    ],
+    "confusion": [
+      [
+        5932,
+        398
+      ],
+      [
+        574,
+        3403
+      ]
+    ]
+  },
+  "test_by_game": {
+    "570": {
+      "n": 1112,
+      "accuracy": 0.8866906474820144,
+      "macro_f1": 0.8669856459330143,
+      "negative_f1": 0.9181818181818182,
+      "positive_f1": 0.8157894736842105,
+      "confusion_labels": [
+        "negative",
+        "positive"
+      ],
+      "confusion": [
+        [
+          707,
+          42
+        ],
+        [
+          84,
+          279
+        ]
+      ]
+    },
+    "730": {
+      "n": 833,
+      "accuracy": 0.8823529411764706,
+      "macro_f1": 0.8516414416772073,
+      "negative_f1": 0.9191419141914191,
+      "positive_f1": 0.7841409691629956,
+      "confusion_labels": [
+        "negative",
+        "positive"
+      ],
+      "confusion": [
+        [
+          557,
+          44
+        ],
+        [
+          54,
+          178
+        ]
+      ]
+    },
+    "105600": {
+      "n": 658,
+      "accuracy": 0.9057750759878419,
+      "macro_f1": 0.9048174555771241,
+      "negative_f1": 0.8952702702702703,
+      "positive_f1": 0.914364640883978,
+      "confusion_labels": [
+        "negative",
+        "positive"
+      ],
+      "confusion": [
+        [
+          265,
+          29
+        ],
+        [
+          33,
+          331
+        ]
+      ]
+    },
+    "413150": {
+      "n": 792,
+      "accuracy": 0.9292929292929293,
+      "macro_f1": 0.9292044438768996,
+      "negative_f1": 0.9267015706806283,
+      "positive_f1": 0.9317073170731708,
+      "confusion_labels": [
+        "negative",
+        "positive"
+      ],
+      "confusion": [
+        [
+          354,
+          23
+        ],
+        [
+          33,
+          382
+        ]
+      ]
+    },
+    "578080": {
+      "n": 946,
+      "accuracy": 0.912262156448203,
+      "macro_f1": 0.8864551022031337,
+      "negative_f1": 0.9405869720830351,
+      "positive_f1": 0.8323232323232324,
+      "confusion_labels": [
+        "negative",
+        "positive"
+      ],
+      "confusion": [
+        [
+          657,
+          14
+        ],
+        [
+          69,
+          206
+        ]
+      ]
+    },
+    "582010": {
+      "n": 1367,
+      "accuracy": 0.902706656912948,
+      "macro_f1": 0.8941818065413571,
+      "negative_f1": 0.9242165242165242,
+      "positive_f1": 0.86414708886619,
+      "confusion_labels": [
+        "negative",
+        "positive"
+      ],
+      "confusion": [
+        [
+          811,
+          58
+        ],
+        [
+          75,
+          423
+        ]
+      ]
+    },
+    "1086940": {
+      "n": 929,
+      "accuracy": 0.9106566200215285,
+      "macro_f1": 0.8979333039471472,
+      "negative_f1": 0.8618968386023295,
+      "positive_f1": 0.933969769291965,
+      "confusion_labels": [
+        "negative",
+        "positive"
+      ],
+      "confusion": [
+        [
+          259,
+          32
+        ],
+        [
+          51,
+          587
+        ]
+      ]
+    },
+    "1091500": {
+      "n": 1330,
+      "accuracy": 0.9097744360902256,
+      "macro_f1": 0.897635613570593,
+      "negative_f1": 0.9328859060402684,
+      "positive_f1": 0.8623853211009175,
+      "confusion_labels": [
+        "negative",
+        "positive"
+      ],
+      "confusion": [
+        [
+          834,
+          58
+        ],
+        [
+          62,
+          376
+        ]
+      ]
+    },
+    "2358720": {
+      "n": 1317,
+      "accuracy": 0.8936977980258163,
+      "macro_f1": 0.8860591469081849,
+      "negative_f1": 0.9155609167671894,
+      "positive_f1": 0.8565573770491803,
+      "confusion_labels": [
+        "negative",
+        "positive"
+      ],
+      "confusion": [
+        [
+          759,
+          72
+        ],
+        [
+          68,
+          418
+        ]
+      ]
+    },
+    "3240220": {
+      "n": 1023,
+      "accuracy": 0.9305962854349951,
+      "macro_f1": 0.9081168334191447,
+      "negative_f1": 0.9535644211903205,
+      "positive_f1": 0.8626692456479691,
+      "confusion_labels": [
+        "negative",
+        "positive"
+      ],
+      "confusion": [
+        [
+          729,
+          26
+        ],
+        [
+          45,
+          223
+        ]
+      ]
+    }
+  },
+  "elapsed_seconds": 5.42,
+  "versions": {
+    "scikit-learn": "1.6.1",
+    "numpy": "2.2.6",
+    "joblib": "1.6.0"
+  },
+  "limitations": [
+    "Labels are Steam recommendation weak labels, not human sentiment annotations",
+    "Sampled games and short-text filtering do not represent natural Steam prevalence"
+  ]
+}
