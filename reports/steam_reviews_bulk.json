@@ -1,0 +1,82 @@
+{
+  "source_documentation": "https://partner.steamgames.com/doc/webapi/IUserReviewsService",
+  "collected_at_utc": "2026-10-13T05:10:07.364596+00:00",
+  "page_fetch_time_range_utc": [
+    "2026-10-13T05:02:07.475604+00:00",
+    "2026-10-13T05:08:57.637846+00:00"
+  ],
+  "query": {
+    "games": {
+      "1091500": "Cyberpunk 2077",
+      "2358720": "Black Myth: Wukong",
+      "1086940": "Baldur's Gate 3",
+      "105600": "Terraria",
+      "413150": "Stardew Valley"
+    },
+    "language": "schinese",
+    "filter": "recent",
+    "purchase_type": "all",
+    "pages_per_label": 10,
+    "per_page": 100,
+    "max_chars": 300,
+    "delay_seconds": 1.5
+  },
+  "counts": {
+    "pages_fetched": 100,
+    "api_reviews": 9998,
+    "length_or_language_excluded": 4710,
+    "language_or_label_excluded": 4,
+    "duplicate_text_excluded": 17,
+    "accepted": 5267,
+    "accepted_negative": 3353,
+    "accepted_positive": 1914
+  },
+  "by_game": {
+    "1091500": {
+      "pages_fetched": 20,
+      "api_reviews": 1998,
+      "length_or_language_excluded": 971,
+      "accepted_negative": 691,
+      "accepted_positive": 330
+    },
+    "2358720": {
+      "pages_fetched": 20,
+      "api_reviews": 2000,
+      "length_or_language_excluded": 929,
+      "language_or_label_excluded": 1,
+      "accepted_negative": 669,
+      "accepted_positive": 401
+    },
+    "1086940": {
+      "pages_fetched": 20,
+      "api_reviews": 2000,
+      "length_or_language_excluded": 738,
+      "language_or_label_excluded": 3,
+      "accepted_negative": 729,
+      "accepted_positive": 528
+    },
+    "105600": {
+      "pages_fetched": 20,
+      "api_reviews": 2000,
+      "length_or_language_excluded": 1047,
+      "accepted_negative": 636,
+      "accepted_positive": 316
+    },
+    "413150": {
+      "pages_fetched": 20,
+      "api_reviews": 2000,
+      "length_or_language_excluded": 1025,
+      "accepted_negative": 628,
+      "accepted_positive": 339
+    }
+  },
+  "output_path": "data/processed/steam_reviews_bulk.jsonl",
+  "output_sha256": "706b86eff4c59e2318065f4d69a0c33c422e0b7f7ed0b90b51a45d201672126d",
+  "limitations": [
+    "Recommendation choice is a weak whole-review label, not verified sentence sentiment.",
+    "Sampling positive and negative reviews separately changes their natural prevalence.",
+    "Selecting naturally short reviews changes the label mix and excludes long reviews.",
+    "Text de-identification is basic and cannot guarantee removal of all personal details.",
+    "Collected review text remains local and is not used for model training or testing."
+  ]
+}
