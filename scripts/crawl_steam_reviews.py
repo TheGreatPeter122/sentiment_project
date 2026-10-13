@@ -20,7 +20,7 @@ ENDPOINT = 'https://api.steampowered.com/IUserReviewsService/GetAppReviews/v1/'
 CHINESE = re.compile(r'[\u4e00-\u9fff]')
 EMAIL = re.compile(r'(?<!\w)[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}(?!\w)')
 PHONE = re.compile(r'(?<!\d)1[3-9]\d{9}(?!\d)')
-URL = re.compile(r'https?://\S+', re.I)
+URL = re.compile(r'https?://\S*', re.I)
 HANDLE = re.compile(r'(?<!\w)@[A-Za-z0-9_-]{1,39}')
 
 

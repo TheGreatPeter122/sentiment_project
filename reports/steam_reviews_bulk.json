@@ -1,9 +1,9 @@
 {
   "source_documentation": "https://partner.steamgames.com/doc/webapi/IUserReviewsService",
-  "collected_at_utc": "2026-10-13T05:10:07.364596+00:00",
+  "collected_at_utc": "2026-10-13T07:09:48.535391+00:00",
   "page_fetch_time_range_utc": [
     "2026-10-13T05:02:07.475604+00:00",
-    "2026-10-13T05:08:57.637846+00:00"
+    "2026-10-13T07:05:37.449903+00:00"
   ],
   "query": {
     "games": {
@@ -11,67 +11,118 @@
       "2358720": "Black Myth: Wukong",
       "1086940": "Baldur's Gate 3",
       "105600": "Terraria",
-      "413150": "Stardew Valley"
+      "413150": "Stardew Valley",
+      "570": "Dota 2",
+      "730": "Counter-Strike 2",
+      "578080": "PUBG: BATTLEGROUNDS",
+      "582010": "Monster Hunter: World",
+      "3240220": "Grand Theft Auto V Enhanced"
     },
     "language": "schinese",
     "filter": "recent",
     "purchase_type": "all",
-    "pages_per_label": 10,
+    "pages_per_label": 120,
     "per_page": 100,
     "max_chars": 300,
-    "delay_seconds": 1.5
+    "delay_seconds": 1.0
   },
   "counts": {
-    "pages_fetched": 100,
-    "api_reviews": 9998,
-    "length_or_language_excluded": 4710,
-    "language_or_label_excluded": 4,
-    "duplicate_text_excluded": 17,
-    "accepted": 5267,
-    "accepted_negative": 3353,
-    "accepted_positive": 1914
+    "pages_fetched": 2170,
+    "api_reviews": 216355,
+    "length_or_language_excluded": 111684,
+    "post_page_filter_rows": 104647,
+    "language_or_label_excluded": 24,
+    "id_stage_excluded": 0,
+    "duplicate_text_excluded": 1522,
+    "conflicting_text_groups": 50,
+    "text_stage_excluded": 1745,
+    "accepted": 102902,
+    "accepted_negative": 63208,
+    "accepted_positive": 39694
   },
   "by_game": {
     "1091500": {
-      "pages_fetched": 20,
-      "api_reviews": 1998,
-      "length_or_language_excluded": 971,
-      "accepted_negative": 691,
-      "accepted_positive": 330
+      "pages_fetched": 240,
+      "api_reviews": 23995,
+      "length_or_language_excluded": 10545,
+      "language_or_label_excluded": 3,
+      "accepted_negative": 8913,
+      "accepted_positive": 4369
     },
     "2358720": {
-      "pages_fetched": 20,
-      "api_reviews": 2000,
-      "length_or_language_excluded": 929,
-      "language_or_label_excluded": 1,
-      "accepted_negative": 669,
-      "accepted_positive": 401
+      "pages_fetched": 240,
+      "api_reviews": 23991,
+      "length_or_language_excluded": 10769,
+      "language_or_label_excluded": 4,
+      "accepted_negative": 8298,
+      "accepted_positive": 4852
     },
     "1086940": {
-      "pages_fetched": 20,
-      "api_reviews": 2000,
-      "length_or_language_excluded": 738,
+      "pages_fetched": 160,
+      "api_reviews": 15809,
+      "length_or_language_excluded": 6407,
       "language_or_label_excluded": 3,
-      "accepted_negative": 729,
-      "accepted_positive": 528
+      "accepted_negative": 2901,
+      "accepted_positive": 6380
     },
     "105600": {
-      "pages_fetched": 20,
-      "api_reviews": 2000,
-      "length_or_language_excluded": 1047,
-      "accepted_negative": 636,
-      "accepted_positive": 316
+      "pages_fetched": 164,
+      "api_reviews": 16258,
+      "length_or_language_excluded": 9578,
+      "language_or_label_excluded": 1,
+      "accepted_negative": 2940,
+      "accepted_positive": 3626
     },
     "413150": {
-      "pages_fetched": 20,
-      "api_reviews": 2000,
-      "length_or_language_excluded": 1025,
-      "accepted_negative": 628,
-      "accepted_positive": 339
+      "pages_fetched": 171,
+      "api_reviews": 16982,
+      "length_or_language_excluded": 8838,
+      "accepted_negative": 3763,
+      "accepted_positive": 4150
+    },
+    "570": {
+      "pages_fetched": 240,
+      "api_reviews": 23996,
+      "length_or_language_excluded": 12669,
+      "language_or_label_excluded": 2,
+      "accepted_negative": 7476,
+      "accepted_positive": 3624
+    },
+    "730": {
+      "pages_fetched": 240,
+      "api_reviews": 23993,
+      "length_or_language_excluded": 15434,
+      "language_or_label_excluded": 3,
+      "accepted_negative": 6002,
+      "accepted_positive": 2306
+    },
+    "578080": {
+      "pages_fetched": 240,
+      "api_reviews": 23998,
+      "length_or_language_excluded": 14444,
+      "language_or_label_excluded": 3,
+      "accepted_negative": 6699,
+      "accepted_positive": 2743
+    },
+    "582010": {
+      "pages_fetched": 240,
+      "api_reviews": 23999,
+      "length_or_language_excluded": 10145,
+      "language_or_label_excluded": 2,
+      "accepted_negative": 8679,
+      "accepted_positive": 4971
+    },
+    "3240220": {
+      "pages_fetched": 235,
+      "api_reviews": 23334,
+      "length_or_language_excluded": 12855,
+      "language_or_label_excluded": 3,
+      "accepted_negative": 7537,
+      "accepted_positive": 2673
     }
   },
   "output_path": "data/processed/steam_reviews_bulk.jsonl",
-  "output_sha256": "706b86eff4c59e2318065f4d69a0c33c422e0b7f7ed0b90b51a45d201672126d",
+  "output_sha256": "daf8a64f6f9fa278390410a1e6ea1ef5ba6672cbd67ba04438b42c9c33eaadba",
   "limitations": [
     "Recommendation choice is a weak whole-review label, not verified sentence sentiment.",
     "Sampling positive and negative reviews separately changes their natural prevalence.",

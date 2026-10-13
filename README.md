@@ -34,13 +34,13 @@ B 站[用户协议](https://www.bilibili.com/blackboard/protocal/licence.html)�
 
 ### 扩大到多游戏评论
 
-`scripts/crawl_steam_reviews_bulk.py` 复用同一官方接口，默认覆盖《赛博朋克 2077》《黑神话：悟空》《博德之门 3》《泰拉瑞亚》《星露谷物语》，按每款游戏的推荐／不推荐分别请求最近 10 页。逐页检查点保存在本机 `data/processed/steam_bulk_pages/`；连接中断后直接重跑，已保存的页面不会重抓。临时网络错误最多重试两次，遇到接口限流则停止。运行：
+`scripts/crawl_steam_reviews_bulk.py` 复用同一官方接口，覆盖《赛博朋克 2077》《黑神话：悟空》《博德之门 3》《泰拉瑞亚》《星露谷物语》《Dota 2》《Counter-Strike 2》《PUBG》《怪物猎人：世界》《GTA V 增强版》十款游戏，按每款游戏的推荐／不推荐分别请求。默认上限每类 10 页，适合小规模试跑；完整十万级采集使用下列命令。逐页检查点保存在本机 `data/processed/steam_bulk_pages/`；连接中断后以相同参数重跑，已保存的页面不会重抓。临时网络错误最多重试两次，遇到接口限流则停止。
 
 ```powershell
-.\.venv\Scripts\python.exe scripts\crawl_steam_reviews_bulk.py
+.\.venv\Scripts\python.exe scripts\crawl_steam_reviews_bulk.py --pages-per-label 120 --delay 1
 ```
 
-2026-10-13 这轮共获取 100 页、9,998 条评测，按 8—300 字、至少 4 个汉字等规则筛选，再去掉 17 条重复文本，得到 **5,267 条**（推荐 1,914、不推荐 3,353）。完整的逐游戏数量、查询参数和输出 SHA256 见 `reports/steam_reviews_bulk.json`；清洗文本在 Git 忽略的 `data/processed/steam_reviews_bulk.jsonl`。要继续扩大，可把命令改成 `--pages-per-label 20`，脚本沿用已有检查点继续取后面的页面；请求次数会增加，应留意接口限流。此数据的标签仍是用户推荐选择，未进入模型训练或正式测试。
+2026-10-13 的初版采集得到 5,267 条；本轮沿用检查点补采至 **2,170 页、216,355 条原始评测**。按 8—300 字、至少 4 个汉字等规则筛选，再按评测 ID 和正文做全局去重、排除同文冲突标签，最终得到 **102,902 条**（推荐 39,694、不推荐 63,208）。部分类别不到 120 页即返回空页，因此实际页数小于理论上限。完整的逐游戏数量、处理阶段计数、查询参数和输出 SHA256 见 `reports/steam_reviews_bulk.json`；清洗文本（约 24 MB）仅在 Git 忽略的 `data/processed/steam_reviews_bulk.jsonl`。文本中邮箱、手机号、链接和 `@` 名称做基础遮盖，仍应人工检查敏感信息。**推荐选择只是弱标签，且按类别主动采样、只保留短评会改变原始比例；本批数据未进入模型训练或正式测试。**
 
 前一轮[否定、转折特征实验与数据处理记录](reports/text_structure_process.md)按阶段记录输入校验、清洗、候选提取、向量化、训练及误判对照。使用原有 88,814 条训练记录和 10,908 条验证记录，三组验证准确率为 77.6311%、77.5211%、77.6494%；整体尚无明确优势，该轮没有替换网页模型。复现：`python scripts/train_structure_experiment.py`；测试：`python -m unittest discover -s tests -v`。
 

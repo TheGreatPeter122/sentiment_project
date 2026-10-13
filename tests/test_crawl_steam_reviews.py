@@ -18,6 +18,7 @@ class SteamCrawlerTests(unittest.TestCase):
         text = clean_text('联系 user@example.com，电话 13800138000，https://example.com')
         for secret in ('user@example.com', '13800138000', 'https://example.com'):
             self.assertNotIn(secret, text)
+        self.assertNotIn('http://', clean_text('请通过 http:// support.example.com 联系'))
 
     def test_recommendation_is_weak_label_without_author(self):
         item = {'recommendationid': '123', 'language': 'schinese',

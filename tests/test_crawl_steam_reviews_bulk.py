@@ -84,8 +84,12 @@ class BulkCrawlerTests(unittest.TestCase):
                 encoding='utf-8').splitlines()]
             self.assertEqual({row['weak_label'] for row in rows}, {'positive', 'negative'})
             self.assertTrue(all('author' not in row for row in rows))
-            self.assertEqual(json.loads((base / 'report.json').read_text(
-                encoding='utf-8'))['counts']['accepted'], 2)
+            counts = json.loads((base / 'report.json').read_text(
+                encoding='utf-8'))['counts']
+            self.assertEqual(counts['accepted'], 2)
+            self.assertEqual(counts['post_page_filter_rows'], 2)
+            self.assertEqual(counts['id_stage_excluded'], 0)
+            self.assertEqual(counts['text_stage_excluded'], 0)
 
 
 if __name__ == '__main__':

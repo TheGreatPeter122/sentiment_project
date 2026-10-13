@@ -14,7 +14,7 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-from crawl_steam_reviews import ROOT, fetch_page, select_reviews
+from crawl_steam_reviews import ROOT, clean_text, fetch_page, select_reviews
 
 GAMES = {
     1091500: 'Cyberpunk 2077',
@@ -129,9 +129,12 @@ def build_dataset(args):
                 page_timestamps.append(saved['fetched_at_utc'])
                 counts['pages_fetched'] += 1
                 counts.update(saved['counts'])
+                counts['post_page_filter_rows'] += len(saved['rows'])
                 per_game[str(appid)]['pages_fetched'] += 1
                 per_game[str(appid)].update(saved['counts'])
                 for row in saved['rows']:
+                    # Apply the current redaction rules to older checkpoints too.
+                    row = {**row, 'text': clean_text(row['text'])}
                     key = row['review_id']
                     if key in conflicting_ids:
                         continue
@@ -145,6 +148,8 @@ def build_dataset(args):
                 if saved['exhausted']:
                     break
 
+    counts['id_stage_excluded'] = counts['post_page_filter_rows'] - len(ids)
+
     texts = {}
     conflicts = set()
     for row in ids.values():
@@ -157,10 +162,11 @@ def build_dataset(args):
         elif old['weak_label'] != row['weak_label']:
             texts.pop(key)
             conflicts.add(key)
-            counts['conflicting_text_excluded'] += 1
+            counts['conflicting_text_groups'] += 1
         else:
             counts['duplicate_text_excluded'] += 1
     rows = sorted(texts.values(), key=lambda row: (row['app_id'], row['review_id']))
+    counts['text_stage_excluded'] = len(ids) - len(rows)
     counts['accepted'] = len(rows)
     for row in rows:
         counts[f'accepted_{row["weak_label"]}'] += 1
