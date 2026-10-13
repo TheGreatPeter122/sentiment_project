@@ -252,15 +252,21 @@
     canvas.style.width = this.cfg.faceSize + 'px';
     canvas.style.height = this.cfg.faceSize + 'px';
     stage.appendChild(canvas);
-    // 结果区只显示图片：不创建 mood / caption 文字节点
-    wrap.append(stage);
+    // 结果区只保留图片 + 决策分数，其余文字（情绪文案/阈值规则）不创建
+    const caption = document.createElement('div');
+    caption.className = 'face-caption';
+    const score = document.createElement('span');
+    score.className = 'face-score';
+    caption.append(score);
+    wrap.append(stage, caption);
     rootEl.replaceChildren(wrap);
 
     this.root = rootEl;
     this.el = wrap;
     this.canvas = canvas;
-    this.moodEl = null;
-    this.captionEl = null;
+    this.moodEl = null;          // 不再显示情绪文案
+    this.captionEl = caption;    // 只承载“决策分数”
+    this.scoreEl = score;
     this.ready = false;
 
     const a = this.cfg.assets;
@@ -292,11 +298,7 @@
     this.target = { score: 0, prediction: 'positive', neutral: true };
     this.current = 0;
     this._paint(0);
-    if (this.moodEl) {
-      this.moodEl.textContent = '等待分析';
-      this.moodEl.className = 'face-mood';
-    }
-    if (this.captionEl) this.captionEl.textContent = '分析后这里会显示情绪表情';
+    if (this.scoreEl) this.scoreEl.textContent = '决策分数 —';
     return this;
   };
 
@@ -317,22 +319,14 @@
     return this;
   };
 
-  // 只画图片；如果外部自行传入了 mood/caption 容器才写文字（默认没有）
+  // 画图片；文字只更新“决策分数”
   Face.prototype._paint = function (progress) {
     const t = Math.max(0, Math.min(1, progress));
     if (this.ready) {
       renderTo(this.canvas, this.assets, this.target.score * t, this.cfg.faceSize, this.cfg);
     }
-    if (this.target.neutral || !this.moodEl) return;
-    const word = this._moodWord(this.target.score);
-    this.moodEl.textContent = word.text;
-    this.moodEl.className = 'face-mood ' + word.kind;
-    if (this.captionEl) {
-      this.captionEl.innerHTML =
-        '<span class="face-score">决策分数 ' + Number(this.target.score).toFixed(3) + '</span>' +
-        '<span class="face-angle">' + word.tag + '</span>' +
-        '<span class="face-rule">' + word.rule + '</span>';
-    }
+    if (this.target.neutral || !this.scoreEl) return;
+    this.scoreEl.textContent = '决策分数 ' + Number(this.target.score).toFixed(3);
   };
 
   // 三态文案（仅在外部提供了文字容器时才用得到）
