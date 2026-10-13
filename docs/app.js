@@ -111,7 +111,7 @@ function showPrediction(prediction, score) {
   card.append(words, value);
   result.append(card);
 
-  // 表情可视化：分数 > 0 笑脸图、= 0 中性图、< 0 哭脸图
+  // 表情可视化：score > 0.5 笑脸图、−0.5~0.5 中性图、< −0.5 哭脸图
   // 优先用照片版（SentimentFacePhoto）；没有素材时回退到矢量版（SentimentFace）
   const FaceLib = (typeof SentimentFacePhoto !== 'undefined') ? SentimentFacePhoto
     : (typeof SentimentFace !== 'undefined' ? SentimentFace : null);
@@ -121,8 +121,8 @@ function showPrediction(prediction, score) {
     result.append(faceBox);
     if (!face) face = FaceLib.create(faceBox);
     else faceBox.append(face.el);
-    if (typeof face.animateTo === 'function') face.animateTo(score, prediction);
-    else face.update(score, prediction);
+    // 瞬间切换：直接落到目标表情，不做淡入动画
+    face.update(score, prediction);
   }
 }
 

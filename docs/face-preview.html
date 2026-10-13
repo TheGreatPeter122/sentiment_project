@@ -31,14 +31,14 @@
 <main class="preview">
   <h1>表情档位预览</h1>
   <p class="lead">
-    显示规则（<b>硬切，不叠加、不渐隐</b>）：<b>决策分数 &gt; 0.5 → 笑脸图</b>，
+    显示规则（<b>硬切、瞬间切换</b>）：<b>决策分数 &gt; 0.5 → 笑脸图</b>，
     <b>−0.5 ~ 0.5 → 中性图</b>，<b>&lt; −0.5 → 哭脸图</b>。
-    每张图都是整张替换，所以同一种表情在不同分数下画面完全一致。
+    每张图整张替换，既不叠加也不做淡入动画，所以同一种表情在任何分数下画面完全一致。
   </p>
 
   <div class="rules">
     <b>score &gt; 0.5</b> → 笑脸 &nbsp;|&nbsp; <b>−0.5 ≤ score ≤ 0.5</b> → 中性 &nbsp;|&nbsp; <b>score &lt; −0.5</b> → 哭脸<br>
-    阈值存在 <code>face-photo.js</code> 的 <code>neutralBand</code>（当前 <b id="bandShow">0.5</b>），改它就等于改两侧边界
+    切换方式：<b>瞬间替换</b>（无淡入动画）&nbsp;|&nbsp; 阈值在 <code>face-photo.js</code> 的 <code>neutralBand</code>（当前 <b id="bandShow">0.5</b>）
   </div>
 
   <h2>① 三态对照</h2>
