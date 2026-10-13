@@ -36,8 +36,8 @@
     SCORE_REF: 4,      // 分数参考尺度（|score| = 4 时约 76% 幅度）
     /* --- 三态显示（主逻辑） --- */
     threeStateImages: true,   // true = 直接切换三张照片；false = 只用中性图靠剪切合成哭脸
-    neutralBand: 0.02,        // |score| ≤ 该值视为中性（=0 一定中性）
-    blendGain: 2.5,           // 过渡快慢：混合量 = tanh(|score| × blendGain)，越大越快切到笑脸/哭脸
+    neutralBand: 0.2,         // 中性硬范围：|score| ≤ 该值一律显示纯中性图（不混笑脸/哭脸）
+    blendGain: 1.2,           // 过渡快慢：混合量 = tanh(|score| × blendGain)，越小中性区越宽、切换越缓
     baseShear: 0,             // 中性图自身的轻微变形（一般 0）
     smileShear: 0,            // 笑脸图是否再剪切（一般 0，照片已经笑了）
     cryShear: 0,              // 哭脸图是否再剪切（一般 0）
