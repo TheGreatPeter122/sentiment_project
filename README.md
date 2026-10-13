@@ -54,6 +54,14 @@ B 站[用户协议](https://www.bilibili.com/blackboard/protocal/licence.html)�
 
 脚本会拒绝覆盖已有模型和正式结果；复现应在新副本中运行，防止无意间重做测试。
 
+### Steam 数据的 Spark 处理与单机对照
+
+已在相同的 1 万、5 万、102,902 条 Steam JSONL 输入上，用单进程 Python 和 PySpark `local[4]` 执行同口径的空白清洗、字符长度和“游戏 × 弱标签 × 月份 × 长度桶”分组统计。全部分组数量和字符总量一致。全量三次运行中位数分别为 **0.306 秒**和 **0.325 秒**；在本机这种简单任务与数据规模下，没有观察到 Spark 的速度优势。详细方法、逐档结果及限制见[Steam Spark 处理记录](reports/steam_spark_process.md)和[原始计时及统计](reports/steam_spark_comparison.json)。这是单机 Spark 模拟并行处理，不是多机器集群性能证明。
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\start_spark.ps1 -Script scripts/benchmark_steam_pipeline.py
+```
+
 前一轮[否定、转折特征实验与数据处理记录](reports/text_structure_process.md)按阶段记录输入校验、清洗、候选提取、向量化、训练及误判对照。使用原有 88,814 条训练记录和 10,908 条验证记录，三组验证准确率为 77.6311%、77.5211%、77.6494%；整体尚无明确优势，该轮没有替换网页模型。复现：`python scripts/train_structure_experiment.py`；测试：`python -m unittest discover -s tests -v`。
 
 后续完成[日常评论多来源优化](reports/daily_review_process.md)：使用微博、购物和外卖共 148,216 条训练记录，五组方案各训练三个固定种子，按三来源验证 Macro-F1 等权平均选择“直接混合＋结构 v2”。在锁定模型后的 7,429 条外部保留测试中，准确率为 **91.68%**，同轮微博单来源对照为 **80.05%**；微博验证表现略有退步，部分否定／转折诊断句仍然失败。报告记录了清洗、划分、来源权重、词内误命中处理、计算耗时和三张对照图，人工情感标注暂缓，社群黑话不在该实验范围。
