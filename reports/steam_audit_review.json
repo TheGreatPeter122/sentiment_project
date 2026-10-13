@@ -3,10 +3,12 @@
   "sample_method": "5 records per app_id × weak_label from the pre-existing Steam test split",
   "sample_seed": "steam-audit-20261013-v1",
   "sample_size": 100,
+  "model_path": "models/daily_review.joblib",
+  "model_sha256": "cc72de26822843ca0694826910510f8d59c0174d3dd19ca5e5bbe80bc0569443",
   "blind_sha256": "501e7efb8a35a3e73bc800eace1519fb4d070656dbd59bc14e8e5d9570a0def6",
   "mapping_sha256": "1abbac3fe911e2d80b4cad463a2ae43c2daf11779d9db5919eb36f3980b15e90",
   "local_review_sheet": "data/processed/steam_audit_review.csv",
-  "local_review_sheet_sha256": "a0c86f7c4a86aeb16c6645582881221db8e3b718ead70fb53c6fe75059a90c46",
+  "local_review_sheet_sha256": "afd3efd6c5209936f298b2d5d30db9e8dd3cb0259e6956d0e309c67f8fe8c24b",
   "ai_label_counts": {
     "negative": 48,
     "positive": 35,
@@ -19,9 +21,9 @@
   },
   "strict_binary_count": 83,
   "strict_weak_label_matches": 77,
-  "strict_model_matches": 75,
+  "strict_model_matches": 76,
   "strict_weak_label_agreement": 0.9277,
-  "strict_model_agreement": 0.9036,
+  "strict_model_agreement": 0.9157,
   "mixed_or_unclear_sample_ids": [
     "S030",
     "S052",
@@ -50,12 +52,11 @@
     "S089"
   ],
   "strict_model_mismatch_sample_ids": [
-    "S001",
     "S003",
     "S005",
-    "S013",
     "S015",
-    "S067",
+    "S027",
+    "S046",
     "S072",
     "S077"
   ],

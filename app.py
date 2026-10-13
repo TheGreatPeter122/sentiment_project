@@ -26,7 +26,7 @@ button{border:0;border-radius:8px;background:#155e75;color:white;padding:10px 24
 <button data-text="等了三个小时，服务可真好。">反讽</button>
 <button data-text="今天是星期六。">中性</button></div>
 <div id="result" role="status">等待输入</div>
-<p class="hint">当前模型：日常评论·结构 v2，使用微博、购物和外卖语料训练。模型分数不是概率；部分否定、转折和反讽仍可能误判。结果只是文本倾向判断，不代表对作者真实情绪的测量。</p>
+<p class="hint">当前统一模型：结构 v2，使用微博、购物、外卖和 Steam 中文短评训练。Steam“推荐／不推荐”是弱标签。模型分数不是概率；部分否定、转折和反讽仍可能误判。结果只是文本倾向判断，不代表对作者真实情绪的测量。</p>
 <script>
 const input=document.querySelector('#input'),result=document.querySelector('#result');
 document.querySelectorAll('[data-text]').forEach(b=>b.onclick=()=>{input.value=b.dataset.text;input.focus()});

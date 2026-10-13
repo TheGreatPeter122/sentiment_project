@@ -1,0 +1,7 @@
+{
+  "model_path": "models/unified_experiments/steam_weight_1.0.joblib",
+  "model_sha256": "cc72de26822843ca0694826910510f8d59c0174d3dd19ca5e5bbe80bc0569443",
+  "steam_weight": 1.0,
+  "selection_equal_source_macro_f1": 0.8676795795584136,
+  "test_not_used_for_selection": true
+}

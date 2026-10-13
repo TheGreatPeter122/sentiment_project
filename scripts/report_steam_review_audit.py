@@ -2,18 +2,20 @@
 import csv
 import hashlib
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 
 import joblib
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 BLIND = ROOT / 'data/processed/steam_audit_blind.jsonl'
 MAPPING = ROOT / 'data/processed/steam_audit_mapping.jsonl'
 SHEET = ROOT / 'data/processed/steam_audit_review.csv'
 REPORT = ROOT / 'reports/steam_audit_review.json'
-MODEL = ROOT / 'models/steam_reviews.joblib'
-MODEL_REPORT = ROOT / 'reports/steam_training_results.json'
+MODEL = ROOT / 'models/daily_review.joblib'
+MODEL_REPORT = ROOT / 'models/daily_review.json'
 EXPECTED_BLIND_SHA = '501e7efb8a35a3e73bc800eace1519fb4d070656dbd59bc14e8e5d9570a0def6'
 EXPECTED_MAPPING_SHA = '1abbac3fe911e2d80b4cad463a2ae43c2daf11779d9db5919eb36f3980b15e90'
 
@@ -81,7 +83,8 @@ def main():
         records.append({**text_row, 'review_id': source_row['review_id'],
                         'weak_label': source_row['weak_label'], 'ai_review': decision,
                         'ai_note': NOTES.get(text_row['sample_id'], ''),
-                        'model_prediction': str(prediction), 'human_review': '', 'human_note': ''})
+                        'model_prediction': 'positive' if int(prediction) == 1 else 'negative',
+                        'human_review': '', 'human_note': ''})
     if SHEET.exists():
         with SHEET.open(encoding='utf-8-sig', newline='') as handle:
             previous = list(csv.DictReader(handle))
@@ -100,6 +103,8 @@ def main():
     report = {'review_type': 'AI-assisted preliminary blind text review; not human gold labels',
               'sample_method': '5 records per app_id × weak_label from the pre-existing Steam test split',
               'sample_seed': 'steam-audit-20261013-v1', 'sample_size': len(records),
+              'model_path': MODEL.relative_to(ROOT).as_posix(),
+              'model_sha256': model_report['model_sha256'],
               'blind_sha256': EXPECTED_BLIND_SHA, 'mapping_sha256': EXPECTED_MAPPING_SHA,
               'local_review_sheet': SHEET.relative_to(ROOT).as_posix(),
               'local_review_sheet_sha256': hashlib.sha256(SHEET.read_bytes()).hexdigest(),

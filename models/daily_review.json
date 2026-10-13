@@ -1,12 +1,20 @@
 {
   "selected_arm": "structure_v2",
-  "selected_composition": "mixed",
-  "selection_metric": "mean across three seeds of equal-source validation macro_f1",
+  "selected_composition": "weibo_shopping_waimai_steam",
+  "sources": [
+    "weibo",
+    "shopping",
+    "waimai",
+    "steam"
+  ],
+  "steam_label_type": "recommendation_weak_label",
   "representative_seed": 20261010,
+  "steam_training_weight": 1.0,
   "model_path": "models/daily_review.joblib",
-  "model_sha256": "a417e56eaffc1436e632647aeeed9b3b478586e1888201ae9b35f9e5cefaea97",
-  "validation_selection": 0.861780936733071,
-  "experiment_model_path": "models/daily_review_experiments/20261011_133237/structure_v2_20261010.joblib",
-  "run_id": "20261011_133237",
-  "promoted_on": "2026-10-11"
+  "model_sha256": "cc72de26822843ca0694826910510f8d59c0174d3dd19ca5e5bbe80bc0569443",
+  "selection_metric": "equal-source validation Macro-F1 across four sources",
+  "validation_selection": 0.8676795795584136,
+  "selection_lock_path": "reports/unified_selection_lock.json",
+  "training_results_path": "reports/unified_model_results.json",
+  "promoted_on_utc": "2026-10-13T08:38:03.543903+00:00"
 }

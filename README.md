@@ -10,6 +10,8 @@
 
 目标：基于 PySpark 的十万级中文短文本情感识别与误判分析。现场输入新文本，展示正负向预测；另用独立测试集评价效果。
 
+**当前唯一演示模型**使用微博、购物、外卖和 Steam 短评共同训练，保存为 `models/daily_review.joblib`。Steam 是通过自写爬虫新增的第四个数据来源，标签来自用户“推荐／不推荐”选择。训练共 230,199 条；四来源验证结果及各来源测试诊断见[统一模型记录](reports/unified_model_process.md)。前期单来源、三来源和单独 Steam 模型均是历史对照实验，不是并行部署的两套最终模型。
+
 项目从数据清洗到字符扩展、中文分词实验中遇到的问题和实际结论，集中记录在 [项目过程记录](reports/development_log.md)。
 
 ## 公开项目反馈采集试点
@@ -44,7 +46,7 @@ B 站[用户协议](https://www.bilibili.com/blackboard/protocal/licence.html)�
 
 ### Steam 弱标签模型训练和留出测试
 
-按[固定协议](reports/steam_training_protocol.md)将这 102,902 条评论按游戏和标签分层，分为训练 82,313、验证 10,282、测试 10,307 条；ID 与正文无跨集重复。使用字符 1—2 gram TF-IDF 和 SGD 逻辑回归，在验证前固定超参数，不依据测试集调参。独立留出测试的准确率 **90.57%**、Macro-F1 **89.97%**，完整混淆矩阵及逐游戏指标见[结果文件](reports/steam_training_results.json)，划分哈希见[分割记录](reports/steam_split_report.json)。这评价的是“推荐／不推荐”弱标签预测，**不等于人工情感标注准确率**。模型在 `models/steam_reviews.joblib`；当前网页仍使用原日常评论模型，避免把游戏评论模型误作为通用情感模型。原始和分割后的评论仍仅在本地，不随 Git 分发。
+历史对照实验曾按[固定协议](reports/steam_training_protocol.md)将这 102,902 条评论按游戏和标签分层，分为训练 82,313、验证 10,282、测试 10,307 条；ID 与正文无跨集重复。单独训练的 Steam 模型在其留出测试上的准确率为 **90.57%**、Macro-F1 为 **89.97%**，结果见[历史报告](reports/steam_training_results.json)。这个模型文件已从当前版本移除，**网页现在只使用下文的四来源统一模型**；历史报告中的旧模型路径可从 Git 历史恢复。原始和分割后的评论仍仅在本地，不随 Git 分发。
 
 本机复现（需先有同一 SHA-256 的清洗数据）：
 
@@ -52,7 +54,7 @@ B 站[用户协议](https://www.bilibili.com/blackboard/protocal/licence.html)�
 .\.venv\Scripts\python.exe scripts\train_steam_reviews.py
 ```
 
-脚本会拒绝覆盖已有模型和正式结果；复现应在新副本中运行，防止无意间重做测试。
+该脚本只用于复现历史对照；当前统一模型用 `scripts/train_unified_reviews.py` 训练。复现应在实验副本中运行，防止覆盖既有测试结果。
 
 ### Steam 数据的 Spark 处理与单机对照
 
@@ -68,7 +70,7 @@ powershell -ExecutionPolicy Bypass -File .\start_spark.ps1 -Script scripts/bench
 
 后续完成[日常评论多来源优化](reports/daily_review_process.md)：使用微博、购物和外卖共 148,216 条训练记录，五组方案各训练三个固定种子，按三来源验证 Macro-F1 等权平均选择“直接混合＋结构 v2”。在锁定模型后的 7,429 条外部保留测试中，准确率为 **91.68%**，同轮微博单来源对照为 **80.05%**；微博验证表现略有退步，部分否定／转折诊断句仍然失败。报告记录了清洗、划分、来源权重、词内误命中处理、计算耗时和三张对照图，人工情感标注暂缓，社群黑话不在该实验范围。
 
-网页已同步使用这轮选定的“直接混合＋结构 v2”（固定种子 `20261010`）。演示模型保存为 `models/daily_review.joblib`，版本与 SHA256 记录在 `models/daily_review.json`；与锁定的实验模型逐字节一致。网页与命令行共用预测入口：`python scripts/predict_daily_reviews.py "今天不开心。" "我一点也不喜欢原神"`。实验模型及逐条原文仍保存在本地 Git 忽略目录；后续训练不会自动改变演示版本。训练依赖使用 `requirements-demo.txt`，生成报告图表另安装 `requirements-report.txt`。新外部测试已评价，后续调参不能反复用它宣称独立提升。
+上述三来源实验曾作为网页模型；现已加入 Steam 来源并推广四来源统一模型。网页与命令行共用 `models/daily_review.joblib`，版本与 SHA256 记录在 `models/daily_review.json`；预测入口：`python scripts/predict_daily_reviews.py "今天不开心。" "我一点也不喜欢原神"`。训练依赖使用 `requirements-demo.txt`，生成报告图表另安装 `requirements-report.txt`。已有测试集均已评价，后续调参不能反复用它们宣称新的独立提升。
 
 ## 给同学使用：双击启动（Windows）
 

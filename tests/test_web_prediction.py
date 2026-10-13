@@ -45,7 +45,7 @@ class WebPredictionTests(unittest.TestCase):
     def test_page_explains_current_training_sources(self):
         with urlopen(self.url, timeout=10) as response:
             page = response.read().decode('utf-8')
-        for phrase in ('微博、购物和外卖', '结构 v2', '概率'):
+        for phrase in ('微博、购物、外卖和 Steam', '结构 v2', '弱标签', '概率'):
             self.assertIn(phrase, page)
 
     def test_invalid_payloads_return_json_errors(self):
