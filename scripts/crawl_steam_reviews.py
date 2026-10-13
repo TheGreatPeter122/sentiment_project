@@ -72,8 +72,17 @@ def fetch_page(appid, review_type, cursor, per_page):
         if error.code == 429:
             raise RuntimeError('Steam API rate limit reached; stop and retry later') from error
         raise
+    return parse_review_response(body)
+
+
+def parse_review_response(body):
     data = body.get('response')
-    if not isinstance(data, dict) or not isinstance(data.get('reviews'), list):
+    if not isinstance(data, dict):
+        raise ValueError('Unexpected Steam API response')
+    if ('reviews' not in data and data.get('query_summary', {}).get('num_reviews') == 0):
+        # Steam omits the list at the end of a cursor stream.
+        return {**data, 'reviews': []}
+    if not isinstance(data.get('reviews'), list):
         raise ValueError('Unexpected Steam API response')
     return data
 

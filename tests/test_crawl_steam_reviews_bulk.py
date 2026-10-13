@@ -14,6 +14,20 @@ import crawl_steam_reviews_bulk as bulk
 
 
 class BulkCrawlerTests(unittest.TestCase):
+    def test_can_extend_game_list_without_refetching_first_game(self):
+        with tempfile.TemporaryDirectory() as folder:
+            args = argparse.Namespace(appids=[1091500], pages_per_label=1,
+                                      per_page=10, max_chars=300, delay=1)
+            def fake_fetch(appid, review_type, cursor, per_page):
+                return {'reviews': [], 'cursor': 'next'}
+            with (patch.object(bulk, 'PAGE_DIR', Path(folder) / 'pages'),
+                  patch.object(bulk, 'fetch_page', side_effect=fake_fetch) as fetch,
+                  patch.object(bulk.time, 'sleep')):
+                bulk.collect(args)
+                args.appids = [1091500, 2358720]
+                bulk.collect(args)
+                self.assertEqual(fetch.call_count, 4)
+
     def test_temporary_network_error_retries(self):
         with (patch.object(bulk, 'fetch_page', side_effect=[
                   urllib.error.URLError('temporary'), {'reviews': [], 'cursor': 'next'}]) as fetch,

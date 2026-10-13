@@ -22,6 +22,11 @@ GAMES = {
     1086940: "Baldur's Gate 3",
     105600: 'Terraria',
     413150: 'Stardew Valley',
+    570: 'Dota 2',
+    730: 'Counter-Strike 2',
+    578080: 'PUBG: BATTLEGROUNDS',
+    582010: 'Monster Hunter: World',
+    3240220: 'Grand Theft Auto V Enhanced',
 }
 PAGE_DIR = ROOT / 'data/processed/steam_bulk_pages'
 OUTPUT = ROOT / 'data/processed/steam_reviews_bulk.jsonl'
@@ -56,8 +61,15 @@ def collect(args):
               'language': 'schinese', 'purchase_type': 'all'}
     config_path = PAGE_DIR / 'config.json'
     if config_path.exists():
-        if json.loads(config_path.read_text(encoding='utf-8')) != config:
-            raise RuntimeError('Existing page checkpoints use a different config; move the old checkpoint directory first')
+        old = json.loads(config_path.read_text(encoding='utf-8'))
+        if old != config:
+            # Extending the game list keeps previously collected pages valid.
+            same_rules = all(old.get(key) == value for key, value in config.items()
+                             if key != 'appids')
+            old_apps = old.get('appids', [])
+            if not same_rules or args.appids[:len(old_apps)] != old_apps:
+                raise RuntimeError('Existing page checkpoints use different rules or game order')
+            write_json_atomic(config_path, config)
     else:
         write_json_atomic(config_path, config)
 
@@ -74,7 +86,7 @@ def collect(args):
                         raise RuntimeError(f'Checkpoint cursor mismatch: {path}')
                     # Some valid pages contain fewer than the requested maximum.
                     # The cursor, rather than page length, determines continuation.
-                    exhausted = (not saved['counts']['api_reviews']
+                    exhausted = (not saved['counts'].get('api_reviews', 0)
                                  or not saved['next_cursor']
                                  or saved['next_cursor'] == cursor)
                     if saved['exhausted'] != exhausted:
@@ -95,7 +107,7 @@ def collect(args):
                              'counts': dict(counts), 'rows': rows}
                     write_json_atomic(path, saved)
                     print(f'{GAMES[appid]} {label} page {page}: '
-                          f'{counts["api_reviews"]} fetched, {len(rows)} kept', flush=True)
+                          f'{counts.get("api_reviews", 0)} fetched, {len(rows)} kept', flush=True)
                 cursor = saved['next_cursor']
                 if saved['exhausted']:
                     break
@@ -194,10 +206,10 @@ def main():
     args = parser.parse_args()
     if (not args.appids or len(set(args.appids)) != len(args.appids)
             or any(appid not in GAMES for appid in args.appids)
-            or not 1 <= args.pages_per_label <= 100
+            or not 1 <= args.pages_per_label <= 200
             or not 1 <= args.per_page <= 100
             or not 50 <= args.max_chars <= 1000 or args.delay < 1):
-        parser.error('choose listed game IDs, 1-100 pages/label, 1-100 reviews/page, '
+        parser.error('choose listed game IDs, 1-200 pages/label, 1-100 reviews/page, '
                      '50-1000 chars, delay >= 1s')
     collect(args)
     build_dataset(args)
