@@ -82,8 +82,9 @@
 
       <h3>显示规则</h3>
       <div class="row"><label>三张图切换</label><input type="checkbox" id="threeState" checked><span class="val">开</span></div>
-      <div class="row"><label>中性带宽</label><input type="range" id="band" min="0" max="1" step="0.01" value="0.2"><span class="val" id="bandV"></span></div>
-      <div class="row"><label>切换快慢</label><input type="range" id="gain" min="0.2" max="10" step="0.1" value="1.2"><span class="val" id="gainV"></span></div>
+      <div class="row"><label>中性带宽</label><input type="range" id="band" min="0" max="2" step="0.05" value="0.5"><span class="val" id="bandV"></span></div>
+      <div class="row"><label>硬切（不渐隐）</label><input type="checkbox" id="hardSwitch" checked><span class="val">开</span></div>
+      <div class="row"><label>切换快慢</label><input type="range" id="gain" min="0.2" max="10" step="0.1" value="2"><span class="val" id="gainV"></span></div>
       <div class="row"><label>哭脸强度（无图时）</label><input type="range" id="frownShear" min="0" max="120" step="1" value="55"><span class="val" id="frownShearV"></span></div>
       <div class="row"><label>脸朝向</label><select id="facing"><option value="right">朝右</option><option value="left">朝左</option></select><span class="val"></span></div>
 
@@ -265,6 +266,7 @@
     });
 
     $('threeState').addEventListener('change', () => { state.cfg.threeStateImages = $('threeState').checked; renderAll(); });
+    $('hardSwitch').addEventListener('change', () => { state.cfg.hardSwitch = $('hardSwitch').checked; renderAll(); });
     $('facing').addEventListener('change', () => { state.cfg.facing = $('facing').value; renderAll(); });
     $('score').addEventListener('input', () => { $('scoreV').textContent = parseFloat($('score').value).toFixed(2); renderAll(); });
     $('score').dispatchEvent(new Event('input'));
@@ -288,6 +290,7 @@
         'const CONFIG = {\n' +
         '  cx: ' + c.cx.toFixed(3) + ', cy: ' + c.cy.toFixed(3) + ', r: ' + c.r.toFixed(3) + ',\n' +
         '  threeStateImages: ' + (c.threeStateImages !== false) + ',\n' +
+        '  hardSwitch: ' + (c.hardSwitch !== false) + ',\n' +
         '  neutralBand: ' + c.neutralBand.toFixed(2) + ',\n' +
         '  blendGain: ' + c.blendGain.toFixed(1) + ',\n' +
         '  frownShear: ' + c.frownShear.toFixed(0) + ',\n' +
@@ -319,6 +322,7 @@
       });
       $('facing').value = state.cfg.facing;
       $('threeState').checked = state.cfg.threeStateImages !== false;
+      $('hardSwitch').checked = state.cfg.hardSwitch !== false;
       drawMain(); renderAll();
     });
 

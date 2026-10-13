@@ -31,13 +31,14 @@
 <main class="preview">
   <h1>表情档位预览</h1>
   <p class="lead">
-    显示规则：<b>决策分数 &gt; 0 → 笑脸图</b>，<b>= 0 → 中性图</b>，<b>&lt; 0 → 哭脸图</b>。
-    分数绝对值很小时（|score| &lt; 1）三张图之间做平滑淡入，避免生硬跳变。
+    显示规则（<b>硬切，不叠加、不渐隐</b>）：<b>决策分数 &gt; 0.5 → 笑脸图</b>，
+    <b>−0.5 ~ 0.5 → 中性图</b>，<b>&lt; −0.5 → 哭脸图</b>。
+    每张图都是整张替换，所以同一种表情在不同分数下画面完全一致。
   </p>
 
   <div class="rules">
-    <b>score &gt; 0</b> → 笑脸 &nbsp;|&nbsp; <b>score = 0</b> → 中性 &nbsp;|&nbsp; <b>score &lt; 0</b> → 哭脸<br>
-    过渡：<code>混合量 = tanh(|score| / 1)</code>，|score| ≈ 1 时基本完全切换
+    <b>score &gt; 0.5</b> → 笑脸 &nbsp;|&nbsp; <b>−0.5 ≤ score ≤ 0.5</b> → 中性 &nbsp;|&nbsp; <b>score &lt; −0.5</b> → 哭脸<br>
+    阈值存在 <code>face-photo.js</code> 的 <code>neutralBand</code>（当前 <b id="bandShow">0.5</b>），改它就等于改两侧边界
   </div>
 
   <h2>① 三态对照</h2>
@@ -92,16 +93,19 @@ window.addEventListener('load', async () => {
   card(trio, 0, 'score = 0', '中性');
   card(trio, -3, 'score = −3', '哭脸');
 
-  for (const s of [-6, -3, -1, -0.3, 0, 0.3, 1, 3, 6]) {
-    card(grid, s, (s > 0 ? '+' : '') + s.toFixed(1), s > 0 ? '笑脸' : (s < 0 ? '哭脸' : '中性'));
+  const band = (S.CONFIG.neutralBand == null ? 0.5 : S.CONFIG.neutralBand);
+  document.querySelector('#bandShow').textContent = band;
+  for (const s of [-6, -3, -0.51, -0.5, -0.2, 0, 0.2, 0.5, 0.51, 3, 6]) {
+    card(grid, s, (s > 0 ? '+' : '') + s.toFixed(2),
+      s > band ? '笑脸' : (s < -band ? '哭脸' : '中性'));
   }
 
-  for (const s of [-3, -0.5, -0.02, 0, 0.02, 0.5, 3]) {
-    const t = s > 0 ? 1 : (s < 0 ? -1 : 0);
+  for (const s of [-3, -0.51, -0.5, 0, 0.5, 0.51, 3]) {
+    const t = s > band ? 1 : (s < -band ? -1 : 0);
     const tr = document.createElement('tr');
     tr.innerHTML = '<td class="num">' + s.toFixed(2) + '</td><td>' +
       (t > 0 ? '笑脸' : (t < 0 ? '哭脸' : '中性')) + '</td><td class="num">' +
-      Math.abs(Math.tanh(s)).toFixed(3) + '</td>';
+      (t === 0 ? '0（纯中性图）' : '1（整张替换）') + '</td>';
     tbody.append(tr);
   }
   window.__previewReady = true;

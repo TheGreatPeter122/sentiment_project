@@ -1,11 +1,12 @@
 /*!
  * face-photo.js —— 用真实照片做“笑脸 / 哭脸 / 中性”表情可视化（Canvas 2D，无第三方库）
  *
- * 主逻辑（三态直显）
- *   score > 0  → 笑脸图 smile
- *   score = 0  → 中性图 neutral
- *   score < 0  → 哭脸图 cry
- *   过渡：|score| 很小时用 smoothstep 交叉淡入，避免生硬跳变（neutralBand 控制中性带宽）
+ * 主逻辑（三态硬切，不做渐隐叠加）
+ *   score >  0.5  → 笑脸图 smile
+ *   −0.5 ≤ score ≤ 0.5 → 中性图 neutral
+ *   score < −0.5  → 哭脸图 cry
+ *   三张图整张替换，互不叠加（neutralBand 可调这个 0.5 的阈值；
+ *   若确实想要淡入效果，把 hardSwitch 设为 false）
  *
  * 可选（threeStateImages = false 时）
  *   只用中性图，靠“嘴角剪切”把嘴角压下去合成哭脸，用于没有哭脸素材的情况。
@@ -34,10 +35,11 @@
     shear: 30,         // 嘴角最大竖直位移（像素，基于 512px 画幅，会自动按尺寸缩放）
     facing: 'right',   // 素材中脸朝哪边：'right' | 'left'（决定左右嘴角谁上谁下）
     SCORE_REF: 4,      // 分数参考尺度（|score| = 4 时约 76% 幅度）
-    /* --- 三态显示（主逻辑） --- */
+    /* --- 三态显示（主逻辑）：按阈值硬切，不做渐隐叠加 --- */
     threeStateImages: true,   // true = 直接切换三张照片；false = 只用中性图靠剪切合成哭脸
-    neutralBand: 0.2,         // 中性硬范围：|score| ≤ 该值一律显示纯中性图（不混笑脸/哭脸）
-    blendGain: 1.2,           // 过渡快慢：混合量 = tanh(|score| × blendGain)，越小中性区越宽、切换越缓
+    neutralBand: 0.5,         // 中性范围：|score| ≤ 0.5 → 纯中性图
+    hardSwitch: true,         // true = 硬切（不混合）；false = 按 blendGain 淡入淡出
+    blendGain: 2.0,           // 仅 hardSwitch=false 时有效：混合量 = tanh(|score| × blendGain)
     baseShear: 0,             // 中性图自身的轻微变形（一般 0）
     smileShear: 0,            // 笑脸图是否再剪切（一般 0，照片已经笑了）
     cryShear: 0,              // 哭脸图是否再剪切（一般 0）
@@ -168,11 +170,11 @@
     return cache.data;
   }
 
-  /* ================= 渲染：三态直显 =================
-   *   score > +band  → 笑脸图 smile
-   *   |score| ≤ band → 中性图 neutral
-   *   score < −band  → 哭脸图 cry
-   *   过渡用 smoothstep 交叉淡入淡出（band 控制"多接近 0 才算中性"）
+  /* ================= 渲染：三态硬切 =================
+   *   score > +band  → 只画笑脸图
+   *   |score| ≤ band → 只画中性图
+   *   score < −band  → 只画哭脸图
+   *   每次只画一张图（硬切时 globalAlpha 恒为 1），三张图不会叠加、不会互相透出。
    *   若按脸心对齐后仍有偏差，用 align 里的 scale / dx / dy 微调各张图。
    */
   function drawFrame(g, targetSize, img, height, score, align, c) {
@@ -194,30 +196,32 @@
     g.clearRect(0, 0, targetSize, targetSize);
     g.globalAlpha = 1;
 
-    const band = Math.max(1e-6, c.neutralBand == null ? 0.02 : c.neutralBand);
+    const band = Math.max(0, c.neutralBand == null ? 0.5 : c.neutralBand);
+    // 三态判定（硬切）：score > 0.5 → 笑脸图；−0.5 ≤ score ≤ 0.5 → 中性图；score < −0.5 → 哭脸图
     const t = s > band ? 1 : (s < -band ? -1 : 0);
-    // 过渡：|score| × blendGain 越大越快切到笑脸/哭脸（score = 0 时混合量为 0 → 纯中性）
-    const gain = c.blendGain == null ? 2.5 : c.blendGain;
-    const blend = t === 0 ? 0 : Math.tanh(Math.abs(s) * gain);
+    // 硬切时混合量恒为 1（整张图直接替换，不做透明叠加）；关掉硬切才按 blendGain 淡入
+    const hard = c.hardSwitch !== false;
+    const gain = c.blendGain == null ? 2.0 : c.blendGain;
+    const blend = t === 0 ? 0 : (hard ? 1 : Math.tanh(Math.abs(s) * gain));
     const usePhotos = c.threeStateImages !== false;
 
     const align = c.align || {};
     const baseScore = c.baseShear || 0;                  // 中性图自身的轻微变形
 
     if (t > 0 && usePhotos && assets.smile) {
-      // 笑脸：中性图打底 + 笑脸图淡入
-      drawFrame(g, targetSize, assets.neutral, height, baseScore, align.neutral, c);
-      g.globalAlpha = blend;
+      // 只画笑脸图（硬切，不叠底图）
+      g.globalAlpha = hard ? 1 : blend;
+      if (!hard) drawFrame(g, targetSize, assets.neutral, height, baseScore, align.neutral, c);
       drawFrame(g, targetSize, assets.smile, height, c.smileShear || 0, align.smile, c);
     } else if (t < 0 && usePhotos && assets.cry) {
-      // 哭脸：中性图打底 + 哭脸图淡入
-      drawFrame(g, targetSize, assets.neutral, height, baseScore, align.neutral, c);
-      g.globalAlpha = blend;
+      // 只画哭脸图（硬切，不叠底图）
+      g.globalAlpha = hard ? 1 : blend;
+      if (!hard) drawFrame(g, targetSize, assets.neutral, height, baseScore, align.neutral, c);
       drawFrame(g, targetSize, assets.cry, height, c.cryShear || 0, align.cry, c);
     } else {
-      // 不用照片（或缺少对应素材）：只用中性图，靠向下剪切把嘴角压成哭脸
+      // 只画中性图；需要哭脸但没有哭脸素材时，用向下剪切把嘴角压下去
       let sc = baseScore;
-      if (t < 0) sc = -Math.abs(c.frownShear == null ? 55 : c.frownShear) * blend;
+      if (t < 0) sc = -Math.abs(c.frownShear == null ? 55 : c.frownShear) * (hard ? 1 : blend);
       drawFrame(g, targetSize, assets.neutral, height, sc, align.neutral, c);
     }
     g.globalAlpha = 1;
@@ -337,9 +341,10 @@
   // 三态文案
   Face.prototype._moodWord = function (score) {
     const s = Number(score) || 0;
-    if (s > 0) return { kind: 'strong', tag: '笑脸 😊', text: '偏正向：显示笑脸', rule: 'score > 0 → 笑脸图' };
-    if (s < 0) return { kind: 'negative', tag: '哭脸 😢', text: '偏负向：显示哭脸', rule: 'score < 0 → 哭脸图' };
-    return { kind: 'mild', tag: '中性 😐', text: '中性：分数正好为 0', rule: 'score = 0 → 中性图' };
+    const band = Math.max(0, this.cfg.neutralBand == null ? 0.5 : this.cfg.neutralBand);
+    if (s > band) return { kind: 'strong', tag: '笑脸 😊', text: '偏正向：显示笑脸图', rule: `score > ${band} → 笑脸图` };
+    if (s < -band) return { kind: 'negative', tag: '哭脸 😢', text: '偏负向：显示哭脸图', rule: `score < −${band} → 哭脸图` };
+    return { kind: 'mild', tag: '中性 😐', text: '中性范围：显示中性图', rule: `−${band} ≤ score ≤ ${band} → 中性图` };
   };
 
   Face.prototype.destroy = function () {
