@@ -1,0 +1,9 @@
+{
+  "cases": 123,
+  "label_disagreements": 0,
+  "maximum_absolute_score_difference": 1.2846244716868682e-06,
+  "includes_local_steam_blind_sample": true,
+  "source_model_sha256": "cc72de26822843ca0694826910510f8d59c0174d3dd19ca5e5bbe80bc0569443",
+  "export_sha256": "7f64f4130e330024993dc2ed7337c002262bf8d35fa6460d65dfbc074ae9f5eb",
+  "note": "Node executes the same inference.js file loaded by the browser; browser UI also requires a manual smoke test."
+}

@@ -11,3 +11,4 @@
 /reports/daily_review_protocol.md -text
 /reports/text_structure_protocol.md -text
 *.joblib -text
+/docs/model.json -text

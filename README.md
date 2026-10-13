@@ -12,6 +12,19 @@
 
 **当前唯一演示模型**使用微博、购物、外卖和 Steam 短评共同训练，保存为 `models/daily_review.joblib`。Steam 是通过自写爬虫新增的第四个数据来源，标签来自用户“推荐／不推荐”选择。训练共 230,199 条；四来源验证结果及各来源测试诊断见[统一模型记录](reports/unified_model_process.md)。前期单来源、三来源和单独 Steam 模型均是历史对照实验，不是并行部署的两套最终模型。
 
+## 在线分析器（GitHub Pages）
+
+[打开在线分析器](https://thegreatpeter122.github.io/sentiment_project/)；静态站点源码在 `docs/`，由 GitHub Pages 从 `main` 分支的 `/docs` 发布。首次打开下载约 11 MB 的模型参数，随后直接在浏览器内计算，无需安装 Python，也不会将输入文本发给本项目的服务器。网页使用与本地演示相同的四来源统一模型，但推理逻辑由 JavaScript 实现。它是正负二分类，决策分数不是正确概率；Steam 推荐状态是弱标签。
+
+修改或重新训练 `models/daily_review.joblib` 后，需重新导出网页参数、校验一致性并提交 `docs/model.json`；单独更新 Python 模型不会改变已发布网页：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\export_pages_model.py
+.\.venv\Scripts\python.exe scripts\verify_pages_model.py
+```
+
+校验脚本用 Node.js 对比浏览器版和 Python 版的预测及分数，结果保存在 `reports/pages_model_verification.json`。本地预览可运行 `python -m http.server 8766 --directory docs`，访问 `http://127.0.0.1:8766/`；不要直接双击 HTML 文件打开，因为浏览器需要从 HTTP 地址加载 Web Worker 和模型文件。项目的原始语料和爬虫检查点没有发布到网页目录。
+
 项目从数据清洗到字符扩展、中文分词实验中遇到的问题和实际结论，集中记录在 [项目过程记录](reports/development_log.md)。
 
 ## 公开项目反馈采集试点

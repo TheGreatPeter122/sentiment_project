@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8f4">
+  <meta name="description" content="输入中文短评，在浏览器本地体验四来源情感识别模型。">
+  <title>中文短文本情感分析器</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="header">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> 大数据导论 · 课程项目</div>
+      <h1>一句话，看看它的情感倾向。</h1>
+      <p class="intro">输入一条中文短评，模型会判断它更偏正向还是负向。计算在你的浏览器里完成。</p>
+    </header>
+
+    <section class="workspace" aria-labelledby="input-title">
+      <div class="section-head">
+        <div>
+          <div class="step">01 / 输入文本</div>
+          <h2 id="input-title">写下想分析的句子</h2>
+        </div>
+        <span id="load-status" class="status" role="status" aria-live="polite">正在加载模型…</span>
+      </div>
+      <label class="sr-only" for="text-input">待分析的中文短评</label>
+      <textarea id="text-input" maxlength="500" placeholder="例如：虽然等了很久，但这次体验真的不错。"></textarea>
+      <div class="input-bottom">
+        <span id="char-count">0 / 500 字</span>
+        <button id="analyze" type="button" disabled>开始分析 <span aria-hidden="true">↗</span></button>
+      </div>
+      <div class="examples" aria-label="示例句子">
+        <span>试试示例</span>
+        <button type="button" data-example="今天终于完成任务，特别开心。">开心</button>
+        <button type="button" data-example="我一点也不喜欢这个游戏。">否定</button>
+        <button type="button" data-example="游戏是好游戏，但是联机一直掉线。">转折</button>
+        <button type="button" data-example="等了三个小时，服务可真好。">反讽</button>
+      </div>
+    </section>
+
+    <section class="result-panel" aria-labelledby="result-title">
+      <div class="step">02 / 分析结果</div>
+      <h2 id="result-title">模型怎么看？</h2>
+      <div id="result" class="result-placeholder" role="status" aria-live="polite">模型加载后，输入文字并点击“开始分析”。</div>
+    </section>
+
+    <section class="details" aria-labelledby="details-title">
+      <div class="step">关于这个模型</div>
+      <h2 id="details-title">它从哪些文本中学习？</h2>
+      <p>统一模型使用微博、购物、外卖和通过公开接口采集的 Steam 中文短评训练。Steam 的“推荐／不推荐”是弱标签，并不等同于逐句人工标注。模型只提供正、负二分类；中性、反讽和褒贬混合的句子可能判断不准。</p>
+      <div class="facts">
+        <div><strong>230,199</strong><span>训练短文本</span></div>
+        <div><strong>4</strong><span>数据来源</span></div>
+        <div><strong>本地</strong><span>浏览器内推理</span></div>
+      </div>
+    </section>
+
+    <footer>
+      <span>模型首次加载需下载约 11 MB；模型分数不是正确概率。</span>
+      <a href="https://github.com/TheGreatPeter122/sentiment_project" target="_blank" rel="noopener noreferrer">查看项目与实验记录 <span aria-hidden="true">↗</span></a>
+    </footer>
+  </main>
+</body>
+</html>
