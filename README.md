@@ -58,6 +58,8 @@ B 站[用户协议](https://www.bilibili.com/blackboard/protocal/licence.html)�
 
 已在相同的 1 万、5 万、102,902 条 Steam JSONL 输入上，用单进程 Python 和 PySpark `local[4]` 执行同口径的空白清洗、字符长度和“游戏 × 弱标签 × 月份 × 长度桶”分组统计。全部分组数量和字符总量一致。全量三次运行中位数分别为 **0.306 秒**和 **0.325 秒**；在本机这种简单任务与数据规模下，没有观察到 Spark 的速度优势。详细方法、逐档结果及限制见[Steam Spark 处理记录](reports/steam_spark_process.md)和[原始计时及统计](reports/steam_spark_comparison.json)。这是单机 Spark 模拟并行处理，不是多机器集群性能证明。
 
+另从固定 Steam 测试集按游戏和弱标签平衡抽取 100 条，完成**AI 辅助盲审初稿**：83 条可判定正／负向，其中 6 条与 Steam 推荐弱标签不一致；10 条正负混合，7 条不明确。记录、局限与组员二次确认方法见[100 条抽样复核](reports/steam_audit_review.md)。AI 初审不可当作独立人类标注。
+
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\start_spark.ps1 -Script scripts/benchmark_steam_pipeline.py
 ```

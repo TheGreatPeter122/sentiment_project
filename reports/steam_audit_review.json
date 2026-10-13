@@ -1,0 +1,68 @@
+{
+  "review_type": "AI-assisted preliminary blind text review; not human gold labels",
+  "sample_method": "5 records per app_id × weak_label from the pre-existing Steam test split",
+  "sample_seed": "steam-audit-20261013-v1",
+  "sample_size": 100,
+  "blind_sha256": "501e7efb8a35a3e73bc800eace1519fb4d070656dbd59bc14e8e5d9570a0def6",
+  "mapping_sha256": "1abbac3fe911e2d80b4cad463a2ae43c2daf11779d9db5919eb36f3980b15e90",
+  "local_review_sheet": "data/processed/steam_audit_review.csv",
+  "local_review_sheet_sha256": "a0c86f7c4a86aeb16c6645582881221db8e3b718ead70fb53c6fe75059a90c46",
+  "ai_label_counts": {
+    "negative": 48,
+    "positive": 35,
+    "unclear": 7,
+    "mixed": 10
+  },
+  "weak_label_counts": {
+    "negative": 50,
+    "positive": 50
+  },
+  "strict_binary_count": 83,
+  "strict_weak_label_matches": 77,
+  "strict_model_matches": 75,
+  "strict_weak_label_agreement": 0.9277,
+  "strict_model_agreement": 0.9036,
+  "mixed_or_unclear_sample_ids": [
+    "S030",
+    "S052",
+    "S053",
+    "S055",
+    "S058",
+    "S060",
+    "S070",
+    "S073",
+    "S075",
+    "S084",
+    "S085",
+    "S086",
+    "S087",
+    "S091",
+    "S093",
+    "S096",
+    "S097"
+  ],
+  "strict_weak_label_mismatch_sample_ids": [
+    "S015",
+    "S064",
+    "S068",
+    "S076",
+    "S077",
+    "S089"
+  ],
+  "strict_model_mismatch_sample_ids": [
+    "S001",
+    "S003",
+    "S005",
+    "S013",
+    "S015",
+    "S067",
+    "S072",
+    "S077"
+  ],
+  "limitations": [
+    "Review decisions were made by an AI assistant and require independent human confirmation",
+    "Sample is balanced by game and weak label, not representative of natural Steam prevalence",
+    "Sample came from a test split already used for model evaluation; this is diagnostic, not a new independent test",
+    "No model fitting or parameter changes were performed after this audit"
+  ]
+}
