@@ -252,21 +252,15 @@
     canvas.style.width = this.cfg.faceSize + 'px';
     canvas.style.height = this.cfg.faceSize + 'px';
     stage.appendChild(canvas);
-    const meta = document.createElement('div');
-    meta.className = 'face-meta';
-    const mood = document.createElement('div');
-    mood.className = 'face-mood';
-    const caption = document.createElement('div');
-    caption.className = 'face-caption';
-    meta.append(mood, caption);
-    wrap.append(stage, meta);
+    // 结果区只显示图片：不创建 mood / caption 文字节点
+    wrap.append(stage);
     rootEl.replaceChildren(wrap);
 
     this.root = rootEl;
     this.el = wrap;
     this.canvas = canvas;
-    this.moodEl = mood;
-    this.captionEl = caption;
+    this.moodEl = null;
+    this.captionEl = null;
     this.ready = false;
 
     const a = this.cfg.assets;
@@ -298,9 +292,11 @@
     this.target = { score: 0, prediction: 'positive', neutral: true };
     this.current = 0;
     this._paint(0);
-    this.moodEl.textContent = '等待分析';
-    this.moodEl.className = 'face-mood';
-    this.captionEl.textContent = '分析后这里会显示情绪表情';
+    if (this.moodEl) {
+      this.moodEl.textContent = '等待分析';
+      this.moodEl.className = 'face-mood';
+    }
+    if (this.captionEl) this.captionEl.textContent = '分析后这里会显示情绪表情';
     return this;
   };
 
@@ -321,24 +317,25 @@
     return this;
   };
 
+  // 只画图片；如果外部自行传入了 mood/caption 容器才写文字（默认没有）
   Face.prototype._paint = function (progress) {
     const t = Math.max(0, Math.min(1, progress));
-    const info = { state: 0, blend: 0 };
     if (this.ready) {
-      const r = renderTo(this.canvas, this.assets, this.target.score * t, this.cfg.faceSize, this.cfg);
-      info.state = r.state; info.blend = r.blend;
+      renderTo(this.canvas, this.assets, this.target.score * t, this.cfg.faceSize, this.cfg);
     }
-    if (this.target.neutral) return;
+    if (this.target.neutral || !this.moodEl) return;
     const word = this._moodWord(this.target.score);
     this.moodEl.textContent = word.text;
     this.moodEl.className = 'face-mood ' + word.kind;
-    this.captionEl.innerHTML =
-      '<span class="face-score">决策分数 ' + Number(this.target.score).toFixed(3) + '</span>' +
-      '<span class="face-angle">' + word.tag + '</span>' +
-      '<span class="face-rule">' + word.rule + '</span>';
+    if (this.captionEl) {
+      this.captionEl.innerHTML =
+        '<span class="face-score">决策分数 ' + Number(this.target.score).toFixed(3) + '</span>' +
+        '<span class="face-angle">' + word.tag + '</span>' +
+        '<span class="face-rule">' + word.rule + '</span>';
+    }
   };
 
-  // 三态文案
+  // 三态文案（仅在外部提供了文字容器时才用得到）
   Face.prototype._moodWord = function (score) {
     const s = Number(score) || 0;
     const band = Math.max(0, this.cfg.neutralBand == null ? 0.5 : this.cfg.neutralBand);
