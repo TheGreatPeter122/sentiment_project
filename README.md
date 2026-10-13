@@ -20,7 +20,17 @@
 .\.venv\Scripts\python.exe scripts\crawl_public_issues.py
 ```
 
-2026-10-13 的试点共读取 500 条 API 记录，其中 384 条是 Pull Request；116 条 Issue 中按语言、长度和重复标题过滤后保留 65 条中文标题。数量与文件哈希见 `reports/crawler_pilot.json`。文本及空白人工标注表仅保存在 Git 忽略的 `data/processed/github_issue_feedback.jsonl` 和 `data/processed/github_issue_labels.csv`。标注时可填 `positive`、`negative` 或 `unclear`；“报告问题”不自动等于负面情感。**这些反馈没有用于训练、测试或网页预测。**实时 API 内容会变化，重复运行可能得到不同样本；已填写人工标注的 CSV 不会被覆盖。使用时遵守 [GitHub API 速率限制](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api)和相关内容使用规则。
+2026-10-13 的试点共读取 500 条 API 记录，其中 384 条是 Pull Request；116 条 Issue 中按语言、长度和重复标题过滤后保留 65 条中文标题。数量与文件哈希见 `reports/crawler_pilot.json`。文本和标注表仅保存在 Git 忽略的 `data/processed/github_issue_feedback.jsonl` 和 `data/processed/github_issue_labels.csv`。后者已做标题级初标（58 条 `negative`、7 条 `unclear`，均待人工复核），没有可靠正例；“报告问题”不自动等于负面情感。**这些反馈没有用于训练、测试或网页预测。**实时 API 内容会变化，重复运行可能得到不同样本；已填写人工标注的 CSV 不会被覆盖。使用时遵守 [GitHub API 速率限制](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api)和相关内容使用规则。
+
+## Steam 中文评测采集试点
+
+B 站[用户协议](https://www.bilibili.com/blackboard/protocal/licence.html)限制未经书面许可的自动脚本采集，因此本项目改用 [Steam 官方公开评测接口](https://partner.steamgames.com/doc/webapi/IUserReviewsService)做真实中文评论试点。源码保留在 `scripts/crawl_steam_reviews.py`，默认采集《赛博朋克 2077》最近的简体中文“推荐”和“不推荐”评测，各最多两页、每页 100 条。运行：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\crawl_steam_reviews.py
+```
+
+2026-10-13 试点读取 399 条评测，过滤过长、过短及中文不足的文本后保留 193 条（推荐 62、不推荐 131），仅在本机 `data/processed/steam_review_pilot.jsonl` 保存评测 ID、游戏 ID、文本、时间和弱标签，不保存作者或 SteamID；统计及文件哈希见 `reports/steam_review_pilot.json`。基础规则遮盖链接、邮箱、手机号和 `@` 名称，但不能保证识别所有个人信息。**“推荐/不推荐”是整篇评测的用户选择，不等于每个句子的准确情感标签；短评筛选也改变了正负比例。**目前未合并到训练、验证、测试集或网页模型，后续应先抽样复核标签和来源偏差。
 
 前一轮[否定、转折特征实验与数据处理记录](reports/text_structure_process.md)按阶段记录输入校验、清洗、候选提取、向量化、训练及误判对照。使用原有 88,814 条训练记录和 10,908 条验证记录，三组验证准确率为 77.6311%、77.5211%、77.6494%；整体尚无明确优势，该轮没有替换网页模型。复现：`python scripts/train_structure_experiment.py`；测试：`python -m unittest discover -s tests -v`。
 

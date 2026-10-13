@@ -1,0 +1,31 @@
+{
+  "source_documentation": "https://partner.steamgames.com/doc/webapi/IUserReviewsService",
+  "source_app": "https://store.steampowered.com/app/1091500/",
+  "collected_at_utc": "2026-10-13T04:50:48.649184+00:00",
+  "query": {
+    "appid": 1091500,
+    "language": "schinese",
+    "filter": "recent",
+    "purchase_type": "all",
+    "review_types": [
+      "positive",
+      "negative"
+    ],
+    "max_pages_per_label": 2,
+    "per_page": 100,
+    "max_chars": 300
+  },
+  "counts": {
+    "pages_fetched": 4,
+    "api_reviews": 399,
+    "length_or_language_excluded": 206,
+    "accepted": 193,
+    "accepted_positive": 62,
+    "accepted_negative": 131
+  },
+  "output_path": "data/processed/steam_review_pilot.jsonl",
+  "output_sha256": "6b57fb5dd051ebeb9bd5aada2da722351f7005f795de65caf40f30b1afe70cca",
+  "label_note": "weak_label comes from voted_up (recommend/not recommend), not manual sentence annotation",
+  "privacy_note": "Author profile and SteamID are deliberately not saved; basic contact redaction is not exhaustive.",
+  "usage_note": "Pilot only; not merged into training, validation or test data."
+}
