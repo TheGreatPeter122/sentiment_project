@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>表情校准工具 · 笑脸 / 中性 / 哭脸</title>
+<style>
+  :root{color-scheme:light;font-family:Inter,"Microsoft YaHei",system-ui,sans-serif;color:#20332c}
+  *{box-sizing:border-box}
+  body{margin:0;background:#f6f8f4;min-height:100vh}
+  .shell{max-width:1320px;margin:auto;padding:26px 20px 60px}
+  h1{font-size:25px;margin:0 0 6px;letter-spacing:-.02em}
+  .lead{color:#617067;font-size:14px;line-height:1.8;margin:0 0 18px}
+  .lead code{background:#eef8f0;color:#286546;padding:1px 6px;border-radius:6px;font-size:13px}
+  .layout{display:grid;grid-template-columns:minmax(430px,1.1fr) minmax(370px,.9fr);gap:18px;align-items:start}
+  .card{background:#fff;border:1px solid #e4eae3;border-radius:18px;padding:16px 16px 18px;box-shadow:0 10px 26px rgba(27,58,38,.05)}
+  .card h2{font-size:15px;margin:0 0 10px;color:#2c5a44}
+  .card h3{font-size:13px;margin:16px 0 6px;color:#547a61;border-top:1px solid #eef2ed;padding-top:12px}
+  .card h3:first-of-type{border-top:0;padding-top:0;margin-top:8px}
+  .stage-wrap{position:relative;background:#fafcfa;border:1px solid #eaf0e9;border-radius:14px;padding:8px;display:flex;justify-content:center}
+  canvas#main{display:block;width:400px;height:400px;border-radius:10px}
+  canvas#overlay{position:absolute;left:8px;top:8px;width:400px;height:400px;pointer-events:none}
+  .row{display:flex;align-items:center;gap:9px;margin:7px 0;font-size:13px}
+  .row label{flex:0 0 118px;color:#4a6356;font-weight:600}
+  .row input[type=range]{flex:1;height:25px}
+  .row select{flex:1;padding:6px;border-radius:8px;border:1px solid #d6e2d9;font:inherit;font-size:13px}
+  .row .val{flex:0 0 58px;text-align:right;font:700 12px ui-monospace,Consolas,monospace;color:#286546}
+  .row input[type=file]{flex:1;font-size:12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:9px;margin-top:6px}
+  .cell{background:#fafcfa;border:1px solid #eaf0e9;border-radius:12px;padding:7px;text-align:center}
+  .cell canvas{width:100%;height:auto;display:block;border-radius:8px}
+  .cell span{display:block;margin-top:4px;font:700 11px ui-monospace,Consolas,monospace;color:#5c7266}
+  .cell span.hit{color:#20603f}
+  button{font:inherit;font-weight:700;font-size:14px;padding:9px 15px;border-radius:11px;border:1px solid #cfe3d6;background:#eef8f0;color:#20603f;cursor:pointer}
+  button.primary{background:#267448;border-color:#267448;color:#fff}
+  .btnrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+  textarea{width:100%;height:250px;font:12px/1.55 ui-monospace,Consolas,monospace;border:1px solid #d6e2d9;border-radius:12px;padding:11px;background:#fafcf9;color:#243a2e;resize:vertical}
+  .hint{font-size:12px;color:#8a968d;line-height:1.7;margin:8px 0 0}
+  .warn{background:#fff4ee;border:1px solid #f0d4c4;color:#a05234;border-radius:10px;padding:9px 11px;font-size:12.5px;line-height:1.7;margin-bottom:11px}
+  .tabs{display:flex;gap:7px;margin-bottom:9px;flex-wrap:wrap}
+  .tabs button{padding:6px 12px;font-size:12.5px;border-radius:100px}
+  .tabs button.on{background:#267448;color:#fff;border-color:#267448}
+  @media(max-width:1020px){.layout{grid-template-columns:1fr}canvas#main,canvas#overlay{width:100%;height:auto}}
+</style>
+<script src="./face-photo.js" defer></script>
+</head>
+<body>
+<div class="shell">
+  <h1>表情校准工具 · 笑脸 / 中性 / 哭脸</h1>
+  <p class="lead">
+    规则：<b>分数 &gt; 0 显示笑脸图</b>、<b>= 0 显示中性图</b>、<b>&lt; 0 显示哭脸图</b>。
+    三张图只要对齐到同一个"脸框"（红圈）就能自然切换；某张图偏大/偏小、偏左/偏右，用下面的"对齐微调"补偿。
+    满意后点 <b>导出配置</b>，把内容贴回 <code>face-photo.js</code> 顶部的 CONFIG。
+  </p>
+
+  <div class="layout">
+    <!-- 左：原图 + 参考线 + 全部参数 -->
+    <div class="card">
+      <h2>① 素材与对齐</h2>
+      <div class="warn">
+        本页要把图片读进 Canvas，<b>必须用本地服务器打开</b>。三张图请命名为
+        <code>cry.png</code>、<code>neutral.png</code>、<code>smile.png</code> 放在同一目录
+        （原来的 <code>.webp</code> 后缀在 python 服务器上会 404，直接改名为 <code>.png</code> 即可，内容不用转码）。
+      </div>
+      <div class="tabs" id="tabs">
+        <button data-which="neutral" class="on">中性图</button>
+        <button data-which="smile">笑脸图</button>
+        <button data-which="cry">哭脸图</button>
+      </div>
+      <div class="stage-wrap">
+        <canvas id="main" width="400" height="400"></canvas>
+        <canvas id="overlay" width="400" height="400"></canvas>
+      </div>
+      <div class="row"><label>哭脸图</label><input type="file" id="fCry" accept="image/*"></div>
+      <div class="row"><label>中性图</label><input type="file" id="fNeutral" accept="image/*"></div>
+      <div class="row"><label>笑脸图</label><input type="file" id="fSmile" accept="image/*"></div>
+
+      <h3>脸框（红线圆圈，三张图共用一个）</h3>
+      <div class="row"><label>圆心 x</label><input type="range" id="cx" min="0" max="1" step="0.002" value="0.478"><span class="val" id="cxV"></span></div>
+      <div class="row"><label>圆心 y</label><input type="range" id="cy" min="0" max="1" step="0.002" value="0.500"><span class="val" id="cyV"></span></div>
+      <div class="row"><label>半径</label><input type="range" id="r" min="0.05" max="0.75" step="0.002" value="0.470"><span class="val" id="rV"></span></div>
+
+      <h3>显示规则</h3>
+      <div class="row"><label>三张图切换</label><input type="checkbox" id="threeState" checked><span class="val">开</span></div>
+      <div class="row"><label>中性带宽</label><input type="range" id="band" min="0" max="0.5" step="0.01" value="0.02"><span class="val" id="bandV"></span></div>
+      <div class="row"><label>切换快慢</label><input type="range" id="gain" min="0.5" max="10" step="0.1" value="2.5"><span class="val" id="gainV"></span></div>
+      <div class="row"><label>哭脸强度（无图时）</label><input type="range" id="frownShear" min="0" max="120" step="1" value="55"><span class="val" id="frownShearV"></span></div>
+      <div class="row"><label>脸朝向</label><select id="facing"><option value="right">朝右</option><option value="left">朝左</option></select><span class="val"></span></div>
+
+      <h3>对齐微调（某张图对不上时再调）</h3>
+      <div class="row"><label>中性：缩放</label><input type="range" id="nScale" min="0.7" max="1.4" step="0.005" value="1"><span class="val" id="nScaleV"></span></div>
+      <div class="row"><label>中性：左右</label><input type="range" id="nDx" min="-0.2" max="0.2" step="0.002" value="0"><span class="val" id="nDxV"></span></div>
+      <div class="row"><label>中性：上下</label><input type="range" id="nDy" min="-0.2" max="0.2" step="0.002" value="0"><span class="val" id="nDyV"></span></div>
+      <div class="row"><label>笑脸：缩放</label><input type="range" id="sScale" min="0.7" max="1.4" step="0.005" value="1"><span class="val" id="sScaleV"></span></div>
+      <div class="row"><label>笑脸：左右</label><input type="range" id="sDx" min="-0.2" max="0.2" step="0.002" value="0"><span class="val" id="sDxV"></span></div>
+      <div class="row"><label>笑脸：上下</label><input type="range" id="sDy" min="-0.2" max="0.2" step="0.002" value="0"><span class="val" id="sDyV"></span></div>
+      <div class="row"><label>哭脸：缩放</label><input type="range" id="cScale" min="0.7" max="1.4" step="0.005" value="1"><span class="val" id="cScaleV"></span></div>
+      <div class="row"><label>哭脸：左右</label><input type="range" id="cDx" min="-0.2" max="0.2" step="0.002" value="0"><span class="val" id="cDxV"></span></div>
+      <div class="row"><label>哭脸：上下</label><input type="range" id="cDy" min="-0.2" max="0.2" step="0.002" value="0"><span class="val" id="cDyV"></span></div>
+
+      <h3>预览</h3>
+      <div class="row"><label>预览分数</label><input type="range" id="score" min="-6" max="6" step="0.05" value="3"><span class="val" id="scoreV"></span></div>
+      <div class="row"><label>显示参考线</label><input type="checkbox" id="guides" checked><span class="val"></span></div>
+      <div class="btnrow">
+        <button id="export" class="primary">导出配置</button>
+        <button id="copy">复制</button>
+        <button id="reset">恢复默认</button>
+      </div>
+    </div>
+
+    <!-- 右：预览 + 三态 + 导出 -->
+    <div class="card">
+      <h2>② 实时效果（当前分数）</h2>
+      <div class="stage-wrap"><canvas id="preview" width="290" height="290" style="width:290px;height:290px"></canvas></div>
+      <h2 style="margin-top:16px">③ 三态对照</h2>
+      <div class="grid" id="trio"></div>
+      <h2 style="margin-top:16px">④ 连续分数对比</h2>
+      <div class="grid" id="grid"></div>
+      <h2 style="margin-top:16px">⑤ 导出配置</h2>
+      <textarea id="out" spellcheck="false" placeholder="点“导出配置”生成…"></textarea>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  function boot() {
+    const S = window.SentimentFacePhoto;
+    if (!S) { console.error('face-photo.js 未加载'); return; }
+    const $ = (id) => document.getElementById(id);
+    const main = $('main'), overlay = $('overlay'), preview = $('preview');
+
+    const state = {
+      assets: { cry: null, neutral: null, smile: null },
+      which: 'neutral',
+      cfg: JSON.parse(JSON.stringify(S.CONFIG))
+    };
+
+    /* ---------- 素材 ---------- */
+    async function loadAll() {
+      const map = [['neutral', './neutral.png'], ['smile', './smile.png'], ['cry', './cry.png']];
+      for (const [key, src] of map) {
+        try { state.assets[key] = await S.loadImage(src); }
+        catch (e) { console.warn('默认素材未加载（可用下方文件框手动选择）：', src); }
+      }
+      drawMain(); renderAll();
+    }
+    function bindFile(inputId, key) {
+      $(inputId).addEventListener('change', async (ev) => {
+        const file = ev.target.files && ev.target.files[0];
+        if (!file) return;
+        state.assets[key] = await S.loadImage(URL.createObjectURL(file));
+        if (key === 'neutral' || state.which === key) drawMain();
+        renderAll();
+      });
+    }
+    bindFile('fCry', 'cry'); bindFile('fNeutral', 'neutral'); bindFile('fSmile', 'smile');
+
+    /* ---------- 左侧：原图 + 参考线 ---------- */
+    function drawMain() {
+      const img = state.assets[state.which];
+      const g = main.getContext('2d');
+      g.clearRect(0, 0, 400, 400);
+      g.fillStyle = '#f2f5f2'; g.fillRect(0, 0, 400, 400);
+      if (img) g.drawImage(img, 0, 0, 400, 400);
+      drawGuides();
+    }
+    function drawGuides() {
+      const g = overlay.getContext('2d');
+      g.clearRect(0, 0, 400, 400);
+      if (!$('guides').checked) return;
+      const c = state.cfg;
+      const cx = c.cx * 400, cy = c.cy * 400, r = c.r * 400;
+      g.strokeStyle = 'rgba(220,40,40,.92)'; g.lineWidth = 2;
+      g.beginPath(); g.arc(cx, cy, r, 0, Math.PI * 2); g.stroke();
+      g.beginPath(); g.moveTo(cx - 8, cy); g.lineTo(cx + 8, cy); g.moveTo(cx, cy - 8); g.lineTo(cx, cy + 8); g.stroke();
+      // 当前这张图的对齐偏移提示
+      const a = (state.cfg.align || {})[state.which] || { scale: 1, dx: 0, dy: 0 };
+      if (a.scale !== 1 || a.dx || a.dy) {
+        const s = a.scale * 400;
+        g.strokeStyle = 'rgba(40,120,255,.85)'; g.setLineDash([5, 4]);
+        g.strokeRect((400 - s) / 2 + a.dx * 400, (400 - s) / 2 + a.dy * 400, s, s);
+        g.setLineDash([]);
+        g.fillStyle = 'rgba(40,120,255,.9)'; g.font = '700 12px "Microsoft YaHei",sans-serif';
+        g.fillText('该图对齐框 scale=' + a.scale.toFixed(2), 6, 16);
+      }
+    }
+
+    /* ---------- 右侧：预览 ---------- */
+    let pending = false;
+    function renderAll() {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(() => {
+        pending = false;
+        const score = parseFloat($('score').value);
+        if (state.assets.neutral) S.renderTo(preview, state.assets, score, 290, state.cfg);
+        // 三态对照
+        const trio = $('trio');
+        if (trio.dataset.built !== '1') {
+          trio.dataset.built = '1'; trio.innerHTML = '';
+          [[3, '分数 +3 → 笑脸'], [0, '分数 0 → 中性'], [-3, '分数 −3 → 哭脸']].forEach(([sc, label]) => {
+            const cell = document.createElement('div'); cell.className = 'cell';
+            const cv = document.createElement('canvas'); cv.width = cv.height = 130; cv.dataset.score = sc;
+            const sp = document.createElement('span'); sp.textContent = label;
+            cell.append(cv, sp); trio.append(cell);
+          });
+        }
+        trio.querySelectorAll('canvas').forEach((cv) => {
+          if (state.assets.neutral) S.renderTo(cv, state.assets, parseFloat(cv.dataset.score), 130, state.cfg);
+        });
+        // 连续分数对比
+        const grid = $('grid');
+        if (grid.dataset.built !== '1') {
+          grid.dataset.built = '1'; grid.innerHTML = '';
+          [-3, -1, 0, 1, 3].forEach((sc) => {
+            const cell = document.createElement('div'); cell.className = 'cell';
+            const cv = document.createElement('canvas'); cv.width = cv.height = 110; cv.dataset.score = sc;
+            const sp = document.createElement('span'); sp.textContent = (sc > 0 ? '+' : '') + sc.toFixed(2);
+            cell.append(cv, sp); grid.append(cell);
+          });
+        }
+        grid.querySelectorAll('canvas').forEach((cv) => {
+          if (state.assets.neutral) S.renderTo(cv, state.assets, parseFloat(cv.dataset.score), 110, state.cfg);
+        });
+      });
+    }
+
+    /* ---------- 控件 ---------- */
+    const simple = [
+      ['cx', 'cx', 3], ['cy', 'cy', 3], ['r', 'r', 3],
+      ['band', 'neutralBand', 2], ['gain', 'blendGain', 1], ['frownShear', 'frownShear', 0]
+    ];
+    simple.forEach(([id, path, digits]) => {
+      const el = $(id);
+      const set = () => {
+        const v = parseFloat(el.value);
+        state.cfg[path] = v;
+        $(id + 'V').textContent = v.toFixed(digits);
+        if (id === 'cx' || id === 'cy' || id === 'r') drawGuides();
+        renderAll();
+      };
+      el.addEventListener('input', set);
+      el.dispatchEvent(new Event('input'));
+    });
+
+    // 对齐微调：nScale/sScale/cScale → align.X.scale 等
+    const alignBinds = [
+      ['nScale', 'neutral', 'scale'], ['nDx', 'neutral', 'dx'], ['nDy', 'neutral', 'dy'],
+      ['sScale', 'smile', 'scale'], ['sDx', 'smile', 'dx'], ['sDy', 'smile', 'dy'],
+      ['cScale', 'cry', 'scale'], ['cDx', 'cry', 'dx'], ['cDy', 'cry', 'dy']
+    ];
+    alignBinds.forEach(([id, key, field]) => {
+      const el = $(id);
+      const set = () => {
+        const v = parseFloat(el.value);
+        if (!state.cfg.align) state.cfg.align = { neutral: {}, smile: {}, cry: {} };
+        if (!state.cfg.align[key]) state.cfg.align[key] = {};
+        state.cfg.align[key][field] = v;
+        $(id + 'V').textContent = v.toFixed(field === 'scale' ? 3 : 3);
+        if (key === state.which) drawGuides();
+        renderAll();
+      };
+      el.addEventListener('input', set);
+    });
+
+    $('threeState').addEventListener('change', () => { state.cfg.threeStateImages = $('threeState').checked; renderAll(); });
+    $('facing').addEventListener('change', () => { state.cfg.facing = $('facing').value; renderAll(); });
+    $('score').addEventListener('input', () => { $('scoreV').textContent = parseFloat($('score').value).toFixed(2); renderAll(); });
+    $('score').dispatchEvent(new Event('input'));
+    $('guides').addEventListener('change', drawGuides);
+    document.querySelectorAll('#tabs button').forEach((b) => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('#tabs button').forEach((x) => x.classList.toggle('on', x === b));
+        state.which = b.dataset.which; drawMain();
+      });
+    });
+
+    /* ---------- 导出 ---------- */
+    function exportConfig() {
+      const c = state.cfg;
+      const a = c.align || {};
+      const one = (k) => {
+        const v = a[k] || { scale: 1, dx: 0, dy: 0 };
+        return '{ scale: ' + (+v.scale).toFixed(3) + ', dx: ' + (+v.dx).toFixed(3) + ', dy: ' + (+v.dy).toFixed(3) + ' }';
+      };
+      const txt =
+        'const CONFIG = {\n' +
+        '  cx: ' + c.cx.toFixed(3) + ', cy: ' + c.cy.toFixed(3) + ', r: ' + c.r.toFixed(3) + ',\n' +
+        '  threeStateImages: ' + (c.threeStateImages !== false) + ',\n' +
+        '  neutralBand: ' + c.neutralBand.toFixed(2) + ',\n' +
+        '  blendGain: ' + c.blendGain.toFixed(1) + ',\n' +
+        '  frownShear: ' + c.frownShear.toFixed(0) + ',\n' +
+        '  facing: \'' + c.facing + '\',\n' +
+        '  align: {\n' +
+        '    neutral: ' + one('neutral') + ',\n' +
+        '    smile: ' + one('smile') + ',\n' +
+        '    cry: ' + one('cry') + '\n' +
+        '  },\n' +
+        '  assets: { cry: \'./cry.png\', neutral: \'./neutral.png\', smile: \'./smile.png\' },\n' +
+        '  faceSize: ' + c.faceSize + ',\n' +
+        '  ANIM_MS: ' + c.ANIM_MS + '\n' +
+        '};';
+      $('out').value = txt;
+      return txt;
+    }
+    $('export').addEventListener('click', exportConfig);
+    $('copy').addEventListener('click', async () => {
+      const txt = exportConfig();
+      try { await navigator.clipboard.writeText(txt); $('copy').textContent = '已复制 ✓'; setTimeout(() => $('copy').textContent = '复制', 1400); }
+      catch (e) { $('out').select(); }
+    });
+    $('reset').addEventListener('click', () => {
+      state.cfg = JSON.parse(JSON.stringify(S.CONFIG));
+      simple.forEach(([id, path]) => { $(id).value = state.cfg[path]; $(id).dispatchEvent(new Event('input')); });
+      alignBinds.forEach(([id, key, field]) => {
+        const v = ((state.cfg.align || {})[key] || {})[field];
+        $(id).value = (v == null ? (field === 'scale' ? 1 : 0) : v);
+      });
+      $('facing').value = state.cfg.facing;
+      $('threeState').checked = state.cfg.threeStateImages !== false;
+      drawMain(); renderAll();
+    });
+
+    window.addEventListener('resize', drawMain);
+    loadAll();
+    window.__calibrateReady = true;
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+</body>
+</html>
