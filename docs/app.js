@@ -3,6 +3,7 @@ const count = document.querySelector('#char-count');
 const button = document.querySelector('#analyze');
 const result = document.querySelector('#result');
 const status = document.querySelector('#load-status');
+const themeToggle = document.querySelector('#theme-toggle');
 let ready = false;
 let requestId = 0;
 let face = null;
@@ -95,9 +96,13 @@ function resetResult(message) {
 
 function showPrediction(prediction, score) {
   result.replaceChildren();
+  result.className = '';
   const card = document.createElement('div');
   card.className = `result-card ${prediction}`;
   const words = document.createElement('div');
+  const kicker = document.createElement('div');
+  kicker.className = 'result-kicker';
+  kicker.textContent = '模型判断';
   const label = document.createElement('div');
   label.className = 'result-label';
   label.textContent = prediction === 'positive' ? '偏正向 ↗' : '偏负向 ↘';
@@ -107,11 +112,17 @@ function showPrediction(prediction, score) {
   const value = document.createElement('div');
   value.className = 'score';
   value.textContent = `决策分数 ${score.toFixed(3)}`;
-  words.append(label, detail);
+  words.append(kicker, label, detail);
   card.append(words, value);
   result.append(card);
+  if (Math.abs(score) <= 0.5) {
+    const caution = document.createElement('p');
+    caution.className = 'uncertain-note';
+    caution.textContent = '分数接近 0，判断把握较低；模型仍只输出正、负两类。';
+    result.append(caution);
+  }
 
-  // 表情可视化：score > 0.5 笑脸图、−0.5~0.5 中性图、< −0.5 哭脸图
+  // 表情仅用于呈现模型分数；低分数不代表第三个“中性”类别。
   // 优先用照片版（SentimentFacePhoto）；没有素材时回退到矢量版（SentimentFace）
   const FaceLib = (typeof SentimentFacePhoto !== 'undefined') ? SentimentFacePhoto
     : (typeof SentimentFace !== 'undefined' ? SentimentFace : null);
@@ -176,3 +187,17 @@ document.querySelectorAll('[data-example]').forEach(example => {
 });
 
 updateCount();
+
+function syncThemeButton() {
+  const dark = document.documentElement.dataset.theme === 'dark';
+  themeToggle.setAttribute('aria-pressed', String(dark));
+  themeToggle.setAttribute('aria-label', dark ? '切换浅色模式' : '切换深色模式');
+  document.querySelector('meta[name="theme-color"]').content = dark ? '#09090b' : '#f5f5f7';
+}
+themeToggle.addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem('sentiment-theme', next); } catch (_) { /* 私密模式仍可切换 */ }
+  syncThemeButton();
+});
+syncThemeButton();
