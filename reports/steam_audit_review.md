@@ -1,3 +1,5 @@
+> 文档状态：历史阶段记录，数字和“当前模型”描述仅适用于该阶段。最新说明见 [文档导航](../guides/README.md)。
+
 # 100 条 Steam 短评抽样复核（AI 辅助初审）
 
 从已经固定的 Steam **测试集**中，按 10 款游戏 × 推荐／不推荐两种弱标签各抽 5 条，共 100 条。`scripts/sample_steam_review_audit.py` 用评论 ID 的固定哈希抽样并核对测试集哈希；阅读文本时隐藏弱标签和模型结果。先按正文主旨标为“正向、负向、混合、不明确”，再由 `scripts/report_steam_review_audit.py` 解盲统计。逐条正文、初审标签、原弱标签、模型预测及人工复核空列只保存在本机 Git 忽略的 `data/processed/steam_audit_review.csv`，不上传评论原文。

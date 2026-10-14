@@ -1,0 +1,232 @@
+{
+  "protocol": "reports/selectable_models_protocol.md",
+  "data_audit": {
+    "inputs": {
+      "weibo": {
+        "train": {
+          "rows": 88814,
+          "labels": {
+            "0": 44717,
+            "1": 44097
+          },
+          "groups": 87796,
+          "sha256": "49ab5d73223d6207fc093714f5bb16cd0bc24f83ac049f5d17b09b1973f6e7b2"
+        },
+        "validation": {
+          "rows": 10908,
+          "labels": {
+            "0": 5464,
+            "1": 5444
+          },
+          "groups": 10860,
+          "sha256": "f1a3109619e6ef2efc4ed0f4348d27c4b372c42080e53cf327551dbfab7bf389"
+        },
+        "test": {
+          "rows": 10927,
+          "labels": {
+            "0": 5494,
+            "1": 5433
+          },
+          "groups": 10843,
+          "sha256": "8cc4adcb80f8b1271dc55c937e6d7565221f3036a35d0ff314d56bd41a48e60b"
+        }
+      },
+      "external": {
+        "train": {
+          "rows": 59402,
+          "sources": {
+            "shopping": 49919,
+            "waimai": 9483
+          },
+          "source_labels": {
+            "shopping/0": 24710,
+            "shopping/1": 25209,
+            "waimai/0": 6340,
+            "waimai/1": 3143
+          },
+          "path": "data/splits/daily_reviews/train.jsonl",
+          "sha256": "a8796f2421ced52d6228e587541c8f830c73fa8fedbf4daeabe4170932f70249"
+        },
+        "validation": {
+          "rows": 7423,
+          "sources": {
+            "shopping": 6239,
+            "waimai": 1184
+          },
+          "source_labels": {
+            "shopping/0": 3088,
+            "waimai/0": 792,
+            "shopping/1": 3151,
+            "waimai/1": 392
+          },
+          "path": "data/splits/daily_reviews/validation.jsonl",
+          "sha256": "aaf066a530f0cf73b7a5940b225f491813154743ac769a465d8f85b57ee1cfeb"
+        },
+        "test": {
+          "rows": 7429,
+          "sources": {
+            "shopping": 6242,
+            "waimai": 1187
+          },
+          "source_labels": {
+            "shopping/0": 3090,
+            "shopping/1": 3152,
+            "waimai/1": 394,
+            "waimai/0": 793
+          },
+          "path": "data/splits/daily_reviews/test.jsonl",
+          "sha256": "b3015495244b074073f84e663cb36b65101d929d59be1a0fc6487a416bb9f5ef"
+        }
+      },
+      "steam": {
+        "train": {
+          "path": "data/splits/steam_reviews/train.jsonl",
+          "sha256": "d4d72eb2a0d3659a3a3f469ccf8b4e566ee0d42fe120817bfb2400ece5019b7a",
+          "rows": 82313,
+          "labels": {
+            "negative": 50562,
+            "positive": 31751
+          },
+          "games": {
+            "105600": 5252,
+            "413150": 6330,
+            "1086940": 7424,
+            "582010": 10919,
+            "1091500": 10625,
+            "570": 8879,
+            "2358720": 10519,
+            "3240220": 8167,
+            "730": 6645,
+            "578080": 7553
+          }
+        },
+        "validation": {
+          "path": "data/splits/steam_reviews/validation.jsonl",
+          "sha256": "37a3fefc06cae23418feec4e3da406a751b11b49985657467f3b2717b8b8b6d7",
+          "rows": 10282,
+          "labels": {
+            "negative": 6316,
+            "positive": 3966
+          },
+          "games": {
+            "582010": 1364,
+            "105600": 656,
+            "413150": 791,
+            "1086940": 928,
+            "1091500": 1327,
+            "570": 1109,
+            "2358720": 1314,
+            "3240220": 1020,
+            "730": 830,
+            "578080": 943
+          }
+        },
+        "test": {
+          "path": "data/splits/steam_reviews/test.jsonl",
+          "sha256": "c14b20e51175cab572f6a437e42e7b854df13092d966690b5b1286be1f1be334",
+          "rows": 10307,
+          "labels": {
+            "negative": 6330,
+            "positive": 3977
+          },
+          "games": {
+            "582010": 1367,
+            "105600": 658,
+            "413150": 792,
+            "1086940": 929,
+            "1091500": 1330,
+            "570": 1112,
+            "2358720": 1317,
+            "3240220": 1023,
+            "730": 833,
+            "578080": 946
+          }
+        }
+      }
+    },
+    "excluded_steam_rows": {
+      "train/steam_cross_split_overlap": 297,
+      "train/old_source_overlap": 32,
+      "train/short_fingerprint": 1,
+      "validation/steam_cross_split_overlap": 100,
+      "validation/old_source_overlap": 6,
+      "test/steam_cross_split_overlap": 90,
+      "test/old_source_overlap": 9
+    },
+    "partitions": {
+      "train": {
+        "rows": 230199,
+        "sources": {
+          "weibo": 88814,
+          "shopping": 49919,
+          "waimai": 9483,
+          "steam": 81983
+        },
+        "source_labels": {
+          "weibo/0": 44717,
+          "weibo/1": 44097,
+          "shopping/0": 24710,
+          "shopping/1": 25209,
+          "waimai/0": 6340,
+          "waimai/1": 3143,
+          "steam/0": 50478,
+          "steam/1": 31505
+        }
+      },
+      "validation": {
+        "rows": 28507,
+        "sources": {
+          "weibo": 10908,
+          "shopping": 6239,
+          "waimai": 1184,
+          "steam": 10176
+        },
+        "source_labels": {
+          "weibo/0": 5464,
+          "weibo/1": 5444,
+          "shopping/0": 3088,
+          "waimai/0": 792,
+          "shopping/1": 3151,
+          "waimai/1": 392,
+          "steam/0": 6286,
+          "steam/1": 3890
+        }
+      },
+      "test": {
+        "rows": 28564,
+        "sources": {
+          "weibo": 10927,
+          "shopping": 6242,
+          "waimai": 1187,
+          "steam": 10208
+        },
+        "source_labels": {
+          "weibo/0": 5494,
+          "weibo/1": 5433,
+          "shopping/0": 3090,
+          "shopping/1": 3152,
+          "waimai/1": 394,
+          "waimai/0": 793,
+          "steam/0": 6294,
+          "steam/1": 3914
+        }
+      }
+    },
+    "cross_split_fingerprint_overlap": 0
+  },
+  "ordered_partition_sha256": {
+    "train": "46f76c0a1c1a01b9aa2ad716c26d2befb957a9bbd49b568a6eec3dc8af9f3369",
+    "validation": "342da73f452537c9ead997cd285b2f964a4d6ee912fea23b0655f3e310a81857",
+    "test": "70d60186f8b5090255ce8beddfce5be9ef2ee0540798e11de616c5f750e30f04"
+  },
+  "classifier": {
+    "loss": "log_loss",
+    "alpha": 1e-05,
+    "random_state": 20261010,
+    "max_iter": 50,
+    "tol": 0.001
+  },
+  "default_model": "char2",
+  "models": {},
+  "test_usage": "Previously used holdouts; diagnostic comparisons, not fresh blind tests."
+}

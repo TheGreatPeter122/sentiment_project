@@ -1,0 +1,809 @@
+{
+  "protocol": "reports/selectable_models_protocol.md",
+  "data_audit": {
+    "inputs": {
+      "weibo": {
+        "train": {
+          "rows": 88814,
+          "labels": {
+            "0": 44717,
+            "1": 44097
+          },
+          "groups": 87796,
+          "sha256": "49ab5d73223d6207fc093714f5bb16cd0bc24f83ac049f5d17b09b1973f6e7b2"
+        },
+        "validation": {
+          "rows": 10908,
+          "labels": {
+            "0": 5464,
+            "1": 5444
+          },
+          "groups": 10860,
+          "sha256": "f1a3109619e6ef2efc4ed0f4348d27c4b372c42080e53cf327551dbfab7bf389"
+        },
+        "test": {
+          "rows": 10927,
+          "labels": {
+            "0": 5494,
+            "1": 5433
+          },
+          "groups": 10843,
+          "sha256": "8cc4adcb80f8b1271dc55c937e6d7565221f3036a35d0ff314d56bd41a48e60b"
+        }
+      },
+      "external": {
+        "train": {
+          "rows": 59402,
+          "sources": {
+            "shopping": 49919,
+            "waimai": 9483
+          },
+          "source_labels": {
+            "shopping/0": 24710,
+            "shopping/1": 25209,
+            "waimai/0": 6340,
+            "waimai/1": 3143
+          },
+          "path": "data/splits/daily_reviews/train.jsonl",
+          "sha256": "a8796f2421ced52d6228e587541c8f830c73fa8fedbf4daeabe4170932f70249"
+        },
+        "validation": {
+          "rows": 7423,
+          "sources": {
+            "shopping": 6239,
+            "waimai": 1184
+          },
+          "source_labels": {
+            "shopping/0": 3088,
+            "waimai/0": 792,
+            "shopping/1": 3151,
+            "waimai/1": 392
+          },
+          "path": "data/splits/daily_reviews/validation.jsonl",
+          "sha256": "aaf066a530f0cf73b7a5940b225f491813154743ac769a465d8f85b57ee1cfeb"
+        },
+        "test": {
+          "rows": 7429,
+          "sources": {
+            "shopping": 6242,
+            "waimai": 1187
+          },
+          "source_labels": {
+            "shopping/0": 3090,
+            "shopping/1": 3152,
+            "waimai/1": 394,
+            "waimai/0": 793
+          },
+          "path": "data/splits/daily_reviews/test.jsonl",
+          "sha256": "b3015495244b074073f84e663cb36b65101d929d59be1a0fc6487a416bb9f5ef"
+        }
+      },
+      "steam": {
+        "train": {
+          "path": "data/splits/steam_reviews/train.jsonl",
+          "sha256": "d4d72eb2a0d3659a3a3f469ccf8b4e566ee0d42fe120817bfb2400ece5019b7a",
+          "rows": 82313,
+          "labels": {
+            "negative": 50562,
+            "positive": 31751
+          },
+          "games": {
+            "105600": 5252,
+            "413150": 6330,
+            "1086940": 7424,
+            "582010": 10919,
+            "1091500": 10625,
+            "570": 8879,
+            "2358720": 10519,
+            "3240220": 8167,
+            "730": 6645,
+            "578080": 7553
+          }
+        },
+        "validation": {
+          "path": "data/splits/steam_reviews/validation.jsonl",
+          "sha256": "37a3fefc06cae23418feec4e3da406a751b11b49985657467f3b2717b8b8b6d7",
+          "rows": 10282,
+          "labels": {
+            "negative": 6316,
+            "positive": 3966
+          },
+          "games": {
+            "582010": 1364,
+            "105600": 656,
+            "413150": 791,
+            "1086940": 928,
+            "1091500": 1327,
+            "570": 1109,
+            "2358720": 1314,
+            "3240220": 1020,
+            "730": 830,
+            "578080": 943
+          }
+        },
+        "test": {
+          "path": "data/splits/steam_reviews/test.jsonl",
+          "sha256": "c14b20e51175cab572f6a437e42e7b854df13092d966690b5b1286be1f1be334",
+          "rows": 10307,
+          "labels": {
+            "negative": 6330,
+            "positive": 3977
+          },
+          "games": {
+            "582010": 1367,
+            "105600": 658,
+            "413150": 792,
+            "1086940": 929,
+            "1091500": 1330,
+            "570": 1112,
+            "2358720": 1317,
+            "3240220": 1023,
+            "730": 833,
+            "578080": 946
+          }
+        }
+      }
+    },
+    "excluded_steam_rows": {
+      "train/steam_cross_split_overlap": 297,
+      "train/old_source_overlap": 32,
+      "train/short_fingerprint": 1,
+      "validation/steam_cross_split_overlap": 100,
+      "validation/old_source_overlap": 6,
+      "test/steam_cross_split_overlap": 90,
+      "test/old_source_overlap": 9
+    },
+    "partitions": {
+      "train": {
+        "rows": 230199,
+        "sources": {
+          "weibo": 88814,
+          "shopping": 49919,
+          "waimai": 9483,
+          "steam": 81983
+        },
+        "source_labels": {
+          "weibo/0": 44717,
+          "weibo/1": 44097,
+          "shopping/0": 24710,
+          "shopping/1": 25209,
+          "waimai/0": 6340,
+          "waimai/1": 3143,
+          "steam/0": 50478,
+          "steam/1": 31505
+        }
+      },
+      "validation": {
+        "rows": 28507,
+        "sources": {
+          "weibo": 10908,
+          "shopping": 6239,
+          "waimai": 1184,
+          "steam": 10176
+        },
+        "source_labels": {
+          "weibo/0": 5464,
+          "weibo/1": 5444,
+          "shopping/0": 3088,
+          "waimai/0": 792,
+          "shopping/1": 3151,
+          "waimai/1": 392,
+          "steam/0": 6286,
+          "steam/1": 3890
+        }
+      },
+      "test": {
+        "rows": 28564,
+        "sources": {
+          "weibo": 10927,
+          "shopping": 6242,
+          "waimai": 1187,
+          "steam": 10208
+        },
+        "source_labels": {
+          "weibo/0": 5494,
+          "weibo/1": 5433,
+          "shopping/0": 3090,
+          "shopping/1": 3152,
+          "waimai/1": 394,
+          "waimai/0": 793,
+          "steam/0": 6294,
+          "steam/1": 3914
+        }
+      }
+    },
+    "cross_split_fingerprint_overlap": 0
+  },
+  "ordered_partition_sha256": {
+    "train": "46f76c0a1c1a01b9aa2ad716c26d2befb957a9bbd49b568a6eec3dc8af9f3369",
+    "validation": "342da73f452537c9ead997cd285b2f964a4d6ee912fea23b0655f3e310a81857",
+    "test": "70d60186f8b5090255ce8beddfce5be9ef2ee0540798e11de616c5f750e30f04"
+  },
+  "classifier": {
+    "loss": "log_loss",
+    "alpha": 1e-05,
+    "random_state": 20261010,
+    "max_iter": 50,
+    "tol": 0.001
+  },
+  "default_model": "char2",
+  "models": {
+    "char2": {
+      "model_path": "models/daily_review.joblib",
+      "model_sha256": "cc72de26822843ca0694826910510f8d59c0174d3dd19ca5e5bbe80bc0569443",
+      "feature_dimensions": {
+        "base": 120000,
+        "negation": 25194,
+        "before": 40000,
+        "after": 40000
+      },
+      "fit_seconds": null,
+      "iterations": 10,
+      "ordered_partition_sha256": {
+        "train": "46f76c0a1c1a01b9aa2ad716c26d2befb957a9bbd49b568a6eec3dc8af9f3369",
+        "validation": "342da73f452537c9ead997cd285b2f964a4d6ee912fea23b0655f3e310a81857",
+        "test": "70d60186f8b5090255ce8beddfce5be9ef2ee0540798e11de616c5f750e30f04"
+      },
+      "validation": {
+        "weibo": {
+          "n": 10908,
+          "accuracy": 0.7588008800880088,
+          "macro_f1": 0.7587855356285773,
+          "negative_f1": 0.7607094133697135,
+          "positive_f1": 0.7568616578874411,
+          "confusion": [
+            [
+              4182,
+              1282
+            ],
+            [
+              1349,
+              4095
+            ]
+          ]
+        },
+        "shopping": {
+          "n": 6239,
+          "accuracy": 0.9208206443340279,
+          "macro_f1": 0.9208206260267151,
+          "negative_f1": 0.9207825529185375,
+          "positive_f1": 0.9208586991348927,
+          "confusion": [
+            [
+              2871,
+              217
+            ],
+            [
+              277,
+              2874
+            ]
+          ]
+        },
+        "waimai": {
+          "n": 1184,
+          "accuracy": 0.910472972972973,
+          "macro_f1": 0.8980023730962404,
+          "negative_f1": 0.9336670838548186,
+          "positive_f1": 0.8623376623376623,
+          "confusion": [
+            [
+              746,
+              46
+            ],
+            [
+              60,
+              332
+            ]
+          ]
+        },
+        "steam": {
+          "n": 10176,
+          "accuracy": 0.9004520440251572,
+          "macro_f1": 0.8931097834821216,
+          "negative_f1": 0.9211243478937943,
+          "positive_f1": 0.8650952190704488,
+          "confusion": [
+            [
+              5915,
+              371
+            ],
+            [
+              642,
+              3248
+            ]
+          ]
+        },
+        "all": {
+          "n": 28507,
+          "accuracy": 0.8511242852632687,
+          "macro_f1": 0.8492662458895973,
+          "negative_f1": 0.8660015155342258,
+          "positive_f1": 0.8325309762449689,
+          "confusion": [
+            [
+              13714,
+              1916
+            ],
+            [
+              2328,
+              10549
+            ]
+          ]
+        }
+      },
+      "test": {
+        "weibo": {
+          "n": 10927,
+          "accuracy": 0.7516244165827766,
+          "macro_f1": 0.7515731309185498,
+          "negative_f1": 0.7551425478166727,
+          "positive_f1": 0.7480037140204271,
+          "confusion": [
+            [
+              4185,
+              1309
+            ],
+            [
+              1405,
+              4028
+            ]
+          ]
+        },
+        "shopping": {
+          "n": 6242,
+          "accuracy": 0.9198974687600128,
+          "macro_f1": 0.9198969424501239,
+          "negative_f1": 0.91969161580469,
+          "positive_f1": 0.9201022690955577,
+          "confusion": [
+            [
+              2863,
+              227
+            ],
+            [
+              273,
+              2879
+            ]
+          ]
+        },
+        "waimai": {
+          "n": 1187,
+          "accuracy": 0.8871103622577927,
+          "macro_f1": 0.8720699417688126,
+          "negative_f1": 0.9159347553324969,
+          "positive_f1": 0.8282051282051283,
+          "confusion": [
+            [
+              730,
+              63
+            ],
+            [
+              71,
+              323
+            ]
+          ]
+        },
+        "steam": {
+          "n": 10208,
+          "accuracy": 0.8959639498432602,
+          "macro_f1": 0.8883728516381577,
+          "negative_f1": 0.9174825174825175,
+          "positive_f1": 0.859263185793798,
+          "confusion": [
+            [
+              5904,
+              390
+            ],
+            [
+              672,
+              3242
+            ]
+          ]
+        },
+        "all": {
+          "n": 28564,
+          "accuracy": 0.8456098585632265,
+          "macro_f1": 0.8436351125183286,
+          "negative_f1": 0.8612072763895009,
+          "positive_f1": 0.8260629486471562,
+          "confusion": [
+            [
+              13682,
+              1989
+            ],
+            [
+              2421,
+              10472
+            ]
+          ]
+        }
+      },
+      "equal_source_validation_macro_f1": 0.8676795795584136
+    },
+    "jieba": {
+      "model_path": "models/jieba.joblib",
+      "model_sha256": "346188b31cb2fa7a7ba42a11f3bf89799bce884e1286c1e147ac90b6ef6de381",
+      "feature_dimensions": {
+        "base": 120000,
+        "negation": 25194,
+        "before": 40000,
+        "after": 40000
+      },
+      "fit_seconds": 43.77242959989235,
+      "iterations": 10,
+      "ordered_partition_sha256": {
+        "train": "46f76c0a1c1a01b9aa2ad716c26d2befb957a9bbd49b568a6eec3dc8af9f3369",
+        "validation": "342da73f452537c9ead997cd285b2f964a4d6ee912fea23b0655f3e310a81857",
+        "test": "70d60186f8b5090255ce8beddfce5be9ef2ee0540798e11de616c5f750e30f04"
+      },
+      "validation": {
+        "weibo": {
+          "n": 10908,
+          "accuracy": 0.7487165383204987,
+          "macro_f1": 0.7487149987349111,
+          "negative_f1": 0.7493369913122999,
+          "positive_f1": 0.7480930061575223,
+          "confusion": [
+            [
+              4097,
+              1367
+            ],
+            [
+              1374,
+              4070
+            ]
+          ]
+        },
+        "shopping": {
+          "n": 6239,
+          "accuracy": 0.9176150024042314,
+          "macro_f1": 0.9176145261891002,
+          "negative_f1": 0.9178125999360409,
+          "positive_f1": 0.9174164524421594,
+          "confusion": [
+            [
+              2870,
+              218
+            ],
+            [
+              296,
+              2855
+            ]
+          ]
+        },
+        "waimai": {
+          "n": 1184,
+          "accuracy": 0.8978040540540541,
+          "macro_f1": 0.8841100236449073,
+          "negative_f1": 0.9239472030169704,
+          "positive_f1": 0.8442728442728443,
+          "confusion": [
+            [
+              735,
+              57
+            ],
+            [
+              64,
+              328
+            ]
+          ]
+        },
+        "steam": {
+          "n": 10176,
+          "accuracy": 0.9017295597484277,
+          "macro_f1": 0.8944171534275226,
+          "negative_f1": 0.9222032052279446,
+          "positive_f1": 0.8666311016271006,
+          "confusion": [
+            [
+              5927,
+              359
+            ],
+            [
+              641,
+              3249
+            ]
+          ]
+        },
+        "all": {
+          "n": 28507,
+          "accuracy": 0.8464938436173571,
+          "macro_f1": 0.84462429900936,
+          "negative_f1": 0.8616678257570968,
+          "positive_f1": 0.8275807722616233,
+          "confusion": [
+            [
+              13629,
+              2001
+            ],
+            [
+              2375,
+              10502
+            ]
+          ]
+        }
+      },
+      "test": {
+        "weibo": {
+          "n": 10927,
+          "accuracy": 0.750068637320399,
+          "macro_f1": 0.7500451154706023,
+          "negative_f1": 0.7524698631378591,
+          "positive_f1": 0.7476203678033454,
+          "confusion": [
+            [
+              4151,
+              1343
+            ],
+            [
+              1388,
+              4045
+            ]
+          ]
+        },
+        "shopping": {
+          "n": 6242,
+          "accuracy": 0.9219801345722525,
+          "macro_f1": 0.9219797961598614,
+          "negative_f1": 0.9221422861710632,
+          "positive_f1": 0.9218173061486595,
+          "confusion": [
+            [
+              2884,
+              206
+            ],
+            [
+              281,
+              2871
+            ]
+          ]
+        },
+        "waimai": {
+          "n": 1187,
+          "accuracy": 0.8862679022746419,
+          "macro_f1": 0.8699910512109261,
+          "negative_f1": 0.9159925326695706,
+          "positive_f1": 0.8239895697522817,
+          "confusion": [
+            [
+              736,
+              57
+            ],
+            [
+              78,
+              316
+            ]
+          ]
+        },
+        "steam": {
+          "n": 10208,
+          "accuracy": 0.9003722570532915,
+          "macro_f1": 0.8928242327745323,
+          "negative_f1": 0.9212665479600527,
+          "positive_f1": 0.8643819175890118,
+          "confusion": [
+            [
+              5950,
+              344
+            ],
+            [
+              673,
+              3241
+            ]
+          ]
+        },
+        "all": {
+          "n": 28564,
+          "accuracy": 0.847010222657891,
+          "macro_f1": 0.8450061733954164,
+          "negative_f1": 0.862630453916761,
+          "positive_f1": 0.8273818928740717,
+          "confusion": [
+            [
+              13721,
+              1950
+            ],
+            [
+              2420,
+              10473
+            ]
+          ]
+        }
+      },
+      "equal_source_validation_macro_f1": 0.8612141754991103
+    },
+    "char4": {
+      "model_path": "models/char4.joblib",
+      "model_sha256": "48a1c69d16fc125065742772758d7fe7b9f7c1c774da47ee832f3691568da581",
+      "feature_dimensions": {
+        "base": 120000,
+        "negation": 25194,
+        "before": 40000,
+        "after": 40000
+      },
+      "fit_seconds": 73.1488938999828,
+      "iterations": 10,
+      "ordered_partition_sha256": {
+        "train": "46f76c0a1c1a01b9aa2ad716c26d2befb957a9bbd49b568a6eec3dc8af9f3369",
+        "validation": "342da73f452537c9ead997cd285b2f964a4d6ee912fea23b0655f3e310a81857",
+        "test": "70d60186f8b5090255ce8beddfce5be9ef2ee0540798e11de616c5f750e30f04"
+      },
+      "validation": {
+        "weibo": {
+          "n": 10908,
+          "accuracy": 0.7584341767510084,
+          "macro_f1": 0.7584233571709863,
+          "negative_f1": 0.7600400692104544,
+          "positive_f1": 0.7568066451315182,
+          "confusion": [
+            [
+              4173,
+              1291
+            ],
+            [
+              1344,
+              4100
+            ]
+          ]
+        },
+        "shopping": {
+          "n": 6239,
+          "accuracy": 0.9229043115883956,
+          "macro_f1": 0.9229040263787439,
+          "negative_f1": 0.9227557411273486,
+          "positive_f1": 0.9230523116301392,
+          "confusion": [
+            [
+              2873,
+              215
+            ],
+            [
+              266,
+              2885
+            ]
+          ]
+        },
+        "waimai": {
+          "n": 1184,
+          "accuracy": 0.9096283783783784,
+          "macro_f1": 0.897246813497873,
+          "negative_f1": 0.9329153605015674,
+          "positive_f1": 0.8615782664941786,
+          "confusion": [
+            [
+              744,
+              48
+            ],
+            [
+              59,
+              333
+            ]
+          ]
+        },
+        "steam": {
+          "n": 10176,
+          "accuracy": 0.9008451257861635,
+          "macro_f1": 0.8934964733073227,
+          "negative_f1": 0.9214724881313721,
+          "positive_f1": 0.8655204584832733,
+          "confusion": [
+            [
+              5920,
+              366
+            ],
+            [
+              643,
+              3247
+            ]
+          ]
+        },
+        "all": {
+          "n": 28507,
+          "accuracy": 0.851545234503806,
+          "macro_f1": 0.8497160783284803,
+          "negative_f1": 0.8662959686591685,
+          "positive_f1": 0.833136187997792,
+          "confusion": [
+            [
+              13710,
+              1920
+            ],
+            [
+              2312,
+              10565
+            ]
+          ]
+        }
+      },
+      "test": {
+        "weibo": {
+          "n": 10927,
+          "accuracy": 0.7529971629907568,
+          "macro_f1": 0.7529530584497164,
+          "negative_f1": 0.7562539510521087,
+          "positive_f1": 0.749652165847324,
+          "confusion": [
+            [
+              4187,
+              1307
+            ],
+            [
+              1392,
+              4041
+            ]
+          ]
+        },
+        "shopping": {
+          "n": 6242,
+          "accuracy": 0.9214995193848126,
+          "macro_f1": 0.921499317907615,
+          "negative_f1": 0.9213735558408216,
+          "positive_f1": 0.9216250799744082,
+          "confusion": [
+            [
+              2871,
+              219
+            ],
+            [
+              271,
+              2881
+            ]
+          ]
+        },
+        "waimai": {
+          "n": 1187,
+          "accuracy": 0.8854254422914911,
+          "macro_f1": 0.8703299104216735,
+          "negative_f1": 0.914572864321608,
+          "positive_f1": 0.8260869565217391,
+          "confusion": [
+            [
+              728,
+              65
+            ],
+            [
+              71,
+              323
+            ]
+          ]
+        },
+        "steam": {
+          "n": 10208,
+          "accuracy": 0.8976293103448276,
+          "macro_f1": 0.8901175047888228,
+          "negative_f1": 0.9188475576609458,
+          "positive_f1": 0.8613874519166999,
+          "confusion": [
+            [
+              5916,
+              378
+            ],
+            [
+              667,
+              3247
+            ]
+          ]
+        },
+        "all": {
+          "n": 28564,
+          "accuracy": 0.847010222657891,
+          "macro_f1": 0.845053388141745,
+          "negative_f1": 0.8624661673066029,
+          "positive_f1": 0.8276406089768873,
+          "confusion": [
+            [
+              13702,
+              1969
+            ],
+            [
+              2401,
+              10492
+            ]
+          ]
+        }
+      },
+      "equal_source_validation_macro_f1": 0.8680176675887314
+    }
+  },
+  "test_usage": "Previously used holdouts; diagnostic comparisons, not fresh blind tests."
+}

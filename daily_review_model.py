@@ -9,9 +9,15 @@ import joblib
 ROOT = Path(__file__).resolve().parent
 
 
-@lru_cache(maxsize=1)
-def load_model():
-    lock = json.loads((ROOT / 'models/daily_review.json').read_text(encoding='utf-8'))
+@lru_cache(maxsize=3)
+def load_model(model_id='char2'):
+    if model_id not in ('char2', 'jieba', 'char4'):
+        raise ValueError('未知模型')
+    name = 'daily_review' if model_id == 'char2' else model_id
+    lock = json.loads((ROOT / f'models/{name}.json').read_text(encoding='utf-8'))
+    if model_id != 'char2':
+        lock.update(selected_arm=model_id, selected_composition='weibo_shopping_waimai_steam',
+                    representative_seed=20261010)
     model_path = (ROOT / lock['model_path']).resolve()
     if not model_path.is_relative_to(ROOT):
         raise ValueError('模型路径超出项目目录')
@@ -20,10 +26,10 @@ def load_model():
     return lock, joblib.load(model_path)
 
 
-def predict(texts):
+def predict(texts, model_id='char2'):
     if not texts or any(not isinstance(text, str) or not 1 <= len(text.strip()) <= 500 for text in texts):
         raise ValueError('每条输入需要包含 1—500 字')
-    lock, artifact = load_model()
+    lock, artifact = load_model(model_id)
     clean = [text.strip() for text in texts]
     features = artifact['vectorizer'].transform(clean)
     labels = artifact['classifier'].predict(features)

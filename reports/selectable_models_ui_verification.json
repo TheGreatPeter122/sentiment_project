@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-14",
+  "browser": "Chrome headless",
+  "modes": [
+    "http",
+    "file"
+  ],
+  "models": [
+    "char2",
+    "jieba",
+    "char4"
+  ],
+  "rapid_switch": true,
+  "download_failure_retry": true,
+  "mobile_width": 390,
+  "horizontal_overflow": false,
+  "page_errors": 0,
+  "regression_tests_passed": 37
+}

@@ -12,3 +12,9 @@
 /reports/text_structure_protocol.md -text
 *.joblib -text
 /docs/model.json -text
+
+# Generated browser assets are hashed byte-for-byte in the catalog.
+/docs/model.js -text
+/docs/model-catalog.json -text
+/docs/model-catalog.js -text
+/docs/models/* -text

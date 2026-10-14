@@ -4,6 +4,14 @@ const button = document.querySelector('#analyze');
 const result = document.querySelector('#result');
 const status = document.querySelector('#load-status');
 const themeToggle = document.querySelector('#theme-toggle');
+const modelSelect = document.querySelector('#model-select');
+const retryModel = document.querySelector('#retry-model');
+const descriptions = {
+  char2: '字与相邻双字片段，配合否定、转折线索。原模型，默认选中。',
+  jieba: '用 jieba 精确模式切词，再提取单词与相邻词对；保留否定、转折线索。',
+  char4: '提取长度为 1、2、3、4 的字符片段，保留否定、转折线索。'
+};
+let selectedModel = 'char2';
 let ready = false;
 let requestId = 0;
 let face = null;
@@ -17,6 +25,10 @@ let face = null;
 const isFile = location.protocol === 'file:';
 let worker = null;
 let model = null;
+let tokenize = null;
+let inlineBase;
+let inlineDictionary;
+const scriptCache = new Map();
 
 function updateCount() {
   count.textContent = `${Array.from(input.value).length} / 500 字`;
@@ -28,16 +40,22 @@ function setStatus(message, kind = '') {
 }
 
 function loadScript(src) {
-  return new Promise((resolve, reject) => {
+  if (scriptCache.has(src)) return scriptCache.get(src);
+  const promise = new Promise((resolve, reject) => {
     const s = document.createElement('script');
     s.src = src;
     s.onload = resolve;
-    s.onerror = () => reject(new Error('无法加载 ' + src));
+    s.onerror = () => { scriptCache.delete(src); s.remove(); reject(new Error('无法加载 ' + src)); };
     document.head.appendChild(s);
   });
+  scriptCache.set(src, promise);
+  return promise;
 }
 
 function showFatal(message) {
+  ready = false;
+  button.disabled = true;
+  retryModel.hidden = false;
   setStatus('加载失败', 'error');
   result.textContent = message;
 }
@@ -47,44 +65,72 @@ function bootWorker() {
   worker = new Worker('./predict-worker.js');
   worker.onmessage = event => {
     const message = event.data;
+    if (message.id !== requestId || message.modelId !== selectedModel) return;
     if (message.type === 'ready') {
       ready = true;
       button.disabled = false;
       setStatus('模型已就绪', 'ready');
     } else if (message.type === 'result' && message.id === requestId) {
       button.disabled = false;
-      showPrediction(message.prediction, message.score);
+      showPrediction(message.prediction, message.score, message.tokens);
     } else if (message.type === 'error') {
-      button.disabled = !ready;
-      setStatus(ready ? '模型已就绪' : '加载失败', ready ? 'ready' : 'error');
-      resetResult(`无法分析：${message.error}`);
+      showFatal(`无法分析：${message.error}`);
     }
   };
   worker.onerror = () => {
-    setStatus('加载失败', 'error');
-    resetResult('浏览器未能运行模型，请刷新页面重试。');
+    showFatal('浏览器未能运行模型，请重新加载或刷新页面。');
   };
-  worker.postMessage({ id: 0, type: 'load' });
 }
 
 // —— 模式 2：主线程（file:// 用）——
-async function bootInline() {
+async function bootInline(id, modelId) {
   try {
     setStatus('正在加载模型…（本地文件模式）');
-    await loadScript('./inference.js');
-    await loadScript('./model.js');
-    if (!window.SENTIMENT_MODEL || typeof SentimentInference === 'undefined') {
+    if (!inlineBase) inlineBase = Promise.all([loadScript('./inference.js'), loadScript('./jieba-tokenizer.js')])
+      .catch(error => { inlineBase = null; throw error; });
+    await inlineBase;
+    const entry = MODEL_CATALOG.models[modelId];
+    await loadScript('./' + entry.url.replace(/\.json$/, '.js'));
+    let selectedTokenizer = null;
+    if (modelId === 'jieba') {
+      if (!inlineDictionary) inlineDictionary = loadScript('./models/jieba-dictionary.js')
+        .then(() => JiebaTokenizer.create(window.JIEBA_DICTIONARY))
+        .catch(error => { inlineDictionary = null; throw error; });
+      selectedTokenizer = await inlineDictionary;
+    }
+    if (id !== requestId || modelId !== selectedModel) return;
+    if (!window.SENTIMENT_MODELS?.[modelId] || typeof SentimentInference === 'undefined') {
       throw new Error('模型数据缺失');
     }
-    model = window.SENTIMENT_MODEL;
-    window.SENTIMENT_MODEL = null;      // 交给 model 变量持有，便于回收
+    model = window.SENTIMENT_MODELS[modelId];
+    tokenize = selectedTokenizer;
     ready = true;
     button.disabled = false;
     setStatus('模型已就绪（本地文件模式）', 'ready');
   } catch (err) {
+    if (id !== requestId) return;
     showFatal('本地文件模式加载失败：' + err.message +
       '（请确认 model.js 与 inference.js 已放在同一文件夹，或改用本地服务器打开）');
   }
+}
+
+function selectModel() {
+  selectedModel = modelSelect.value;
+  const id = ++requestId;
+  ready = false;
+  button.disabled = true;
+  retryModel.hidden = true;
+  document.querySelector('#model-description').textContent = descriptions[selectedModel];
+  resetResult('模型切换中，文本已保留。加载完成后点击分析。');
+  setStatus('正在加载所选模型…');
+  if (!isFile) {
+    try {
+      if (!worker) bootWorker();
+      worker.postMessage({ id, type: 'load', modelId: selectedModel });
+      return;
+    } catch (_) { if (worker) worker.terminate(); worker = null; }
+  }
+  bootInline(id, selectedModel);
 }
 
 // 清空结果区，并把表情恢复为待分析状态（表情元素保存在 face.el，不会被丢弃）
@@ -94,7 +140,7 @@ function resetResult(message) {
   if (face) face.reset();
 }
 
-function showPrediction(prediction, score) {
+function showPrediction(prediction, score, tokens) {
   result.replaceChildren();
   result.className = '';
   const card = document.createElement('div');
@@ -102,7 +148,7 @@ function showPrediction(prediction, score) {
   const words = document.createElement('div');
   const kicker = document.createElement('div');
   kicker.className = 'result-kicker';
-  kicker.textContent = '模型判断';
+  kicker.textContent = MODEL_CATALOG.models[selectedModel].label;
   const label = document.createElement('div');
   label.className = 'result-label';
   label.textContent = prediction === 'positive' ? '偏正向 ↗' : '偏负向 ↘';
@@ -113,8 +159,14 @@ function showPrediction(prediction, score) {
   value.className = 'score';
   value.textContent = `决策分数 ${score.toFixed(3)}`;
   words.append(kicker, label, detail);
-  card.append(words, value);
+  card.append(words);
   result.append(card);
+  if (tokens) {
+    const tokenLine = document.createElement('p');
+    tokenLine.className = 'token-preview';
+    tokenLine.textContent = 'jieba 切分：' + tokens.join(' / ');
+    result.append(tokenLine);
+  }
   if (Math.abs(score) <= 0.5) {
     const caution = document.createElement('p');
     caution.className = 'uncertain-note';
@@ -134,19 +186,20 @@ function showPrediction(prediction, score) {
     else faceBox.append(face.el);
     // 瞬间切换：直接落到目标表情，不做淡入动画
     face.update(score, prediction);
-  }
+  } else card.append(value);
 }
 
 function predict(text, id) {
   if (worker) {
-    worker.postMessage({ id: id, type: 'predict', text });
+    worker.postMessage({ id: id, type: 'predict', text, modelId: selectedModel });
     return;
   }
   // 主线程模式：先让界面把“正在分析…”画出来，再跑推理
   requestAnimationFrame(() => setTimeout(() => {
     try {
-      const r = SentimentInference.predict(text, model);
-      if (id === requestId) { button.disabled = false; showPrediction(r.prediction, r.score); }
+      if (id !== requestId) return;
+      const r = SentimentInference.predict(text, model, tokenize);
+      if (id === requestId) { button.disabled = false; showPrediction(r.prediction, r.score, r.tokens); }
     } catch (err) {
       button.disabled = false;
       resetResult('无法分析：' + (err.message || err));
@@ -168,15 +221,9 @@ button.addEventListener('click', () => {
 });
 
 // —— 按协议选择运行方式 ——
-if (isFile) {
-  bootInline();
-} else {
-  try {
-    bootWorker();
-  } catch (err) {
-    bootInline();          // 极端情况下退回主线程模式
-  }
-}
+modelSelect.addEventListener('change', selectModel);
+retryModel.addEventListener('click', () => { if (worker) worker.terminate(); worker = null; selectModel(); });
+selectModel();
 
 document.querySelectorAll('[data-example]').forEach(example => {
   example.addEventListener('click', () => {

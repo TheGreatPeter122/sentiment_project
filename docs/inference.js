@@ -50,13 +50,14 @@
     };
   }
 
-  function tfidfDot(text, features) {
+  function tfidfDot(text, features, config = {}, tokenize) {
     // sklearn's char analyzer collapses runs of two or more whitespace characters.
-    const chars = Array.from(text.toLowerCase().replace(/\s{2,}/gu, ' '));
+    const isWord = config.analyzer === 'word';
+    const chars = isWord ? tokenize(text.toLowerCase()) : Array.from(text.toLowerCase().replace(/\s{2,}/gu, ' '));
     const counts = new Map();
-    for (let n = 1; n <= 2; n++) {
+    for (let n = 1; n <= (config.max_ngram || 2); n++) {
       for (let i = 0; i + n <= chars.length; i++) {
-        const gram = chars.slice(i, i + n).join('');
+        const gram = chars.slice(i, i + n).join(isWord ? ' ' : '');
         if (Object.prototype.hasOwnProperty.call(features, gram)) {
           counts.set(gram, (counts.get(gram) || 0) + 1);
         }
@@ -95,7 +96,7 @@
     return squared ? numerator / Math.sqrt(squared) : 0;
   }
 
-  function predict(text, model) {
+  function predict(text, model, tokenize) {
     if (typeof text !== 'string' || !text.trim() || Array.from(text.trim()).length > 500) {
       throw new Error('请输入 1—500 字的文本。');
     }
@@ -104,10 +105,12 @@
     }
     const record = structureV2(text.trim());
     const features = model.features;
-    const score = model.intercept + tfidfDot(record.cleanText, features.base) +
-      negationDot(record, features.negation) + tfidfDot(record.before, features.before) +
-      tfidfDot(record.after, features.after);
-    return { prediction: score > 0 ? 'positive' : 'negative', score };
+    if (model.tfidf?.analyzer === 'word' && !tokenize) throw new Error('jieba 词典尚未加载。');
+    const dot = (text, block) => tfidfDot(text, block, model.tfidf, tokenize);
+    const score = model.intercept + dot(record.cleanText, features.base) +
+      negationDot(record, features.negation) + dot(record.before, features.before) + dot(record.after, features.after);
+    return { prediction: score > 0 ? 'positive' : 'negative', score,
+      tokens: model.tfidf?.analyzer === 'word' ? tokenize(record.cleanText.toLowerCase()) : undefined };
   }
 
   const api = { predict, structureV2 };

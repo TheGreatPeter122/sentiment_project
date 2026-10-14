@@ -23,7 +23,7 @@ if not exist ".venv\Scripts\python.exe" (
     if errorlevel 1 goto failed
 )
 
-".venv\Scripts\python.exe" -c "import numpy, sklearn, joblib" >nul 2>&1
+".venv\Scripts\python.exe" -c "import numpy, sklearn, joblib, jieba" >nul 2>&1
 if errorlevel 1 (
     echo Installing demo dependencies. Internet access is needed on the first run...
     ".venv\Scripts\python.exe" -m pip install -r requirements-demo.txt

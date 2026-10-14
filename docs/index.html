@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="./style.css">
   <script src="./face-photo.js" defer></script>
   <script src="./face.js" defer></script>
+  <script src="./model-catalog.js" defer></script>
   <script src="./app.js" defer></script>
 </head>
 <body>
@@ -38,7 +39,7 @@
       <div class="hero-copy">
         <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> 大数据导论 · 课程项目</span>
         <h1 id="hero-title">一句话，<br><span>看见情感倾向。</span></h1>
-        <p>输入一条中文短评，即刻查看模型的正负向判断。四来源统一模型在你的浏览器中运行，输入文本无需上传。</p>
+        <p>输入一条中文短评，选择不同的文本切分方法，查看模型的正负向判断。三个模型均使用四来源数据，在浏览器中运行，输入文本无需上传。</p>
         <a class="hero-link" href="#analyzer">开始体验 <span aria-hidden="true">↗</span></a>
       </div>
       <div class="hero-art" aria-hidden="true">
@@ -61,6 +62,16 @@
           <span id="load-status" class="status" role="status" aria-live="polite">正在加载模型…</span>
         </div>
         <p class="panel-intro">试着写一句真实评论，或点选下方示例。</p>
+        <div class="model-picker">
+          <label for="model-select">选择模型</label>
+          <select id="model-select" aria-describedby="model-description">
+            <option value="char2">字符 1—2 gram（原模型）</option>
+            <option value="jieba">jieba 分词</option>
+            <option value="char4">字符 1—4 gram</option>
+          </select>
+          <p id="model-description"></p>
+          <button id="retry-model" type="button" hidden>重新加载所选模型</button>
+        </div>
         <label class="sr-only" for="text-input">待分析的中文短评</label>
         <textarea id="text-input" maxlength="500" placeholder="例如：虽然等了很久，但这次体验真的不错。"></textarea>
         <div class="input-bottom"><span id="char-count">0 / 500 字</span><button id="analyze" class="primary-button" type="button" disabled>分析情感 <span aria-hidden="true">↗</span></button></div>
@@ -80,12 +91,12 @@
           <strong>等待一句话</strong>
           <span>模型就绪后，输入文本并点击“分析情感”。</span>
         </div>
-        <p class="result-note">决策分数以 0 为正负分界，并非“正确概率”。接近 0 的结果更需谨慎解读。</p>
+        <p class="result-note">分数以 0 为正负分界，不是概率；不同模型的分数大小不能直接比较。±0.5 仅作界面提示，未经各模型置信度校准。</p>
       </section>
     </div>
 
     <section id="about" class="about-section" aria-labelledby="about-title">
-      <div class="about-heading"><span class="step">项目概览</span><h2 id="about-title">从多来源文本，到一个统一模型。</h2></div>
+      <div class="about-heading"><span class="step">项目概览</span><h2 id="about-title">四类数据，三种切分方法。</h2></div>
       <div class="about-grid">
         <article class="about-card"><span class="about-index">01</span><h3>四类数据</h3><p>微博、购物、外卖与 Steam 评论共同参与训练。Steam 中文评测通过公开接口采集并清洗。</p></article>
         <article class="about-card"><span class="about-index">02</span><h3>完整流程</h3><p>项目覆盖获取、清洗、Spark 数据统计、模型评估与在线展示，不止于单次预测。</p></article>
@@ -94,7 +105,7 @@
     </section>
 
     <footer class="footer">
-      <span>首次打开需下载约 11 MB 模型文件。分析在浏览器本地完成。</span>
+      <span>按需加载所选模型，约 11—12 MB；jieba 首次另需约 5 MB 词典。分析在浏览器本地完成。</span>
       <a href="https://github.com/TheGreatPeter122/sentiment_project" target="_blank" rel="noopener noreferrer">查看项目与实验记录 <span aria-hidden="true">↗</span></a>
     </footer>
   </main>

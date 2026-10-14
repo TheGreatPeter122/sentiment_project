@@ -24,6 +24,9 @@ def block(vectorizer, weights):
 
 
 def main():
+    if (ROOT / 'reports/selectable_models_results.json').exists():
+        from export_selectable_models import main as export_all
+        return export_all()
     metadata = json.loads(LOCK.read_text(encoding='utf-8'))
     model_hash = hashlib.sha256(MODEL.read_bytes()).hexdigest()
     if model_hash != metadata['model_sha256']:

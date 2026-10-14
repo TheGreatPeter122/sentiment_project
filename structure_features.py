@@ -67,8 +67,11 @@ class StructureVectorizer:
         self.variant = variant
         self.min_df = min_df
 
+    def make_vectorizer(self, max_features=120000):
+        return char_vectorizer(max_features=max_features, min_df=self.min_df)
+
     def fit_transform_records(self, records):
-        self.base = char_vectorizer(min_df=self.min_df)
+        self.base = self.make_vectorizer()
         blocks = [self.base.fit_transform([r['clean_text'] for r in records])]
         self.dimensions = {'base': blocks[0].shape[1]}
         if self.variant != 'baseline':
@@ -84,7 +87,7 @@ class StructureVectorizer:
         self.sides = {}
         if self.variant == 'negation_contrast':
             for side in ('before', 'after'):
-                vectorizer = char_vectorizer(max_features=40000, min_df=self.min_df)
+                vectorizer = self.make_vectorizer(max_features=40000)
                 try:
                     block = vectorizer.fit_transform([r['contrast_' + side] for r in records])
                 except ValueError as error:

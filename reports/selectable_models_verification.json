@@ -1,0 +1,21 @@
+{
+  "cases_per_model": 1225,
+  "jieba_token_disagreements": 0,
+  "models": {
+    "char2": {
+      "label_disagreements": 0,
+      "max_score_difference": 5.731945626585855e-06,
+      "source_model_sha256": "cc72de26822843ca0694826910510f8d59c0174d3dd19ca5e5bbe80bc0569443"
+    },
+    "jieba": {
+      "label_disagreements": 0,
+      "max_score_difference": 2.0005692018543186e-06,
+      "source_model_sha256": "346188b31cb2fa7a7ba42a11f3bf89799bce884e1286c1e147ac90b6ef6de381"
+    },
+    "char4": {
+      "label_disagreements": 0,
+      "max_score_difference": 3.922766535602307e-06,
+      "source_model_sha256": "48a1c69d16fc125065742772758d7fe7b9f7c1c774da47ee832f3691568da581"
+    }
+  }
+}
